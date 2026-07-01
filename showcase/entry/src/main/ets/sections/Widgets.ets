@@ -5,10 +5,11 @@ import { Token } from '../designsystem/Tokens';
 export struct SectionLabel {
   @Prop text: string;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   build() {
     Text(this.text)
-      .fontSize(Token.font.titleLarge.size)
+      .fontSize(Token.font.titleLarge.sizeFor(this.compact))
       .fontWeight(Token.font.titleLarge.weight)
       .fontColor(Token.color.onSurface())
       .width('100%')
@@ -22,15 +23,16 @@ export struct SpecRow {
   @Prop name: string;
   @Prop value: string;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   build() {
     Row() {
       Text(this.name)
-        .fontSize(Token.font.body.size)
+        .fontSize(Token.font.body.sizeFor(this.compact))
         .fontColor(Token.color.onSurface())
         .layoutWeight(1)
       Text(this.value)
-        .fontSize(Token.font.bodySmall.size)
+        .fontSize(Token.font.bodySmall.sizeFor(this.compact))
         .fontColor(Token.color.onSurfaceVariant())
     }
     .width('100%')

@@ -28,11 +28,11 @@ export struct AppListItem {
         }
         Column() {
           Text(this.title)
-            .fontSize(Token.font.body.size)
+            .fontSize(Token.font.body.sizeFor(this.compact))
             .fontColor(Token.color.onSurface())
           if (this.subtitle.length > 0) {
             Text(this.subtitle)
-              .fontSize(Token.font.caption.size)
+              .fontSize(Token.font.caption.sizeFor(this.compact))
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }
@@ -41,13 +41,13 @@ export struct AppListItem {
         .layoutWeight(1)
         if (this.trailingText.length > 0) {
           Text(this.trailingText)
-            .fontSize(Token.font.bodySmall.size)
+            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ left: Token.space.sm })
         }
         if (this.showArrow) {
           Text('›')
-            .fontSize(Token.font.titleLarge.size)
+            .fontSize(Token.font.titleLarge.sizeFor(this.compact))
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ left: Token.space.xs })
         }

@@ -13,6 +13,7 @@ export struct StateView {
   @Prop description: string = '';
   @Prop actionLabel: string = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onAction?: () => void;
 
   private glyph(): string {
@@ -40,20 +41,20 @@ export struct StateView {
           .fontColor(this.iconColor())
       }
       Text(this.title)
-        .fontSize(Token.font.titleMedium.size)
+        .fontSize(Token.font.titleMedium.sizeFor(this.compact))
         .fontWeight(Token.font.titleMedium.weight)
         .fontColor(Token.color.onSurface())
         .margin({ top: Token.space.sm })
       if (this.description.length > 0) {
         Text(this.description)
-          .fontSize(Token.font.bodySmall.size)
+          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
           .textAlign(TextAlign.Center)
           .margin({ top: Token.space.xxs })
       }
       if (this.actionLabel.length > 0) {
         Text(this.actionLabel)
-          .fontSize(Token.font.label.size)
+          .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onPrimary())
           .height(40)
           .padding({ left: Token.space.lg, right: Token.space.lg })

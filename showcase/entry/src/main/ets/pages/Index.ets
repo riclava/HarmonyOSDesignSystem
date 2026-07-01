@@ -32,7 +32,8 @@ struct ScrollPage {
     }
     .scrollBar(BarState.Off)
     .align(Alignment.TopStart)
-    .layoutWeight(1)
+    .width('100%')
+    .height('100%')
   }
 }
 

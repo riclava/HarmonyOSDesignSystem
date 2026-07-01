@@ -68,13 +68,13 @@ import {
 
 ## 密度 / Compact 模式
 
-面向数据密集型 / 大屏多面板等超复杂应用，可整体收紧控件尺寸与内边距（**字号、行高不变**）。
+面向数据密集型 / 大屏多面板等超复杂应用，可整体收紧控件尺寸、内边距**与字号/行高**（圆角、颜色不变；caption 保持 12 为可读下限）。
 
 - 开启：`AppStorage.setOrCreate('compact', true)`，可随场景实时切换。
 - 组件持有 `@StorageProp('compact') compact: boolean`，尺寸统一走 `Token.size.*(this.compact)`。
-- 自定义控件必须在 build 里**直接引用 `this.compact`**（作为 `Token.size.*` 的入参），否则切换不会重绘（compact 无系统级触发，不能只靠"持有"）。
+- 自定义控件必须在 build 里**直接引用 `this.compact`**（作为 `Token.size.*` / `Token.font.*.sizeFor` 的入参），否则切换不会重绘（compact 无系统级触发，不能只靠"持有"）。
 - 无障碍：compact 下控件视觉可小于 44，但要用 `.responseRegion(...)` 把命中区兜底到 `Token.size.minTouch`(44)。
-- 影响范围：Button / 输入 / 搜索 / Tabs / 列表项高度，Card / Dialog 内边距；**不动**字号、行高、圆角、颜色。
+- 影响范围：控件高度、内边距、字号/行高（Button / 输入 / 搜索 / Tabs / 列表 / 卡片 / 弹窗 / 标签 / 文案等）；**不动**圆角、颜色。字体取值用 `Token.font.X.sizeFor(this.compact)`。
 
 ## 强制约束
 

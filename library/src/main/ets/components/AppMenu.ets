@@ -30,7 +30,7 @@ export struct AppMenu {
     Column() {
       ForEach(this.items, (item: AppMenuItem, index: number) => {
         Text(item.label)
-          .fontSize(Token.font.body.size)
+          .fontSize(Token.font.body.sizeFor(this.compact))
           .fontColor(item.destructive ? Token.color.danger() : Token.color.onSurface())
           .width('100%')
           .height(Token.size.menuItem(this.compact))

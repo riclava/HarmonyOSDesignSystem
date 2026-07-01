@@ -35,13 +35,13 @@ export struct AppTextField {
     Column() {
       if (this.label.length > 0) {
         Text(this.label)
-          .fontSize(Token.font.label.size)
+          .fontSize(Token.font.label.sizeFor(this.compact))
           .fontWeight(Token.font.label.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.xxs })
       }
       TextInput({ placeholder: this.placeholder, text: this.text })
-        .fontSize(Token.font.body.size)
+        .fontSize(Token.font.body.sizeFor(this.compact))
         .fontColor(Token.color.onSurface())
         .placeholderColor(Token.color.onSurfaceVariant())
         .backgroundColor(this.fieldDisabled ? Token.color.divider() : Token.color.surface())
@@ -62,12 +62,12 @@ export struct AppTextField {
         })
       if (this.error.length > 0) {
         Text(this.error)
-          .fontSize(Token.font.caption.size)
+          .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.danger())
           .margin({ top: Token.space.xxs })
       } else if (this.helper.length > 0) {
         Text(this.helper)
-          .fontSize(Token.font.caption.size)
+          .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ top: Token.space.xxs })
       }

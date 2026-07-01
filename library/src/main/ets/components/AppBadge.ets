@@ -6,6 +6,7 @@ export struct AppBadge {
   @Prop count: number = 0;
   @Prop dot: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   private label(): string {
     return this.count > 99 ? '99+' : `${this.count}`;
@@ -16,7 +17,7 @@ export struct AppBadge {
       Circle({ width: 8, height: 8 }).fill(Token.color.danger())
     } else {
       Text(this.label())
-        .fontSize(Token.font.caption.size)
+        .fontSize(Token.font.caption.sizeFor(this.compact))
         .fontColor(Token.color.onPrimary())
         .height(16)
         .constraintSize({ minWidth: 16 })

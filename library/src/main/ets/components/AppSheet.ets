@@ -8,6 +8,7 @@ import { Token } from '../theme/Tokens';
 export struct AppSheet {
   @Prop title: string = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   @BuilderParam content: () => void;
 
   build() {
@@ -20,7 +21,7 @@ export struct AppSheet {
         .margin({ bottom: Token.space.md })
       if (this.title.length > 0) {
         Text(this.title)
-          .fontSize(Token.font.titleLarge.size)
+          .fontSize(Token.font.titleLarge.sizeFor(this.compact))
           .fontWeight(Token.font.titleLarge.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.sm })

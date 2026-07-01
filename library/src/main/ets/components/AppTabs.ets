@@ -21,7 +21,7 @@ export struct AppTabs {
       ForEach(this.tabs, (label: string, index: number) => {
         Column() {
           Text(label)
-            .fontSize(Token.font.label.size)
+            .fontSize(Token.font.label.sizeFor(this.compact))
             .fontWeight(this.selectedIndex === index ? Token.font.label.weight : 400)
             .fontColor(this.selectedIndex === index ? Token.color.primary() : Token.color.onSurfaceVariant())
             .height(Token.size.tabLabel(this.compact))

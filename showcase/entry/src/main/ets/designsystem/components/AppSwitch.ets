@@ -7,13 +7,14 @@ export struct AppSwitch {
   @Prop isOn: boolean = false;
   @Prop switchDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onToggle?: (value: boolean) => void;
 
   build() {
     Row() {
       if (this.label.length > 0) {
         Text(this.label)
-          .fontSize(Token.font.body.size)
+          .fontSize(Token.font.body.sizeFor(this.compact))
           .fontColor(Token.color.onSurface())
           .layoutWeight(1)
       }

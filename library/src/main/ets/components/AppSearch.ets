@@ -17,10 +17,10 @@ export struct AppSearch {
   build() {
     Row() {
       Text('🔍')
-        .fontSize(Token.font.bodySmall.size)
+        .fontSize(Token.font.bodySmall.sizeFor(this.compact))
         .margin({ right: Token.space.xs })
       TextInput({ placeholder: this.placeholder, text: this.text })
-        .fontSize(Token.font.body.size)
+        .fontSize(Token.font.body.sizeFor(this.compact))
         .fontColor(Token.color.onSurface())
         .placeholderColor(Token.color.onSurfaceVariant())
         .backgroundColor(Token.color.transparent())
@@ -40,7 +40,7 @@ export struct AppSearch {
         })
       if (this.text.length > 0) {
         Text('✕')
-          .fontSize(Token.font.caption.size)
+          .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
           .width(44)
           .height(44)

@@ -44,7 +44,7 @@ GridRow({ breakpoints: { value: ['600vp', '840vp'] } }) {
 
 - 开启：`AppStorage.setOrCreate('compact', true)`；组件走 `Token.size.*(compact)`。
 - 与本页断点 `Compact`（宽度 < 600vp）**不是一回事**：这里指**信息密度**。两者可组合，例如 Expanded 宽屏 + compact 密度做多面板高信息量界面。
-- 只收紧尺寸 / 内边距，不动字号、行高、圆角、颜色；命中区用 `responseRegion` 保持 ≥ 44。详见 [16 Design Token](16-design-token.md) 的「密度 / Compact」小节。
+- 收紧尺寸 / 内边距 / 字号 / 行高（圆角、颜色不变，caption 保持可读下限）；命中区用 `responseRegion` 保持 ≥ 44。详见 [16 Design Token](16-design-token.md) 的「密度 / Compact」小节。
 
 ## 原则
 

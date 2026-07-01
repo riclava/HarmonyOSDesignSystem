@@ -98,25 +98,39 @@ class TypeStyle {
   size: number;
   lineHeight: number;
   weight: number;
-  constructor(size: number, lineHeight: number, weight: number) {
+  compactSize: number;
+  compactLineHeight: number;
+  constructor(size: number, lineHeight: number, weight: number, compactSize: number, compactLineHeight: number) {
     this.size = size;
     this.lineHeight = lineHeight;
     this.weight = weight;
+    this.compactSize = compactSize;
+    this.compactLineHeight = compactLineHeight;
+  }
+
+  /** 字号：随 compact 密度切换。 */
+  sizeFor(compact: boolean): number {
+    return compact ? this.compactSize : this.size;
+  }
+
+  /** 行高：随 compact 密度切换。 */
+  lineHeightFor(compact: boolean): number {
+    return compact ? this.compactLineHeight : this.lineHeight;
   }
 }
 
 class FontTokens {
   readonly family: string = 'HarmonyOS Sans';
-  readonly displayLarge: TypeStyle = new TypeStyle(48, 56, 700);
-  readonly displayMedium: TypeStyle = new TypeStyle(36, 44, 700);
-  readonly headlineLarge: TypeStyle = new TypeStyle(30, 38, 600);
-  readonly headlineMedium: TypeStyle = new TypeStyle(24, 32, 600);
-  readonly titleLarge: TypeStyle = new TypeStyle(20, 28, 500);
-  readonly titleMedium: TypeStyle = new TypeStyle(18, 26, 500);
-  readonly body: TypeStyle = new TypeStyle(16, 24, 400);
-  readonly bodySmall: TypeStyle = new TypeStyle(14, 20, 400);
-  readonly label: TypeStyle = new TypeStyle(14, 20, 500);
-  readonly caption: TypeStyle = new TypeStyle(12, 16, 400);
+  readonly displayLarge: TypeStyle = new TypeStyle(48, 56, 700, 40, 48);
+  readonly displayMedium: TypeStyle = new TypeStyle(36, 44, 700, 32, 40);
+  readonly headlineLarge: TypeStyle = new TypeStyle(30, 38, 600, 26, 34);
+  readonly headlineMedium: TypeStyle = new TypeStyle(24, 32, 600, 22, 28);
+  readonly titleLarge: TypeStyle = new TypeStyle(20, 28, 500, 18, 24);
+  readonly titleMedium: TypeStyle = new TypeStyle(18, 26, 500, 16, 22);
+  readonly body: TypeStyle = new TypeStyle(16, 24, 400, 14, 20);
+  readonly bodySmall: TypeStyle = new TypeStyle(14, 20, 400, 13, 18);
+  readonly label: TypeStyle = new TypeStyle(14, 20, 500, 13, 18);
+  readonly caption: TypeStyle = new TypeStyle(12, 16, 400, 12, 16);
 }
 
 /** ---------- Icon size (vp) ---------- */

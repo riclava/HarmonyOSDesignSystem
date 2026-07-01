@@ -40,7 +40,7 @@ export struct AppButton {
   }
 
   private labelSize(): number {
-    return this.btnSize === AppButtonSize.Small ? Token.font.bodySmall.size : Token.font.label.size;
+    return this.btnSize === AppButtonSize.Small ? Token.font.bodySmall.sizeFor(this.compact) : Token.font.label.sizeFor(this.compact);
   }
 
   private bgColor(): ResourceColor {

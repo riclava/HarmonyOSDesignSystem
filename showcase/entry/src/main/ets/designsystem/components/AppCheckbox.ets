@@ -7,6 +7,7 @@ export struct AppCheckbox {
   @Prop checked: boolean = false;
   @Prop boxDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onCheck?: (value: boolean) => void;
 
   build() {
@@ -23,7 +24,7 @@ export struct AppCheckbox {
         })
       if (this.label.length > 0) {
         Text(this.label)
-          .fontSize(Token.font.body.size)
+          .fontSize(Token.font.body.sizeFor(this.compact))
           .fontColor(Token.color.onSurface())
           .margin({ left: Token.space.xs })
           .layoutWeight(1)

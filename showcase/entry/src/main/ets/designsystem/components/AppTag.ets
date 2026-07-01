@@ -8,6 +8,7 @@ export struct AppTag {
   @Prop label: string;
   @Prop tone: AppTagTone = AppTagTone.Neutral;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   private fg(): ResourceColor {
     switch (this.tone) {
@@ -22,7 +23,7 @@ export struct AppTag {
 
   build() {
     Text(this.label)
-      .fontSize(Token.font.caption.size)
+      .fontSize(Token.font.caption.sizeFor(this.compact))
       .fontColor(this.fg())
       .height(24)
       .padding({ left: Token.space.xs, right: Token.space.xs })

@@ -18,6 +18,7 @@ export struct AppRadioGroup {
   @Prop groupName: string = 'app-radio-group';
   @Prop vertical: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onSelect?: (value: string) => void;
 
   @Builder
@@ -35,7 +36,7 @@ export struct AppRadioGroup {
           }
         })
       Text(opt.label)
-        .fontSize(Token.font.body.size)
+        .fontSize(Token.font.body.sizeFor(this.compact))
         .fontColor(Token.color.onSurface())
         .margin({ left: Token.space.xxs, right: Token.space.lg })
     }

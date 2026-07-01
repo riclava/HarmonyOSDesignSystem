@@ -44,17 +44,18 @@
     "full": { "$type": "dimension", "$value": "999vp" }
   },
   "font": {
+    "$description": "字号/行高随 compact 密度切换（见各项 $extensions.compact，caption 不缩）；fontWeight 不变。",
     "family":        { "$type": "fontFamily", "$value": "HarmonyOS Sans" },
-    "displayLarge":  { "$type": "typography", "$value": { "fontSize": "48fp", "lineHeight": "56fp", "fontWeight": 700 } },
-    "displayMedium": { "$type": "typography", "$value": { "fontSize": "36fp", "lineHeight": "44fp", "fontWeight": 700 } },
-    "headlineLarge": { "$type": "typography", "$value": { "fontSize": "30fp", "lineHeight": "38fp", "fontWeight": 600 } },
-    "headlineMedium":{ "$type": "typography", "$value": { "fontSize": "24fp", "lineHeight": "32fp", "fontWeight": 600 } },
-    "titleLarge":    { "$type": "typography", "$value": { "fontSize": "20fp", "lineHeight": "28fp", "fontWeight": 500 } },
-    "titleMedium":   { "$type": "typography", "$value": { "fontSize": "18fp", "lineHeight": "26fp", "fontWeight": 500 } },
-    "body":          { "$type": "typography", "$value": { "fontSize": "16fp", "lineHeight": "24fp", "fontWeight": 400 } },
-    "bodySmall":     { "$type": "typography", "$value": { "fontSize": "14fp", "lineHeight": "20fp", "fontWeight": 400 } },
-    "label":         { "$type": "typography", "$value": { "fontSize": "14fp", "lineHeight": "20fp", "fontWeight": 500 } },
-    "caption":       { "$type": "typography", "$value": { "fontSize": "12fp", "lineHeight": "16fp", "fontWeight": 400 } }
+    "displayLarge":  { "$type": "typography", "$value": { "fontSize": "48fp", "lineHeight": "56fp", "fontWeight": 700 }, "$extensions": { "compact": { "fontSize": "40fp", "lineHeight": "48fp" } } },
+    "displayMedium": { "$type": "typography", "$value": { "fontSize": "36fp", "lineHeight": "44fp", "fontWeight": 700 }, "$extensions": { "compact": { "fontSize": "32fp", "lineHeight": "40fp" } } },
+    "headlineLarge": { "$type": "typography", "$value": { "fontSize": "30fp", "lineHeight": "38fp", "fontWeight": 600 }, "$extensions": { "compact": { "fontSize": "26fp", "lineHeight": "34fp" } } },
+    "headlineMedium":{ "$type": "typography", "$value": { "fontSize": "24fp", "lineHeight": "32fp", "fontWeight": 600 }, "$extensions": { "compact": { "fontSize": "22fp", "lineHeight": "28fp" } } },
+    "titleLarge":    { "$type": "typography", "$value": { "fontSize": "20fp", "lineHeight": "28fp", "fontWeight": 500 }, "$extensions": { "compact": { "fontSize": "18fp", "lineHeight": "24fp" } } },
+    "titleMedium":   { "$type": "typography", "$value": { "fontSize": "18fp", "lineHeight": "26fp", "fontWeight": 500 }, "$extensions": { "compact": { "fontSize": "16fp", "lineHeight": "22fp" } } },
+    "body":          { "$type": "typography", "$value": { "fontSize": "16fp", "lineHeight": "24fp", "fontWeight": 400 }, "$extensions": { "compact": { "fontSize": "14fp", "lineHeight": "20fp" } } },
+    "bodySmall":     { "$type": "typography", "$value": { "fontSize": "14fp", "lineHeight": "20fp", "fontWeight": 400 }, "$extensions": { "compact": { "fontSize": "13fp", "lineHeight": "18fp" } } },
+    "label":         { "$type": "typography", "$value": { "fontSize": "14fp", "lineHeight": "20fp", "fontWeight": 500 }, "$extensions": { "compact": { "fontSize": "13fp", "lineHeight": "18fp" } } },
+    "caption":       { "$type": "typography", "$value": { "fontSize": "12fp", "lineHeight": "16fp", "fontWeight": 400 }, "$extensions": { "compact": { "fontSize": "12fp", "lineHeight": "16fp" } } }
   },
   "elevation": {
     "level0": { "$type": "shadow", "$value": { "offsetY": 0, "blur": 0,  "color": "#00000000" } },
@@ -74,7 +75,7 @@
     "easeIn":       { "$type": "cubicBezier", "$value": [0.3, 0, 1, 1] }
   },
   "size": {
-    "$description": "控件尺寸（vp），随 compact 密度切换：comfortable 常规 / compact 紧凑。字号、行高不随密度变化。",
+    "$description": "控件尺寸（vp），随 compact 密度切换：comfortable 常规 / compact 紧凑。字号/行高另见 font（同样随 compact 切换，caption 不缩）。",
     "minTouch":     { "$type": "dimension", "$value": "44vp", "$comment": "无障碍最小命中区；compact 下用 responseRegion 兜底" },
     "buttonLarge":  { "$type": "dimension", "$value": { "comfortable": "48vp", "compact": "40vp" } },
     "buttonMedium": { "$type": "dimension", "$value": { "comfortable": "40vp", "compact": "32vp" } },

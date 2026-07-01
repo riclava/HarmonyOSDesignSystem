@@ -32,7 +32,7 @@ Popover · DatePicker · Calendar · Loading · Empty · Error · Skeleton
 | BottomSheet | `AppSheet` | Skeleton | `Skeleton` |
 | Checkbox / Radio | `AppCheckbox` / `AppRadioGroup` | | |
 
-交互 / 容器类组件支持 **compact 紧凑密度**（收紧尺寸，字号行高不变，命中区仍 ≥ 44）；
+交互 / 容器类组件支持 **compact 紧凑密度**（收紧尺寸、内边距与字号/行高，命中区仍 ≥ 44）；
 详见 [16 Design Token](16-design-token.md)「密度 / Compact」小节。
 
 ---

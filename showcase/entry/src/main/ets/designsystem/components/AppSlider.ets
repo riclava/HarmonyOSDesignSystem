@@ -9,6 +9,7 @@ export struct AppSlider {
   @Prop step: number = 1;
   @Prop showValue: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onValueChange?: (value: number) => void;
 
   build() {
@@ -26,7 +27,7 @@ export struct AppSlider {
         })
       if (this.showValue) {
         Text(`${Math.round(this.value)}`)
-          .fontSize(Token.font.bodySmall.size)
+          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
           .width(40)
           .textAlign(TextAlign.End)

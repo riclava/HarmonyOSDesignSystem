@@ -9,19 +9,20 @@ export struct AppPopover {
   @Prop title: string = '';
   @Prop text: string = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   build() {
     Column() {
       if (this.title.length > 0) {
         Text(this.title)
-          .fontSize(Token.font.label.size)
+          .fontSize(Token.font.label.sizeFor(this.compact))
           .fontWeight(Token.font.label.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.xxs })
       }
       if (this.text.length > 0) {
         Text(this.text)
-          .fontSize(Token.font.bodySmall.size)
+          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
       }
     }
