@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "ds_dialog_confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "ds_dialog_cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "ds_search_placeholder",
+      "value": "Search…"
+    },
+    {
+      "name": "ds_search_clear",
+      "value": "Clear"
+    },
+    {
+      "name": "ds_time_placeholder",
+      "value": "Select time"
+    }
+  ]
+}

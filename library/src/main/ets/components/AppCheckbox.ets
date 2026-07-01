@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /** 复选框：左侧 Checkbox + 右侧文案。命中区 ≥ 44。 */
 @Component
@@ -26,7 +27,7 @@ export struct AppCheckbox {
         Text(this.label)
           .fontSize(Token.font.body.sizeFor(this.compact))
           .fontColor(Token.color.onSurface())
-          .margin({ left: Token.space.xs })
+          .margin({ start: LengthMetrics.vp(Token.space.xs) })
           .layoutWeight(1)
       }
     }

@@ -13,6 +13,7 @@
  * 因此所有 token 集合均以 class 声明并实例化。
  */
 import { ConfigurationConstant } from '@kit.AbilityKit';
+import { i18n } from '@kit.LocalizationKit';
 
 class ColorPair {
   light: string;
@@ -41,6 +42,18 @@ export function isDarkMode(): boolean {
  */
 export function isCompactMode(): boolean {
   return AppStorage.get<boolean>('compact') ?? false;
+}
+
+/**
+ * 当前系统语言是否为从右到左（RTL，如阿拉伯语 / 希伯来语 / 波斯语）。
+ * 组件据此镜像方向性图标（如列表箭头）。布局的镜像交由 start/end 逻辑方向自动完成。
+ */
+export function isRTL(): boolean {
+  try {
+    return i18n.isRTL(i18n.System.getSystemLocale());
+  } catch (err) {
+    return false;
+  }
 }
 
 function pick(pair: ColorPair): ResourceColor {

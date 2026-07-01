@@ -1,4 +1,5 @@
-import { Token } from '../theme/Tokens';
+import { Token, isRTL } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /**
  * 列表项：左图标（可选）+ 主/次标题 + 右附件文本（可选）+ 箭头（可选）。
@@ -16,6 +17,11 @@ export struct AppListItem {
   @StorageProp('compact') compact: boolean = false;
   onItemClick?: () => void;
 
+  /** 方向性箭头：RTL 语言下指向左侧。 */
+  private arrowGlyph(): string {
+    return isRTL() ? '‹' : '›';
+  }
+
   build() {
     Column() {
       Row() {
@@ -24,7 +30,7 @@ export struct AppListItem {
             .fontSize(Token.icon.md)
             .width(Token.icon.lg)
             .textAlign(TextAlign.Center)
-            .margin({ right: Token.space.sm })
+            .margin({ end: LengthMetrics.vp(Token.space.sm) })
         }
         Column() {
           Text(this.title)
@@ -43,28 +49,28 @@ export struct AppListItem {
           Text(this.trailingText)
             .fontSize(Token.font.bodySmall.sizeFor(this.compact))
             .fontColor(Token.color.onSurfaceVariant())
-            .margin({ left: Token.space.sm })
+            .margin({ start: LengthMetrics.vp(Token.space.sm) })
         }
         if (this.showArrow) {
-          Text('›')
+          Text(this.arrowGlyph())
             .fontSize(Token.font.titleLarge.sizeFor(this.compact))
             .fontColor(Token.color.onSurfaceVariant())
-            .margin({ left: Token.space.xs })
+            .margin({ start: LengthMetrics.vp(Token.space.xs) })
         }
       }
       .width('100%')
       .constraintSize({ minHeight: Token.size.rowMin(this.compact) })
       .padding({
-        left: Token.space.md,
-        right: Token.space.md,
-        top: this.compact ? Token.space.xs : Token.space.sm,
-        bottom: this.compact ? Token.space.xs : Token.space.sm
+        start: LengthMetrics.vp(Token.space.md),
+        end: LengthMetrics.vp(Token.space.md),
+        top: LengthMetrics.vp(this.compact ? Token.space.xs : Token.space.sm),
+        bottom: LengthMetrics.vp(this.compact ? Token.space.xs : Token.space.sm)
       })
       .alignItems(VerticalAlign.Center)
       if (this.showDivider) {
         Divider()
           .color(Token.color.divider())
-          .margin({ left: Token.space.md })
+          .margin({ start: LengthMetrics.vp(Token.space.md) })
       }
     }
     .width('100%')

@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /**
  * 通用对话框：标题 + 正文 + 操作区（取消 / 确认）。
@@ -7,10 +8,10 @@ import { Token } from '../theme/Tokens';
 @CustomDialog
 export struct AppDialog {
   controller: CustomDialogController;
-  @Prop title: string = '';
-  @Prop message: string = '';
-  @Prop confirmLabel: string = '确认';
-  @Prop cancelLabel: string = '取消';
+  @Prop title: ResourceStr = '';
+  @Prop message: ResourceStr = '';
+  @Prop confirmLabel: ResourceStr = $r('app.string.ds_dialog_confirm');
+  @Prop cancelLabel: ResourceStr = $r('app.string.ds_dialog_cancel');
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
   confirm?: () => void;
@@ -33,16 +34,16 @@ export struct AppDialog {
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
           .height(40)
-          .padding({ left: Token.space.md, right: Token.space.md })
+          .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
           .onClick(() => { this.controller.close(); })
         Text(this.confirmLabel)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onPrimary())
           .height(40)
-          .padding({ left: Token.space.lg, right: Token.space.lg })
+          .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
           .backgroundColor(Token.color.primary())
           .borderRadius(Token.radius.sm)
-          .margin({ left: Token.space.sm })
+          .margin({ start: LengthMetrics.vp(Token.space.sm) })
           .onClick(() => {
             if (this.confirm) this.confirm();
             this.controller.close();

@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /**
  * 输入框：Label（上）+ 输入区 + Helper/Error（下）。
@@ -48,7 +49,7 @@ export struct AppTextField {
         .height(Token.size.field(this.compact))
         .borderRadius(Token.radius.sm)
         .border({ width: this.focused ? 2 : 1, color: this.fieldBorderColor() })
-        .padding({ left: Token.space.md, right: Token.space.md })
+        .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
         .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
         .enabled(!this.fieldDisabled)
         .opacity(this.fieldDisabled ? 0.38 : 1)

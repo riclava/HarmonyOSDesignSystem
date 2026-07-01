@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /** 菜单项数据模型。destructive=true 时使用 Danger 色。 */
 export class AppMenuItem {
@@ -34,7 +35,7 @@ export struct AppMenu {
           .fontColor(item.destructive ? Token.color.danger() : Token.color.onSurface())
           .width('100%')
           .height(Token.size.menuItem(this.compact))
-          .padding({ left: Token.space.md, right: Token.space.md })
+          .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
           .textAlign(TextAlign.Start)
           .responseRegion({ x: 0, y: (Token.size.menuItem(this.compact) - this.menuTouch()) / 2, width: '100%', height: this.menuTouch() })
           .onClick(() => {

@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /** 滑块：已选段 Primary，未选 Outline。可选右侧数值显示。 */
 @Component
@@ -31,7 +32,7 @@ export struct AppSlider {
           .fontColor(Token.color.onSurfaceVariant())
           .width(40)
           .textAlign(TextAlign.End)
-          .margin({ left: Token.space.sm })
+          .margin({ start: LengthMetrics.vp(Token.space.sm) })
       }
     }
     .width('100%')

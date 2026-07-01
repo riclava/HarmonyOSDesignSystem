@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 export enum AppButtonType { Primary, Secondary, Text, Danger }
 export enum AppButtonSize { Large, Medium, Small }
@@ -71,7 +72,7 @@ export struct AppButton {
           .width(Token.icon.sm)
           .height(Token.icon.sm)
           .color(this.fgColor())
-          .margin({ right: Token.space.xs })
+          .margin({ end: LengthMetrics.vp(Token.space.xs) })
       }
       Text(this.label)
         .fontSize(this.labelSize())
@@ -81,7 +82,7 @@ export struct AppButton {
     }
     .justifyContent(FlexAlign.Center)
     .height(this.btnHeight())
-    .padding({ left: this.hPadding(), right: this.hPadding() })
+    .padding({ start: LengthMetrics.vp(this.hPadding()), end: LengthMetrics.vp(this.hPadding()) })
     .backgroundColor(this.bgColor())
     .borderRadius(this.btnSize === AppButtonSize.Small ? Token.radius.xs : Token.radius.sm)
     .border(this.type === AppButtonType.Secondary

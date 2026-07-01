@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 export enum StateKind { Loading, Empty, Error }
 
@@ -49,7 +50,7 @@ export struct StateView {
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onPrimary())
           .height(40)
-          .padding({ left: Token.space.lg, right: Token.space.lg })
+          .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
           .backgroundColor(Token.color.primary())
           .borderRadius(Token.radius.sm)
           .margin({ top: Token.space.md })

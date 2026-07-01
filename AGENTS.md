@@ -84,7 +84,22 @@ import {
 4. 间距只取 8pt Grid 值（4 的倍数），禁止 13/15/18 等随意数值。
 5. 动画总时长 ≤ 400ms，进场用 `easeOut`、退场用 `easeIn`。
 
+## 国际化（i18n）
+
+面向多语言 / RTL 场景，生成代码必须满足：
+
+1. **文案外置**：面向用户的文字不硬编码，走资源 `$r('app.string.xxx')`（组件内置默认文案已资源化）。业务侧新增文案放 `resources/base/element/string.json` 并补 `resources/en_US/.../string.json` 等目标语言。
+2. **逻辑方向（RTL）**：内边距 / 外边距禁止用物理 `left/right`，一律用逻辑 `start/end`：
+   ```ts
+   import { LengthMetrics } from '@kit.ArkUI';
+   .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
+   .margin({ start: LengthMetrics.vp(Token.space.sm) })
+   ```
+   文本对齐用 `TextAlign.Start / End`（禁用 `Left / Right`）。方向性图标（箭头等）用 `isRTL()` 判定后镜像。
+3. **区域化格式**：日期 / 时间 / 数字不手拼字符串，用 `intl.DateTimeFormat` / `intl.NumberFormat`（`@kit.LocalizationKit`）按 `i18n.System.getSystemLocale()` 格式化。日期 / 日历优先用系统 `DatePicker / CalendarPicker`（自带区域化）。
+4. **判定 RTL**：`import { isRTL } from '@riclava/designsystem'`，仅用于镜像方向性图标；布局镜像由 `start/end` 自动完成，不要手动交换左右。
+
 ## 完整规范
 
-详见 `docs/01`~`docs/17`。Token 源：`tokens/design-tokens.json`。
+详见 `docs/01`~`docs/18`。Token 源：`tokens/design-tokens.json`。国际化见 `docs/18-internationalization.md`。
 生成代码前，若不确定取值，先查 `tokens/design-tokens.json` 与 `docs/16-design-token.md`。

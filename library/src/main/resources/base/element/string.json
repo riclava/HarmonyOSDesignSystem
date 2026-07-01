@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "ds_dialog_confirm",
+      "value": "确认"
+    },
+    {
+      "name": "ds_dialog_cancel",
+      "value": "取消"
+    },
+    {
+      "name": "ds_search_placeholder",
+      "value": "搜索…"
+    },
+    {
+      "name": "ds_search_clear",
+      "value": "清除"
+    },
+    {
+      "name": "ds_time_placeholder",
+      "value": "选择时间"
+    }
+  ]
+}

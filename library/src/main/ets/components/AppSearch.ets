@@ -1,10 +1,11 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /** 搜索框：胶囊外形（RadiusFull），左侧搜索图标，有内容时右侧可清除。 */
 @Component
 export struct AppSearch {
   @Prop text: string = '';
-  @Prop placeholder: string = '搜索…';
+  @Prop placeholder: ResourceStr = $r('app.string.ds_search_placeholder');
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
   onTextChange?: (value: string) => void;
@@ -18,7 +19,7 @@ export struct AppSearch {
     Row() {
       Text('🔍')
         .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-        .margin({ right: Token.space.xs })
+        .margin({ end: LengthMetrics.vp(Token.space.xs) })
       TextInput({ placeholder: this.placeholder, text: this.text })
         .fontSize(Token.font.body.sizeFor(this.compact))
         .fontColor(Token.color.onSurface())
@@ -45,7 +46,7 @@ export struct AppSearch {
           .width(44)
           .height(44)
           .textAlign(TextAlign.Center)
-          .accessibilityText('清除')
+          .accessibilityText($r('app.string.ds_search_clear'))
           .onClick(() => {
             this.text = '';
             if (this.onTextChange) {
@@ -56,7 +57,7 @@ export struct AppSearch {
     }
     .width('100%')
     .height(Token.size.field(this.compact))
-    .padding({ left: Token.space.md, right: Token.space.xs })
+    .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.xs) })
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.full)
     .border({ width: 1, color: Token.color.outline() })

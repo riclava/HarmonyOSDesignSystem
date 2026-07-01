@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /** 徽标：dot=true 显示 8vp 圆点；否则显示 count 数字（>99 显示 99+）。 */
 @Component
@@ -21,7 +22,7 @@ export struct AppBadge {
         .fontColor(Token.color.onPrimary())
         .height(16)
         .constraintSize({ minWidth: 16 })
-        .padding({ left: Token.space.xxs, right: Token.space.xxs })
+        .padding({ start: LengthMetrics.vp(Token.space.xxs), end: LengthMetrics.vp(Token.space.xxs) })
         .backgroundColor(Token.color.danger())
         .borderRadius(Token.radius.full)
         .textAlign(TextAlign.Center)

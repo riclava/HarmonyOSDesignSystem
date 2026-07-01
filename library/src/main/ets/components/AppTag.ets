@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 export enum AppTagTone { Neutral, Primary, Success, Warning, Danger, Info }
 
@@ -26,7 +27,7 @@ export struct AppTag {
       .fontSize(Token.font.caption.sizeFor(this.compact))
       .fontColor(this.fg())
       .height(24)
-      .padding({ left: Token.space.xs, right: Token.space.xs })
+      .padding({ start: LengthMetrics.vp(Token.space.xs), end: LengthMetrics.vp(Token.space.xs) })
       .borderRadius(Token.radius.full)
       .border({ width: 1, color: this.fg() })
       .textAlign(TextAlign.Center)

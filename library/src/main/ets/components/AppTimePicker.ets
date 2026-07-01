@@ -1,4 +1,6 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
+import { i18n, intl } from '@kit.LocalizationKit';
 
 /** 时间选择器形态。 */
 export enum AppTimePickerMode {
@@ -23,7 +25,7 @@ export struct AppTimePicker {
   /** 字段上方标签（仅 Field）。 */
   @Prop label: string = '';
   /** 未选择时的占位文案（仅 Field）。 */
-  @Prop placeholder: string = '选择时间';
+  @Prop placeholder: ResourceStr = $r('app.string.ds_time_placeholder');
   /** 辅助说明（仅 Field）。 */
   @Prop helper: string = '';
   /** 错误信息，非空时字段转为 Danger（仅 Field）。 */
@@ -54,23 +56,28 @@ export struct AppTimePicker {
     return n < 10 ? `0${n}` : `${n}`;
   }
 
-  /** 依据 24h/12h 与是否显秒格式化展示文案。 */
+  /** 依据系统区域 + 24h/12h + 是否显秒，用 intl 做本地化格式化（AM/PM、次序均随语言）。 */
   private displayText(): string {
-    const h: number = this.current.getHours();
-    const m: number = this.current.getMinutes();
-    const s: number = this.current.getSeconds();
-    if (this.useMilitaryTime) {
-      const base: string = `${this.pad(h)}:${this.pad(m)}`;
-      return this.showSeconds ? `${base}:${this.pad(s)}` : base;
+    const options: intl.DateTimeOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: !this.useMilitaryTime
+    };
+    if (this.showSeconds) {
+      options.second = '2-digit';
     }
-    const isPM: boolean = h >= 12;
-    let h12: number = h % 12;
-    if (h12 === 0) {
-      h12 = 12;
+    try {
+      const formatter: intl.DateTimeFormat = new intl.DateTimeFormat(i18n.System.getSystemLocale(), options);
+      return formatter.format(this.current);
+    } catch (err) {
+      return this.fallbackText();
     }
-    const suffix: string = isPM ? '下午' : '上午';
-    const base: string = `${suffix} ${this.pad(h12)}:${this.pad(m)}`;
-    return this.showSeconds ? `${base}:${this.pad(s)}` : base;
+  }
+
+  /** intl 不可用时的兜底格式（24h，零填充）。 */
+  private fallbackText(): string {
+    const base: string = `${this.pad(this.current.getHours())}:${this.pad(this.current.getMinutes())}`;
+    return this.showSeconds ? `${base}:${this.pad(this.current.getSeconds())}` : base;
   }
 
   private fieldBorderColor(): ResourceColor {
@@ -146,11 +153,11 @@ export struct AppTimePicker {
         Text('🕐')
           .fontSize(Token.font.body.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
-          .margin({ left: Token.space.xs })
+          .margin({ start: LengthMetrics.vp(Token.space.xs) })
       }
       .width('100%')
       .height(Token.size.field(this.compact))
-      .padding({ left: Token.space.md, right: Token.space.md })
+      .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
       .backgroundColor(this.fieldDisabled ? Token.color.divider() : Token.color.surface())
       .borderRadius(Token.radius.sm)
       .border({ width: 1, color: this.fieldBorderColor() })

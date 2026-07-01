@@ -1,4 +1,5 @@
 import { Token } from '../theme/Tokens';
+import { LengthMetrics } from '@kit.ArkUI';
 
 /** 单选项数据模型。 */
 export class AppRadioOption {
@@ -38,7 +39,7 @@ export struct AppRadioGroup {
       Text(opt.label)
         .fontSize(Token.font.body.sizeFor(this.compact))
         .fontColor(Token.color.onSurface())
-        .margin({ left: Token.space.xxs, right: Token.space.lg })
+        .margin({ start: LengthMetrics.vp(Token.space.xxs), end: LengthMetrics.vp(Token.space.lg) })
     }
     .constraintSize({ minHeight: 44 })
     .alignItems(VerticalAlign.Center)
