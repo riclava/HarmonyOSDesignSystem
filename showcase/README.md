@@ -7,10 +7,13 @@
 
 ## 功能
 
-- **顶部深色开关**：一键切换 Light / Dark，所有 Token 实时联动。
+- **顶部开关**：深色（Light / Dark，App 级 `setColorMode` 全量重绘）+ 紧凑密度（compact），Token 与控件尺寸实时联动。
 - **Foundation**：Color、Typography、Spacing、Radius、Shadow、Icon、Motion（可点击演示动画）。
-- **Components**：Button、Tag、Card、TextField、Switch、Slider、Progress（线性/环形）、Search、Checkbox、Radio、Avatar、Badge。
-- **Overlays**：Dialog、BottomSheet、Toast、Menu。
+- **Components**：Button（含 loading）、Tag、Card（可点击）、Avatar、Badge、Progress（线性 / 环形）。
+- **Form**：TextField、Search、Checkbox、Radio、Switch、Slider。
+- **Navigation**：Tabs（分段）、List（列表项）。
+- **Overlays**：Dialog、BottomSheet、Toast、Menu、Popover。
+- **Pickers**：DatePicker、Calendar。
 - **States**：Loading、Empty、Error、Skeleton（骨架屏微光动画）。
 - **Adaptive**：响应式栅格（GridRow 断点）、触摸命中区 44×44、对比度示例。
 
@@ -30,20 +33,15 @@ showcase/
         └── ets/
             ├── entryability/EntryAbility.ets
             ├── designsystem/
-            │   ├── Tokens.ets                      # Token 出口（响应式）
-            │   └── components/
-            │       ├── AppButton · AppCard · AppTag
-            │       ├── AppAvatar · AppBadge
-            │       ├── AppDialog（CustomDialog）
-            │       ├── Skeleton（骨架屏）
-            │       └── StateView（Loading/Empty/Error）
+            │   ├── Tokens.ets                      # Token 出口（响应式，含 size 密度）
+            │   └── components/                     # 20+ 组件（App* + StateView / Skeleton）
             ├── sections/                           # 各展示区块
             │   ├── Widgets.ets
-            │   ├── ColorSection … IconSection … MotionSection
-            │   ├── ComponentsSection · FormSection · DataDisplaySection
-            │   ├── OverlaysSection · StatesSection
+            │   ├── ColorSection … MotionSection            # Foundation
+            │   ├── ComponentsSection · FormSection · DataDisplaySection · NavigationSection
+            │   ├── OverlaysSection · PickersSection · StatesSection
             │   └── AdaptiveSection
-            └── pages/Index.ets                     # 首页 + 5 个 Tab + 深色开关
+            └── pages/Index.ets                     # 首页 + 6 个 Tab + 深色 / 紧凑开关
 ```
 
 ## 运行
@@ -52,17 +50,17 @@ showcase/
 2. 等待 `hvigor` 同步依赖。
 3. 选择模拟器或真机，点击 Run 运行 `entry` 模块。
 
-## 一次性手动步骤
+## 应用图标
 
-工程引用了应用图标 `$media:app_icon`，但图标是二进制文件无法随文本生成。
-首次打开时请补一张图标：
+工程已内置一张占位 SVG 图标 `app_icon.svg`（`entry/src/main/resources/base/media/` 与 `AppScope/resources/base/media/`），
+使用设计系统的 Primary 色，可直接构建运行。替换为品牌图标即可：
 
-- 在 `entry/src/main/resources/base/media/` 放入 `app_icon.png`（建议 216×216）。
+- 覆盖上述两处 `app_icon.svg`（或换成 `app_icon.png`，建议 216×216，并同步 `module.json5` / `app.json5` 的引用）。
 - 或用 DevEco Studio 的 `New > Image Asset` 生成。
 
 ## 与规范的关系
 
 - Token 值与仓库根目录 [`tokens/`](../tokens/) 保持同源。
-- 深色切换在 showcase 中通过 `AppStorage('isDark')` 驱动，便于 App 内实时演示；
-  生产项目建议直接用 ArkUI 资源系统（`$r('app.color.*')` + `theme.json`）跟随系统。
+- 深色切换在 showcase 中通过 App 级 `setColorMode` 驱动（配合 `AppStorage('isDark')`），令所有 Token 颜色全量重绘；生产项目也可直接用 ArkUI 资源系统（`$r('app.color.*')` + `theme.json`）跟随系统。
+- 紧凑密度通过 `AppStorage('compact')` 驱动，组件持有 `@StorageProp('compact')` 并用 `Token.size.*(compact)` 取尺寸；详见 [16 Design Token](../docs/16-design-token.md)。
 - 组件封装示例见 `designsystem/components/`，对应规范 [10 Components](../docs/10-components.md) 与 [17 Coding Specification](../docs/17-coding-specification.md)。

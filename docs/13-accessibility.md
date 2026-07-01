@@ -19,6 +19,7 @@
 
 - 所有可交互元素命中区 **≥ 44×44 vp**，即使视觉更小。
 - 相邻可点元素间距 ≥ `SpaceXS` (8)。
+- **紧凑密度（compact）**：控件视觉可小于 44，但必须用 `.responseRegion(...)` 把命中区兜底到 `Token.size.minTouch`(44)，不得因收紧而牺牲可点性（见 [16 Design Token](16-design-token.md) 的「密度 / Compact」）。
 
 ## 字体缩放
 

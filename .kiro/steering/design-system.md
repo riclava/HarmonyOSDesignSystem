@@ -42,9 +42,10 @@ Text('标题')
 ## 硬性约束
 
 1. 深浅色只靠 Token；组件持有 `@StorageLink('isDark') isDark: boolean`；跟随系统在 Ability 调 `initColorMode(config.colorMode)`。
-2. 可交互命中区 ≥ 44×44vp；图标按钮加 `.accessibilityText(...)`；信息不只靠颜色。
-3. 一屏一个 Primary 行动；破坏性操作用 `Danger` + 二次确认。
-4. 动画 ≤ 400ms，进 easeOut / 出 easeIn。
+2. 密度：数据密集场景可开 compact（`AppStorage.setOrCreate('compact', true)`）。组件持有 `@StorageProp('compact') compact`，尺寸走 `Token.size.*(this.compact)` 且在 build 里直接引用 `this.compact`；命中区用 `.responseRegion` 兜底到 44；只收紧尺寸/内边距，不动字号行高。
+3. 可交互命中区 ≥ 44×44vp；图标按钮加 `.accessibilityText(...)`；信息不只靠颜色。
+4. 一屏一个 Primary 行动；破坏性操作用 `Danger` + 二次确认。
+5. 动画 ≤ 400ms，进 easeOut / 出 easeIn。
 
 ## 权威来源
 

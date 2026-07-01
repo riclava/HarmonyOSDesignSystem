@@ -30,6 +30,9 @@ Elevation
 
 Motion
 └── Fast · Normal · Slow · ExtraSlow
+
+Size（控件尺寸，随 compact 密度切换）
+└── buttonLarge/Medium/Small · field · tabBar · tabLabel · rowMin · menuItem · minTouch(44)
 ```
 
 ## 分层：Reference → System → Component
@@ -54,6 +57,29 @@ Motion
 | 圆角 | `radius.md` | [05 Radius](05-radius.md) |
 | 阴影 | `shadow.level1` | [06 Shadow](06-shadow.md) |
 | 动画 | `motion.fast` / `motion.normal` / `motion.slow` | [08 Motion](08-motion.md) |
+| 尺寸 | `size.buttonMedium` / `size.field`（随 compact 切换） | 本页「密度 / Compact」小节 |
+
+## 密度 / Compact（控件尺寸）
+
+面向数据密集型 / 大屏多面板等超复杂应用，提供 **compact 紧凑密度**：整体收紧控件高度与内边距，**字号、行高、圆角、颜色均不变**。
+
+> 这里的 "compact" 指**信息密度**，与 [15 自适应布局](15-adaptive-layout.md) 里的断点 `Compact`（宽度 < 600vp）无关，两者可组合。
+
+| 尺寸 Token | 常规 | 紧凑 | 用于 |
+| --- | --- | --- | --- |
+| `size.buttonLarge` | 48 | 40 | 大按钮高 |
+| `size.buttonMedium` | 40 | 32 | 中按钮高 |
+| `size.buttonSmall` | 32 | 28 | 小按钮高 |
+| `size.field` | 48 | 40 | 输入框 / 搜索框高 |
+| `size.tabBar` | 48 | 40 | 分段标签栏高 |
+| `size.tabLabel` | 46 | 38 | 分段标签文字区高 |
+| `size.rowMin` | 56 | 48 | 列表项最小高 |
+| `size.menuItem` | 40 | 36 | 菜单项高 |
+| `size.minTouch` | 44 | 44 | 无障碍最小命中区（常量） |
+
+- 运行时：`Token.size.buttonMedium(compact)` 返回对应值；`compact` 取自 `AppStorage['compact']`。
+- 组件持有 `@StorageProp('compact') compact` 并在 build 里引用（作为 `Token.size.*` 入参），切换即重绘。
+- **无障碍**：紧凑下控件视觉可小于 44，但用 `.responseRegion(...)` 把命中区兜底到 `size.minTouch`（44）。
 
 ## 源文件
 

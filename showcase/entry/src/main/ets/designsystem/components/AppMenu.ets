@@ -20,6 +20,11 @@ export class AppMenuItem {
 export struct AppMenu {
   @Prop items: AppMenuItem[] = [];
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
+
+  private menuTouch(): number {
+    return Math.max(Token.size.menuItem(this.compact), Token.size.minTouch);
+  }
 
   build() {
     Column() {
@@ -28,9 +33,10 @@ export struct AppMenu {
           .fontSize(Token.font.body.size)
           .fontColor(item.destructive ? Token.color.danger() : Token.color.onSurface())
           .width('100%')
-          .height(40)
+          .height(Token.size.menuItem(this.compact))
           .padding({ left: Token.space.md, right: Token.space.md })
           .textAlign(TextAlign.Start)
+          .responseRegion({ x: 0, y: (Token.size.menuItem(this.compact) - this.menuTouch()) / 2, width: '100%', height: this.menuTouch() })
           .onClick(() => {
             if (item.onSelect) {
               item.onSelect();

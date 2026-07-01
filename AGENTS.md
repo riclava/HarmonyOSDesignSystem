@@ -30,6 +30,7 @@ Text('Hi')
 | 图标 | `Token.icon.X` | xs(16), sm(20), md(24), lg(28), xl(32), xxl(48) |
 | 阴影 | `Token.shadow.levelN` | level0..level4（含 radius/color/offsetX/offsetY） |
 | 动画 | `Token.motion.X` | instant(100), fast(200), normal(250), slow(300), extraSlow(400), easeStandard, easeOut, easeIn |
+| 尺寸 | `Token.size.X(compact)` | buttonLarge/buttonMedium/buttonSmall, field, tabBar, tabLabel, rowMin, menuItem；`minTouch`(44 常量) |
 
 ## 组件优先
 
@@ -64,6 +65,16 @@ import {
 - 弹窗 → `AppDialog`；菜单 → `AppMenu`；底部面板 → `AppSheet`；气泡 → `AppPopover`；轻提示 → `AppToast.show(...)`
 - 日期 → `AppDatePicker`；日历 → `AppCalendar`
 - 空/错/加载 → `StateView`；加载占位 → `Skeleton`
+
+## 密度 / Compact 模式
+
+面向数据密集型 / 大屏多面板等超复杂应用，可整体收紧控件尺寸与内边距（**字号、行高不变**）。
+
+- 开启：`AppStorage.setOrCreate('compact', true)`，可随场景实时切换。
+- 组件持有 `@StorageProp('compact') compact: boolean`，尺寸统一走 `Token.size.*(this.compact)`。
+- 自定义控件必须在 build 里**直接引用 `this.compact`**（作为 `Token.size.*` 的入参），否则切换不会重绘（compact 无系统级触发，不能只靠"持有"）。
+- 无障碍：compact 下控件视觉可小于 44，但要用 `.responseRegion(...)` 把命中区兜底到 `Token.size.minTouch`(44)。
+- 影响范围：Button / 输入 / 搜索 / Tabs / 列表项高度，Card / Dialog 内边距；**不动**字号、行高、圆角、颜色。
 
 ## 强制约束
 

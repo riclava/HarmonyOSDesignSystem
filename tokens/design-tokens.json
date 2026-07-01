@@ -72,5 +72,17 @@
     "easeStandard": { "$type": "cubicBezier", "$value": [0.2, 0, 0, 1] },
     "easeOut":      { "$type": "cubicBezier", "$value": [0, 0, 0, 1] },
     "easeIn":       { "$type": "cubicBezier", "$value": [0.3, 0, 1, 1] }
+  },
+  "size": {
+    "$description": "控件尺寸（vp），随 compact 密度切换：comfortable 常规 / compact 紧凑。字号、行高不随密度变化。",
+    "minTouch":     { "$type": "dimension", "$value": "44vp", "$comment": "无障碍最小命中区；compact 下用 responseRegion 兜底" },
+    "buttonLarge":  { "$type": "dimension", "$value": { "comfortable": "48vp", "compact": "40vp" } },
+    "buttonMedium": { "$type": "dimension", "$value": { "comfortable": "40vp", "compact": "32vp" } },
+    "buttonSmall":  { "$type": "dimension", "$value": { "comfortable": "32vp", "compact": "28vp" } },
+    "field":        { "$type": "dimension", "$value": { "comfortable": "48vp", "compact": "40vp" } },
+    "tabBar":       { "$type": "dimension", "$value": { "comfortable": "48vp", "compact": "40vp" } },
+    "tabLabel":     { "$type": "dimension", "$value": { "comfortable": "46vp", "compact": "38vp" } },
+    "rowMin":       { "$type": "dimension", "$value": { "comfortable": "56vp", "compact": "48vp" } },
+    "menuItem":     { "$type": "dimension", "$value": { "comfortable": "40vp", "compact": "36vp" } }
   }
 }

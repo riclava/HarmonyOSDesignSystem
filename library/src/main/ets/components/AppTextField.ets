@@ -13,6 +13,7 @@ export struct AppTextField {
   @Prop error: string = '';
   @Prop fieldDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   @State private focused: boolean = false;
   onTextChange?: (value: string) => void;
 
@@ -24,6 +25,10 @@ export struct AppTextField {
       return Token.color.primary();
     }
     return Token.color.outline();
+  }
+
+  private fieldTouch(): number {
+    return Math.max(Token.size.field(this.compact), Token.size.minTouch);
   }
 
   build() {
@@ -40,10 +45,11 @@ export struct AppTextField {
         .fontColor(Token.color.onSurface())
         .placeholderColor(Token.color.onSurfaceVariant())
         .backgroundColor(this.fieldDisabled ? Token.color.divider() : Token.color.surface())
-        .height(48)
+        .height(Token.size.field(this.compact))
         .borderRadius(Token.radius.sm)
         .border({ width: this.focused ? 2 : 1, color: this.fieldBorderColor() })
         .padding({ left: Token.space.md, right: Token.space.md })
+        .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
         .enabled(!this.fieldDisabled)
         .opacity(this.fieldDisabled ? 0.38 : 1)
         .onFocus(() => { this.focused = true; })

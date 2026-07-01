@@ -6,8 +6,13 @@ export struct AppSearch {
   @Prop text: string = '';
   @Prop placeholder: string = '搜索…';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onTextChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
+
+  private searchTouch(): number {
+    return Math.max(Token.size.field(this.compact), Token.size.minTouch);
+  }
 
   build() {
     Row() {
@@ -50,11 +55,12 @@ export struct AppSearch {
       }
     }
     .width('100%')
-    .height(48)
+    .height(Token.size.field(this.compact))
     .padding({ left: Token.space.md, right: Token.space.xs })
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.full)
     .border({ width: 1, color: Token.color.outline() })
     .alignItems(VerticalAlign.Center)
+    .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.searchTouch()) / 2, width: '100%', height: this.searchTouch() })
   }
 }

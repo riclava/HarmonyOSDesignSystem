@@ -9,7 +9,12 @@ export struct AppTabs {
   @Prop tabs: string[] = [];
   @Prop selectedIndex: number = 0;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onSelect?: (index: number) => void;
+
+  private tabTouch(): number {
+    return Math.max(Token.size.tabBar(this.compact), Token.size.minTouch);
+  }
 
   build() {
     Row() {
@@ -19,7 +24,7 @@ export struct AppTabs {
             .fontSize(Token.font.label.size)
             .fontWeight(this.selectedIndex === index ? Token.font.label.weight : 400)
             .fontColor(this.selectedIndex === index ? Token.color.primary() : Token.color.onSurfaceVariant())
-            .height(46)
+            .height(Token.size.tabLabel(this.compact))
             .textAlign(TextAlign.Center)
           Divider()
             .strokeWidth(2)
@@ -27,6 +32,7 @@ export struct AppTabs {
             .animation({ duration: Token.motion.normal, curve: Token.motion.easeStandard })
         }
         .layoutWeight(1)
+        .responseRegion({ x: 0, y: (Token.size.tabBar(this.compact) - this.tabTouch()) / 2, width: '100%', height: this.tabTouch() })
         .onClick(() => {
           this.selectedIndex = index;
           if (this.onSelect) {
@@ -36,7 +42,7 @@ export struct AppTabs {
       })
     }
     .width('100%')
-    .height(48)
+    .height(Token.size.tabBar(this.compact))
     .backgroundColor(Token.color.surface())
   }
 }

@@ -87,6 +87,16 @@ struct Home {
 
 3) 遵循 [17 Coding Specification](17-coding-specification.md)：不写死任何样式值。
 
+### 可选：数据密集场景开启紧凑密度（compact）
+
+超复杂应用（管理后台、大屏多面板）可全局开启 compact，组件整体收紧尺寸与内边距（**字号、行高不变**，命中区仍 ≥ 44）：
+
+```ts
+AppStorage.setOrCreate('compact', true); // 任意位置切换，全局组件联动收紧
+```
+
+自定义控件若也要跟随：持有 `@StorageProp('compact') compact`，并在 build 里用 `Token.size.*(this.compact)` 取尺寸。详见 [16 Design Token](16-design-token.md) 的「密度 / Compact」小节。
+
 ---
 
 ## 二、如何暴露给新项目的 AI

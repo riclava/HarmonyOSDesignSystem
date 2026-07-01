@@ -38,6 +38,14 @@ GridRow({ breakpoints: { value: ['600vp', '840vp'] } }) {
 - 图片用 `objectFit` 自适应；避免拉伸变形。
 - 触控与鼠标/键盘并存时，兼顾 Hover 与 Focus 态。
 
+## 信息密度 / Compact
+
+除了随宽度自适应，超复杂应用（管理后台、数据密集大屏）还可开启 **compact 密度**收紧控件尺寸：
+
+- 开启：`AppStorage.setOrCreate('compact', true)`；组件走 `Token.size.*(compact)`。
+- 与本页断点 `Compact`（宽度 < 600vp）**不是一回事**：这里指**信息密度**。两者可组合，例如 Expanded 宽屏 + compact 密度做多面板高信息量界面。
+- 只收紧尺寸 / 内边距，不动字号、行高、圆角、颜色；命中区用 `responseRegion` 保持 ≥ 44。详见 [16 Design Token](16-design-token.md) 的「密度 / Compact」小节。
+
 ## 原则
 
 - 一次设计，多端一致体验；不是简单拉伸。

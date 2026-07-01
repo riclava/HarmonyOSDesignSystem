@@ -13,6 +13,7 @@ export struct AppListItem {
   @Prop showArrow: boolean = false;
   @Prop showDivider: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onItemClick?: () => void;
 
   build() {
@@ -52,8 +53,13 @@ export struct AppListItem {
         }
       }
       .width('100%')
-      .constraintSize({ minHeight: 56 })
-      .padding({ left: Token.space.md, right: Token.space.md, top: Token.space.sm, bottom: Token.space.sm })
+      .constraintSize({ minHeight: Token.size.rowMin(this.compact) })
+      .padding({
+        left: Token.space.md,
+        right: Token.space.md,
+        top: this.compact ? Token.space.xs : Token.space.sm,
+        bottom: this.compact ? Token.space.xs : Token.space.sm
+      })
       .alignItems(VerticalAlign.Center)
       if (this.showDivider) {
         Divider()

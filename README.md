@@ -43,7 +43,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
-| [library/Index.ets](library/Index.ets) | 公共 API 出口（`import { Token, AppButton } from '@riclava/designsystem'`） |
+| [library/Index.ets](library/Index.ets) | 公共 API 出口（`import { Token, AppButton } from '@riclava/designsystem'`，含 Token + 20+ 组件） |
 | [library/src/main/ets/theme/Tokens.ets](library/src/main/ets/theme/Tokens.ets) | ArkUI 运行时 Token（canonical） |
 | [tokens/design-tokens.json](tokens/design-tokens.json) | 单一事实来源（Figma / 工具链 / AI 共享） |
 
@@ -51,7 +51,7 @@
 
 | 目录 | 用途 |
 | --- | --- |
-| [showcase/](showcase/README.md) | 活文档 App：用真实 ArkUI 代码展示全部 Token 与组件，带深色实时切换 |
+| [showcase/](showcase/README.md) | 活文档 App：用真实 ArkUI 代码展示全部 Token 与组件，带深色、紧凑密度实时切换 |
 
 ## AI 接入（暴露给新项目的 AI 助手）
 

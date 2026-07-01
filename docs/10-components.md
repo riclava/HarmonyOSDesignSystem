@@ -14,6 +14,27 @@ Button · TextField · Search · Card · List · Dialog · Toast · Tag · Badge
 BottomSheet · Checkbox · Radio · Switch · Slider · Progress · Avatar · Menu ·
 Popover · DatePicker · Calendar · Loading · Empty · Error · Skeleton
 
+## 实现：@riclava/designsystem 组件
+
+上述规范已落地为可复用组件，全部从 `@riclava/designsystem` 导入。命名对照：
+
+| 规范 | 组件 | 规范 | 组件 |
+| --- | --- | --- | --- |
+| Button | `AppButton` | Switch | `AppSwitch` |
+| TextField | `AppTextField` | Slider | `AppSlider` |
+| Search | `AppSearch` | Progress | `AppProgress` |
+| Card | `AppCard` | Avatar | `AppAvatar` |
+| List | `AppListItem` | Menu | `AppMenu` |
+| Dialog | `AppDialog` | Popover | `AppPopover` |
+| Toast | `AppToast`（工具类） | DatePicker | `AppDatePicker` |
+| Tag / Badge | `AppTag` / `AppBadge` | Calendar | `AppCalendar` |
+| Tabs | `AppTabs` | Loading / Empty / Error | `StateView` |
+| BottomSheet | `AppSheet` | Skeleton | `Skeleton` |
+| Checkbox / Radio | `AppCheckbox` / `AppRadioGroup` | | |
+
+交互 / 容器类组件支持 **compact 紧凑密度**（收紧尺寸，字号行高不变，命中区仍 ≥ 44）；
+详见 [16 Design Token](16-design-token.md)「密度 / Compact」小节。
+
 ---
 
 ## Button 按钮

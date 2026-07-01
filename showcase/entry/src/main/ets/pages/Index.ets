@@ -41,20 +41,31 @@ struct ScrollPage {
 struct Index {
   // 全局深浅色开关，写入 AppStorage 后所有 Token 联动刷新
   @StorageLink('isDark') isDark: boolean = false;
+  // 全局密度开关，组件通过 @StorageProp('compact') 联动收紧尺寸
+  @StorageLink('compact') compact: boolean = false;
   @State activeTab: number = 0;
 
   @Builder
   TopBar() {
     Row() {
-      Text('HarmonyOS Design System')
+      Text('Design System')
         .fontSize(Token.font.titleLarge.size)
         .fontWeight(Token.font.titleLarge.weight)
         .fontColor(Token.color.onSurface())
         .layoutWeight(1)
-      Text(this.isDark ? '🌙 Dark' : '☀️ Light')
+
+      Text('紧凑')
         .fontSize(Token.font.caption.size)
-        .fontColor(Token.color.onSurfaceVariant())
-        .margin({ right: Token.space.xs })
+        .fontColor(this.compact ? Token.color.primary() : Token.color.onSurfaceVariant())
+        .margin({ right: Token.space.xxs })
+      Toggle({ type: ToggleType.Switch, isOn: this.compact })
+        .selectedColor(Token.color.primary())
+        .margin({ right: Token.space.md })
+        .onChange((on: boolean) => { this.compact = on; })
+
+      Text(this.isDark ? '🌙' : '☀️')
+        .fontSize(Token.font.body.size)
+        .margin({ right: Token.space.xxs })
       Toggle({ type: ToggleType.Switch, isOn: this.isDark })
         .selectedColor(Token.color.primary())
         .onChange((on: boolean) => {

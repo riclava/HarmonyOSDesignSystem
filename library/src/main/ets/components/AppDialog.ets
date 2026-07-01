@@ -12,6 +12,7 @@ export struct AppDialog {
   @Prop confirmLabel: string = '确认';
   @Prop cancelLabel: string = '取消';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   confirm?: () => void;
 
   build() {
@@ -52,7 +53,7 @@ export struct AppDialog {
       .margin({ top: Token.space.lg })
     }
     .width('100%')
-    .padding(Token.space.lg)
+    .padding(this.compact ? Token.space.md : Token.space.lg)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.lg)
   }

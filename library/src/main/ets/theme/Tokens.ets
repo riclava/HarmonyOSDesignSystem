@@ -34,6 +34,15 @@ export function isDarkMode(): boolean {
   return AppStorage.get<boolean>('isDark') ?? false;
 }
 
+/**
+ * 当前是否紧凑密度。
+ * compact 无系统级触发，组件须在 build 里直接引用 @StorageProp('compact') 才能触发重绘，
+ * 因此尺寸取值统一走 Token.size.*(compact) 把 compact 作为参数传入。
+ */
+export function isCompactMode(): boolean {
+  return AppStorage.get<boolean>('compact') ?? false;
+}
+
 function pick(pair: ColorPair): ResourceColor {
   return isDarkMode() ? pair.dark : pair.light;
 }
@@ -157,6 +166,26 @@ class MotionTokens {
   readonly easeIn: Curve = Curve.EaseIn;
 }
 
+/** ---------- Control size (vp)，随 compact 密度切换 ---------- */
+class SizeTokens {
+  /** 无障碍最小命中区。compact 下控件视觉可更小，但用 responseRegion 兜底到该值。 */
+  readonly minTouch: number = 44;
+
+  buttonLarge(compact: boolean): number { return compact ? 40 : 48; }
+  buttonMedium(compact: boolean): number { return compact ? 32 : 40; }
+  buttonSmall(compact: boolean): number { return compact ? 28 : 32; }
+  /** 输入框 / 搜索框高度 */
+  field(compact: boolean): number { return compact ? 40 : 48; }
+  /** 分段标签栏高度 */
+  tabBar(compact: boolean): number { return compact ? 40 : 48; }
+  /** 分段标签文字区高度（指示条在其下方） */
+  tabLabel(compact: boolean): number { return compact ? 38 : 46; }
+  /** 列表项最小高度 */
+  rowMin(compact: boolean): number { return compact ? 48 : 56; }
+  /** 菜单项高度 */
+  menuItem(compact: boolean): number { return compact ? 36 : 40; }
+}
+
 /** 统一出口 */
 export class Token {
   static readonly color: ColorTokens = new ColorTokens();
@@ -166,4 +195,5 @@ export class Token {
   static readonly icon: IconTokens = new IconTokens();
   static readonly shadow: ShadowTokens = new ShadowTokens();
   static readonly motion: MotionTokens = new MotionTokens();
+  static readonly size: SizeTokens = new SizeTokens();
 }

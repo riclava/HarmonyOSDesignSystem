@@ -8,6 +8,7 @@ import { Token } from '../Tokens';
 export struct AppCard {
   @Prop clickable: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   @State private pressed: boolean = false;
   @BuilderParam content: () => void;
   onCardClick?: () => void;
@@ -22,7 +23,7 @@ export struct AppCard {
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
-    .padding(Token.space.md)
+    .padding(this.compact ? Token.space.sm : Token.space.md)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
     .shadow(this.raised()

@@ -15,15 +15,20 @@ export struct AppButton {
   @Prop disabled: boolean = false;
   @Prop loading: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   @State private pressed: boolean = false;
   onClickAction?: () => void;
 
   private btnHeight(): number {
     switch (this.btnSize) {
-      case AppButtonSize.Large: return 48;
-      case AppButtonSize.Small: return 32;
-      default: return 40;
+      case AppButtonSize.Large: return Token.size.buttonLarge(this.compact);
+      case AppButtonSize.Small: return Token.size.buttonSmall(this.compact);
+      default: return Token.size.buttonMedium(this.compact);
     }
+  }
+
+  private touchHeight(): number {
+    return Math.max(this.btnHeight(), Token.size.minTouch);
   }
 
   private hPadding(): number {
@@ -85,6 +90,7 @@ export struct AppButton {
     .opacity(this.interactive() ? 1 : 0.38)
     .scale(this.pressed ? { x: 0.98, y: 0.98 } : { x: 1, y: 1 })
     .animation({ duration: Token.motion.instant, curve: Token.motion.easeStandard })
+    .responseRegion({ x: 0, y: (this.btnHeight() - this.touchHeight()) / 2, width: '100%', height: this.touchHeight() })
     .enabled(this.interactive())
     .onTouch((event: TouchEvent) => {
       if (event.type === TouchType.Down) {
