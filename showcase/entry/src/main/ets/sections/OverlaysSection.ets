@@ -1,11 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, AppDialog, AppButton, AppButtonType, AppSheet, AppMenu, AppMenuItem, AppPopover, AppToast } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { AppDialog } from '../designsystem/components/AppDialog';
-import { AppButton, AppButtonType } from '../designsystem/components/AppButton';
-import { AppSheet } from '../designsystem/components/AppSheet';
-import { AppMenu, AppMenuItem } from '../designsystem/components/AppMenu';
-import { AppPopover } from '../designsystem/components/AppPopover';
-import { AppToast } from '../designsystem/components/AppToast';
 
 @Component
 export struct OverlaysSection {

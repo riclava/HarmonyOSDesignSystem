@@ -31,6 +31,10 @@
           ]
         }
       ]
+    },
+    {
+      "name": "designsystem",
+      "srcPath": "../library"
     }
   ]
 }

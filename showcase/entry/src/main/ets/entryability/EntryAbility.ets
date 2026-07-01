@@ -1,6 +1,6 @@
 import { AbilityConstant, ConfigurationConstant, Configuration, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
-import { initColorMode } from '../designsystem/Tokens';
+import { initColorMode } from '@riclava/designsystem';
 
 export default class EntryAbility extends UIAbility {
   onCreate(_want: Want, _launchParam: AbilityConstant.LaunchParam): void {

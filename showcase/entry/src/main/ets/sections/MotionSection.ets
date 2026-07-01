@@ -1,4 +1,4 @@
-import { Token } from '../designsystem/Tokens';
+import { Token } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
 
 @Component

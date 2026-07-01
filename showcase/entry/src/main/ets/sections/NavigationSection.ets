@@ -1,8 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, AppTabs, AppListItem, AppToast } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { AppTabs } from '../designsystem/components/AppTabs';
-import { AppListItem } from '../designsystem/components/AppListItem';
-import { AppToast } from '../designsystem/components/AppToast';
 
 @Component
 export struct NavigationSection {

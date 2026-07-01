@@ -1,9 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, AppButton, AppButtonType, AppButtonSize, AppCard, AppTag, AppTagTone, AppToast } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { AppButton, AppButtonType, AppButtonSize } from '../designsystem/components/AppButton';
-import { AppCard } from '../designsystem/components/AppCard';
-import { AppTag, AppTagTone } from '../designsystem/components/AppTag';
-import { AppToast } from '../designsystem/components/AppToast';
 
 @Component
 export struct ComponentsSection {

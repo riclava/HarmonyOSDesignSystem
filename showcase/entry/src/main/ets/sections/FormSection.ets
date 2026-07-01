@@ -1,11 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, AppTextField, AppSearch, AppCheckbox, AppSwitch, AppSlider, AppRadioGroup, AppRadioOption } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { AppTextField } from '../designsystem/components/AppTextField';
-import { AppSearch } from '../designsystem/components/AppSearch';
-import { AppCheckbox } from '../designsystem/components/AppCheckbox';
-import { AppSwitch } from '../designsystem/components/AppSwitch';
-import { AppSlider } from '../designsystem/components/AppSlider';
-import { AppRadioGroup, AppRadioOption } from '../designsystem/components/AppRadioGroup';
 
 @Component
 export struct FormSection {

@@ -2,8 +2,8 @@
 
 一个"活文档"式的 HarmonyOS 应用，用**真实的 ArkUI 代码**展示设计系统的全部 Token 与组件。
 
-所有页面的取值都来自 [`Tokens.ets`](entry/src/main/ets/designsystem/Tokens.ets)，
-证明"只引用 Token、不硬编码"的规范是可落地的。
+所有页面的取值都来自设计系统 HAR 包 `@riclava/designsystem`（源码在 [`../library`](../library)），
+证明"只引用 Token、不硬编码、组件优先"的规范是可落地的。showcase **直接依赖 library，不再维护组件副本**。
 
 ## 功能
 
@@ -24,6 +24,7 @@ showcase/
 ├── AppScope/app.json5
 ├── build-profile.json5 · oh-package.json5 · hvigorfile.ts
 └── entry/
+    ├── oh-package.json5                            # 依赖 @riclava/designsystem（file:../../library）
     └── src/main/
         ├── module.json5
         ├── resources/
@@ -31,11 +32,8 @@ showcase/
         │   ├── dark/element/color.json             # 深色 Token
         │   └── base/profile/main_pages.json
         └── ets/
-            ├── entryability/EntryAbility.ets
-            ├── designsystem/
-            │   ├── Tokens.ets                      # Token 出口（响应式，含 size 密度）
-            │   └── components/                     # 20+ 组件（App* + StateView / Skeleton）
-            ├── sections/                           # 各展示区块
+            ├── entryability/EntryAbility.ets       # initColorMode 跟随系统深浅色
+            ├── sections/                           # 各展示区块（只引用 @riclava/designsystem）
             │   ├── Widgets.ets
             │   ├── ColorSection … MotionSection            # Foundation
             │   ├── ComponentsSection · FormSection · DataDisplaySection · NavigationSection
@@ -44,10 +42,12 @@ showcase/
             └── pages/Index.ets                     # 首页 + 6 个 Tab + 深色 / 紧凑开关
 ```
 
+> Token 与组件全部来自 HAR 包 `@riclava/designsystem`，showcase 内不再有 `designsystem/` 副本。
+
 ## 运行
 
 1. 用 **DevEco Studio**（API 12 / HarmonyOS 5.0 及以上）打开 `showcase/` 目录。
-2. 等待 `hvigor` 同步依赖。
+2. 等待 `hvigor` 同步依赖（会通过 `file:../../library` 解析并构建 `@riclava/designsystem`；如未自动安装，在 `entry/` 执行 `ohpm install`）。
 3. 选择模拟器或真机，点击 Run 运行 `entry` 模块。
 
 ## 应用图标
@@ -60,7 +60,7 @@ showcase/
 
 ## 与规范的关系
 
-- Token 值与仓库根目录 [`tokens/`](../tokens/) 保持同源。
+- Token 与组件来自 HAR 包 `@riclava/designsystem`（源码 [`../library`](../library)），与仓库根目录 [`tokens/`](../tokens/) 同源。showcase 通过 `file:../../library` 依赖它，**单一实现、无副本**。
 - 深色切换在 showcase 中通过 App 级 `setColorMode` 驱动（配合 `AppStorage('isDark')`），令所有 Token 颜色全量重绘；生产项目也可直接用 ArkUI 资源系统（`$r('app.color.*')` + `theme.json`）跟随系统。
-- 紧凑密度通过 `AppStorage('compact')` 驱动，组件持有 `@StorageProp('compact')` 并用 `Token.size.*(compact)` 取尺寸；详见 [16 Design Token](../docs/16-design-token.md)。
-- 组件封装示例见 `designsystem/components/`，对应规范 [10 Components](../docs/10-components.md) 与 [17 Coding Specification](../docs/17-coding-specification.md)。
+- 紧凑密度通过 `AppStorage('compact')` 驱动，组件持有 `@StorageProp('compact')` 并用 `Token.size.*(compact)` / `Token.font.*.sizeFor(compact)` 取值；详见 [16 Design Token](../docs/16-design-token.md)。
+- 组件实现与规范对应见 [10 Components](../docs/10-components.md) 与 [17 Coding Specification](../docs/17-coding-specification.md)。

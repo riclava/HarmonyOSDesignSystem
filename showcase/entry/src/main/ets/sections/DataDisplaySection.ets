@@ -1,8 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, AppAvatar, AppAvatarShape, AppBadge, AppProgress, AppProgressKind } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { AppAvatar, AppAvatarShape } from '../designsystem/components/AppAvatar';
-import { AppBadge } from '../designsystem/components/AppBadge';
-import { AppProgress, AppProgressKind } from '../designsystem/components/AppProgress';
 
 @Component
 export struct DataDisplaySection {

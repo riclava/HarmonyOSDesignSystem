@@ -1,8 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, AppDatePicker, AppCalendar, AppToast } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { AppDatePicker } from '../designsystem/components/AppDatePicker';
-import { AppCalendar } from '../designsystem/components/AppCalendar';
-import { AppToast } from '../designsystem/components/AppToast';
 
 @Component
 export struct PickersSection {

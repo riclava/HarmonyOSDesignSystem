@@ -1,4 +1,4 @@
-import { Token } from '../designsystem/Tokens';
+import { Token } from '@riclava/designsystem';
 import { common, ConfigurationConstant } from '@kit.AbilityKit';
 import { ColorSection } from '../sections/ColorSection';
 import { TypographySection } from '../sections/TypographySection';

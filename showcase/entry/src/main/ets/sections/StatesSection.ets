@@ -1,8 +1,5 @@
-import { Token } from '../designsystem/Tokens';
+import { Token, StateView, StateKind, Skeleton, AppCard } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
-import { StateView, StateKind } from '../designsystem/components/StateView';
-import { Skeleton } from '../designsystem/components/Skeleton';
-import { AppCard } from '../designsystem/components/AppCard';
 
 /** 状态展示用的边框卡片容器，内容通过 @BuilderParam 注入。 */
 @Component

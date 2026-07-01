@@ -1,4 +1,4 @@
-import { Token } from '../designsystem/Tokens';
+import { Token } from '@riclava/designsystem';
 
 /** 区块小标题 */
 @Component

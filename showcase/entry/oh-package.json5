@@ -5,5 +5,7 @@
   "main": "",
   "author": "riclava",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "@riclava/designsystem": "file:../../library"
+  }
 }

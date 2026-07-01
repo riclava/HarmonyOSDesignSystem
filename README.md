@@ -1,6 +1,8 @@
 # HarmonyOS Design System
 
-一套面向 **长期维护多个鸿蒙 App** 的通用设计系统（Design System）。
+还在纠结鸿蒙系统 vibe coding 的 UI 界面不忍直视？现在不用纠结了，HarmonyOS Design System 帮你搞定。
+
+HarmonyOS Design System 是一套面向 **长期维护多个鸿蒙 App** 的通用设计系统（Design System）。
 
 参考并融合了业界主流体系的组织方式：
 
@@ -51,7 +53,7 @@
 
 | 目录 | 用途 |
 | --- | --- |
-| [showcase/](showcase/README.md) | 活文档 App：用真实 ArkUI 代码展示全部 Token 与组件，带深色、紧凑密度实时切换 |
+| [showcase/](showcase/README.md) | 活文档 App：直接依赖 `@riclava/designsystem`（`file:../../library`），用真实 ArkUI 代码展示全部 Token 与组件，带深色、紧凑密度实时切换 |
 
 ## AI 接入（暴露给新项目的 AI 助手）
 
