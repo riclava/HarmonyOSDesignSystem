@@ -10,7 +10,12 @@ import { AppToast } from '../designsystem/components/AppToast';
 @Component
 export struct OverlaysSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   @State sheetShown: boolean = false;
+
+  private triggerTouch(): number {
+    return Math.max(Token.size.buttonMedium(this.compact), Token.size.minTouch);
+  }
 
   private menuItems: AppMenuItem[] = [
     new AppMenuItem('编辑', (): void => { AppToast.show('编辑'); }),
@@ -36,8 +41,11 @@ export struct OverlaysSection {
         .fontSize(Token.font.bodySmall.size)
         .fontColor(Token.color.onSurfaceVariant())
         .margin({ bottom: Token.space.lg })
-      AppButton({ label: '关闭', type: AppButtonType.Secondary })
-        .onClick((): void => { this.sheetShown = false; })
+      AppButton({
+        label: '关闭',
+        type: AppButtonType.Secondary,
+        onClickAction: (): void => { this.sheetShown = false; }
+      })
     }
   }
 
@@ -45,26 +53,36 @@ export struct OverlaysSection {
     Column() {
       SectionLabel({ text: 'Overlays · 浮层' })
       Flex({ wrap: FlexWrap.Wrap }) {
-        AppButton({ label: 'Dialog', type: AppButtonType.Primary })
+        AppButton({
+          label: 'Dialog',
+          type: AppButtonType.Primary,
+          onClickAction: (): void => { this.dialogController.open(); }
+        })
           .margin({ right: Token.space.xs, bottom: Token.space.xs })
-          .onClick((): void => { this.dialogController.open(); })
 
-        AppButton({ label: 'Toast', type: AppButtonType.Secondary })
+        AppButton({
+          label: 'Toast',
+          type: AppButtonType.Secondary,
+          onClickAction: (): void => { AppToast.show('这是一条轻提示 Toast'); }
+        })
           .margin({ right: Token.space.xs, bottom: Token.space.xs })
-          .onClick((): void => { AppToast.show('这是一条轻提示 Toast'); })
 
-        AppButton({ label: 'BottomSheet', type: AppButtonType.Secondary })
+        AppButton({
+          label: 'BottomSheet',
+          type: AppButtonType.Secondary,
+          onClickAction: (): void => { this.sheetShown = true; }
+        })
           .margin({ right: Token.space.xs, bottom: Token.space.xs })
-          .onClick((): void => { this.sheetShown = true; })
 
-        // 系统菜单（原生 bindMenu）
+        // 系统菜单（原生 bindMenu；弹层密度由系统控制，触发器与同行按钮同规格随 compact 收紧）
         Text('Menu ▾')
           .fontSize(Token.font.label.size)
           .fontColor(Token.color.primary())
-          .height(40)
+          .height(Token.size.buttonMedium(this.compact))
           .padding({ left: Token.space.md, right: Token.space.md })
           .borderRadius(Token.radius.sm)
           .border({ width: 1, color: Token.color.outline() })
+          .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - this.triggerTouch()) / 2, width: '100%', height: this.triggerTouch() })
           .bindMenu([
             { value: '编辑', action: (): void => { AppToast.show('编辑'); } },
             { value: '分享', action: (): void => { AppToast.show('分享'); } },
@@ -78,8 +96,8 @@ export struct OverlaysSection {
         showClose: false
       })
 
-      // AppMenu 面板样式
-      SectionLabel({ text: 'Menu · 菜单面板样式' })
+      // AppMenu 面板样式（应用内菜单，随 compact 收紧）
+      SectionLabel({ text: 'Menu · 应用内菜单面板（随 compact 收紧）' })
       AppMenu({ items: this.menuItems })
         .margin({ bottom: Token.space.md })
 
