@@ -49,7 +49,7 @@ import {
   // 浮层 / 反馈
   AppDialog, AppMenu, AppMenuItem, AppSheet, AppPopover, AppToast,
   // 选择器
-  AppDatePicker, AppCalendar,
+  AppDatePicker, AppTimePicker, AppTimePickerMode, AppCalendar,
   // 状态页 / 占位
   StateView, StateKind, Skeleton
 } from '@riclava/designsystem';
@@ -63,7 +63,7 @@ import {
 - 滑块 → `AppSlider`；进度 → `AppProgress`（Linear/Ring）
 - 分段导航 → `AppTabs`；列表项 → `AppListItem`
 - 弹窗 → `AppDialog`；菜单 → `AppMenu`；底部面板 → `AppSheet`；气泡 → `AppPopover`；轻提示 → `AppToast.show(...)`
-- 日期 → `AppDatePicker`；日历 → `AppCalendar`
+- 日期 → `AppDatePicker`；时间 → `AppTimePicker`；日历 → `AppCalendar`
 - 空/错/加载 → `StateView`；加载占位 → `Skeleton`
 
 ## 密度 / Compact 模式

@@ -37,6 +37,7 @@ export { AppToast } from './src/main/ets/components/AppToast';
 
 // 选择器
 export { AppDatePicker } from './src/main/ets/components/AppDatePicker';
+export { AppTimePicker, AppTimePickerMode } from './src/main/ets/components/AppTimePicker';
 export { AppCalendar } from './src/main/ets/components/AppCalendar';
 
 // 状态页 / 占位

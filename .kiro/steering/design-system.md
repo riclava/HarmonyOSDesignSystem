@@ -36,7 +36,7 @@ Text('标题')
 - 表单：`AppTextField` `AppSearch` `AppSwitch` `AppCheckbox` `AppRadioGroup` `AppSlider` `AppProgress`
 - 导航/列表：`AppTabs` `AppListItem`
 - 浮层/反馈：`AppDialog` `AppMenu` `AppSheet` `AppPopover` `AppToast`
-- 选择器：`AppDatePicker` `AppCalendar`
+- 选择器：`AppDatePicker` `AppTimePicker` `AppCalendar`
 - 状态：`StateView` `Skeleton`
 
 ## 硬性约束

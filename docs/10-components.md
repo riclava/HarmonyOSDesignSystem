@@ -30,7 +30,7 @@ Popover · DatePicker · Calendar · Loading · Empty · Error · Skeleton
 | Tag / Badge | `AppTag` / `AppBadge` | Calendar | `AppCalendar` |
 | Tabs | `AppTabs` | Loading / Empty / Error | `StateView` |
 | BottomSheet | `AppSheet` | Skeleton | `Skeleton` |
-| Checkbox / Radio | `AppCheckbox` / `AppRadioGroup` | | |
+| Checkbox / Radio | `AppCheckbox` / `AppRadioGroup` | TimePicker | `AppTimePicker` |
 
 交互 / 容器类组件支持 **compact 紧凑密度**（收紧尺寸、内边距与字号/行高，命中区仍 ≥ 44）；
 详见 [16 Design Token](16-design-token.md)「密度 / Compact」小节。
