@@ -1,0 +1,124 @@
+import { Token } from '../designsystem/Tokens';
+import { common, ConfigurationConstant } from '@kit.AbilityKit';
+import { ColorSection } from '../sections/ColorSection';
+import { TypographySection } from '../sections/TypographySection';
+import { SpacingSection } from '../sections/SpacingSection';
+import { RadiusSection } from '../sections/RadiusSection';
+import { ShadowSection } from '../sections/ShadowSection';
+import { IconSection } from '../sections/IconSection';
+import { MotionSection } from '../sections/MotionSection';
+import { ComponentsSection } from '../sections/ComponentsSection';
+import { FormSection } from '../sections/FormSection';
+import { DataDisplaySection } from '../sections/DataDisplaySection';
+import { OverlaysSection } from '../sections/OverlaysSection';
+import { StatesSection } from '../sections/StatesSection';
+import { AdaptiveSection } from '../sections/AdaptiveSection';
+
+/** 可滚动页容器：统一内边距 + 关闭滚动条。内容通过 @BuilderParam 注入。 */
+@Component
+struct ScrollPage {
+  @StorageLink('isDark') isDark: boolean = false;
+  @BuilderParam content: () => void;
+
+  build() {
+    Scroll() {
+      Column() {
+        this.content()
+      }
+      .width('100%')
+      .padding({ left: Token.space.md, right: Token.space.md, top: Token.space.lg, bottom: Token.space.xxl })
+    }
+    .scrollBar(BarState.Off)
+    .align(Alignment.TopStart)
+    .layoutWeight(1)
+  }
+}
+
+@Entry
+@Component
+struct Index {
+  // 全局深浅色开关，写入 AppStorage 后所有 Token 联动刷新
+  @StorageLink('isDark') isDark: boolean = false;
+  @State activeTab: number = 0;
+
+  @Builder
+  TopBar() {
+    Row() {
+      Text('HarmonyOS Design System')
+        .fontSize(Token.font.titleLarge.size)
+        .fontWeight(Token.font.titleLarge.weight)
+        .fontColor(Token.color.onSurface())
+        .layoutWeight(1)
+      Text(this.isDark ? '🌙 Dark' : '☀️ Light')
+        .fontSize(Token.font.caption.size)
+        .fontColor(Token.color.onSurfaceVariant())
+        .margin({ right: Token.space.xs })
+      Toggle({ type: ToggleType.Switch, isOn: this.isDark })
+        .selectedColor(Token.color.primary())
+        .onChange((on: boolean) => {
+          this.isDark = on;
+          // 切换 App 级色彩模式，触发配置变更 → 全量重绘，令所有 Token 颜色重新求值
+          (getContext(this) as common.UIAbilityContext)
+            .getApplicationContext()
+            .setColorMode(on
+              ? ConfigurationConstant.ColorMode.COLOR_MODE_DARK
+              : ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
+        })
+    }
+    .width('100%')
+    .height(56)
+    .padding({ left: Token.space.md, right: Token.space.md })
+    .backgroundColor(Token.color.surface())
+  }
+
+  @Builder
+  Foundation() {
+    ScrollPage() {
+      ColorSection()
+      TypographySection()
+      SpacingSection()
+      RadiusSection()
+      ShadowSection()
+      IconSection()
+      MotionSection()
+    }
+  }
+
+  @Builder
+  Components() {
+    ScrollPage() {
+      ComponentsSection()
+      FormSection()
+      DataDisplaySection()
+    }
+  }
+
+  build() {
+    Column() {
+      this.TopBar()
+      Tabs({ index: this.activeTab }) {
+        TabContent() { this.Foundation() }.tabBar(this.tabItem('Foundation', 0))
+        TabContent() { this.Components() }.tabBar(this.tabItem('Components', 1))
+        TabContent() { ScrollPage() { OverlaysSection() } }.tabBar(this.tabItem('Overlays', 2))
+        TabContent() { ScrollPage() { StatesSection() } }.tabBar(this.tabItem('States', 3))
+        TabContent() { ScrollPage() { AdaptiveSection() } }.tabBar(this.tabItem('Adaptive', 4))
+      }
+      .barPosition(BarPosition.Start)
+      .barMode(BarMode.Scrollable)
+      .onChange((i: number) => { this.activeTab = i; })
+      .layoutWeight(1)
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(Token.color.background())
+  }
+
+  @Builder
+  tabItem(label: string, index: number) {
+    Text(label)
+      .fontSize(Token.font.label.size)
+      .fontWeight(this.activeTab === index ? Token.font.label.weight : 400)
+      .fontColor(this.activeTab === index ? Token.color.primary() : Token.color.onSurfaceVariant())
+      .padding(Token.space.sm)
+  }
+}

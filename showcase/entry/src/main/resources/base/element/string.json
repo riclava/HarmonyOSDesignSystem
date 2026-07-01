@@ -1,0 +1,7 @@
+{
+  "string": [
+    { "name": "app_name", "value": "Design System" },
+    { "name": "module_desc", "value": "Design System showcase entry module" },
+    { "name": "ability_desc", "value": "Design System showcase ability" }
+  ]
+}

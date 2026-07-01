@@ -1,0 +1,9 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Showcase entry module",
+  "main": "",
+  "author": "riclava",
+  "license": "MIT",
+  "dependencies": {}
+}

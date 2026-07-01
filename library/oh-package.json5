@@ -1,0 +1,9 @@
+{
+  "name": "@riclava/designsystem",
+  "version": "1.0.0",
+  "description": "HarmonyOS Design System — shared tokens & components (HAR)",
+  "main": "Index.ets",
+  "author": "riclava",
+  "license": "MIT",
+  "dependencies": {}
+}

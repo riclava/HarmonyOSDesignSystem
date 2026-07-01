@@ -1,0 +1,20 @@
+{
+  "color": [
+    { "name": "ds_primary", "value": "#2979FF" },
+    { "name": "ds_primary_container", "value": "#D6E4FF" },
+    { "name": "ds_on_primary", "value": "#FFFFFF" },
+    { "name": "ds_secondary", "value": "#00C48C" },
+    { "name": "ds_secondary_container", "value": "#C8F5E7" },
+    { "name": "ds_success", "value": "#34C759" },
+    { "name": "ds_warning", "value": "#FF9F0A" },
+    { "name": "ds_danger", "value": "#FF3B30" },
+    { "name": "ds_info", "value": "#0A84FF" },
+    { "name": "ds_surface", "value": "#FFFFFF" },
+    { "name": "ds_background", "value": "#F6F6F6" },
+    { "name": "ds_on_surface", "value": "#1A1A1A" },
+    { "name": "ds_on_surface_variant", "value": "#666666" },
+    { "name": "ds_outline", "value": "#E0E0E0" },
+    { "name": "ds_divider", "value": "#EEEEEE" },
+    { "name": "ds_mask", "value": "#73000000" }
+  ]
+}

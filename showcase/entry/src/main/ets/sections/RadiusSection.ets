@@ -1,0 +1,44 @@
+import { Token } from '../designsystem/Tokens';
+import { SectionLabel } from './Widgets';
+
+interface RadiusItem { name: string; value: number; }
+
+@Component
+export struct RadiusSection {
+  @StorageLink('isDark') isDark: boolean = false;
+
+  private items(): RadiusItem[] {
+    const r = Token.radius;
+    return [
+      { name: 'xs', value: r.xs }, { name: 'sm', value: r.sm },
+      { name: 'md', value: r.md }, { name: 'lg', value: r.lg },
+      { name: 'xl', value: r.xl }, { name: 'full', value: r.full },
+    ];
+  }
+
+  build() {
+    Column() {
+      SectionLabel({ text: 'Radius · 圆角' })
+      Flex({ wrap: FlexWrap.Wrap }) {
+        ForEach(this.items(), (item: RadiusItem) => {
+          Column() {
+            Column()
+              .width(56)
+              .height(56)
+              .backgroundColor(Token.color.primaryContainer())
+              .borderRadius(item.value === Token.radius.full ? 28 : item.value)
+              .border({ width: 1, color: Token.color.primary() })
+            Text(item.name)
+              .fontSize(Token.font.caption.size)
+              .fontColor(Token.color.onSurfaceVariant())
+              .margin({ top: Token.space.xxs })
+          }
+          .margin({ right: Token.space.md, bottom: Token.space.sm })
+        })
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .margin({ bottom: Token.space.lg })
+  }
+}
