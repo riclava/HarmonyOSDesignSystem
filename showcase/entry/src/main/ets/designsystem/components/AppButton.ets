@@ -3,14 +3,19 @@ import { Token } from '../Tokens';
 export enum AppButtonType { Primary, Secondary, Text, Danger }
 export enum AppButtonSize { Large, Medium, Small }
 
+/**
+ * 按钮：Primary / Secondary / Text / Danger 四型，Large / Medium / Small 三档。
+ * 支持 loading（显示指示器并禁用点击）与 Pressed 缩放动画（0.98, Instant）。
+ */
 @Component
 export struct AppButton {
   @Prop label: string;
   @Prop type: AppButtonType = AppButtonType.Primary;
   @Prop btnSize: AppButtonSize = AppButtonSize.Medium;
   @Prop disabled: boolean = false;
-  // 保证深浅色切换时重绘
+  @Prop loading: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @State private pressed: boolean = false;
   onClickAction?: () => void;
 
   private btnHeight(): number {
@@ -29,9 +34,17 @@ export struct AppButton {
     }
   }
 
+  private labelSize(): number {
+    return this.btnSize === AppButtonSize.Small ? Token.font.bodySmall.size : Token.font.label.size;
+  }
+
   private bgColor(): ResourceColor {
-    if (this.type === AppButtonType.Primary) return Token.color.primary();
-    if (this.type === AppButtonType.Danger) return Token.color.danger();
+    if (this.type === AppButtonType.Primary) {
+      return Token.color.primary();
+    }
+    if (this.type === AppButtonType.Danger) {
+      return Token.color.danger();
+    }
     return Token.color.transparent();
   }
 
@@ -42,23 +55,48 @@ export struct AppButton {
     return Token.color.primary();
   }
 
+  private interactive(): boolean {
+    return !this.disabled && !this.loading;
+  }
+
   build() {
-    Text(this.label)
-      .fontSize(Token.font.label.size)
-      .fontWeight(Token.font.label.weight)
-      .fontColor(this.fgColor())
-      .textAlign(TextAlign.Center)
-      .height(this.btnHeight())
-      .padding({ left: this.hPadding(), right: this.hPadding() })
-      .backgroundColor(this.bgColor())
-      .borderRadius(Token.radius.sm)
-      .border(
-        this.type === AppButtonType.Secondary
-          ? { width: 1, color: Token.color.outline() }
-          : { width: 0 }
-      )
-      .opacity(this.disabled ? 0.38 : 1)
-      .enabled(!this.disabled)
-      .onClick(() => { if (!this.disabled && this.onClickAction) this.onClickAction(); })
+    Row() {
+      if (this.loading) {
+        LoadingProgress()
+          .width(Token.icon.sm)
+          .height(Token.icon.sm)
+          .color(this.fgColor())
+          .margin({ right: Token.space.xs })
+      }
+      Text(this.label)
+        .fontSize(this.labelSize())
+        .fontWeight(Token.font.label.weight)
+        .fontColor(this.fgColor())
+        .textAlign(TextAlign.Center)
+    }
+    .justifyContent(FlexAlign.Center)
+    .height(this.btnHeight())
+    .padding({ left: this.hPadding(), right: this.hPadding() })
+    .backgroundColor(this.bgColor())
+    .borderRadius(this.btnSize === AppButtonSize.Small ? Token.radius.xs : Token.radius.sm)
+    .border(this.type === AppButtonType.Secondary
+      ? { width: 1, color: Token.color.outline() }
+      : { width: 0 })
+    .opacity(this.interactive() ? 1 : 0.38)
+    .scale(this.pressed ? { x: 0.98, y: 0.98 } : { x: 1, y: 1 })
+    .animation({ duration: Token.motion.instant, curve: Token.motion.easeStandard })
+    .enabled(this.interactive())
+    .onTouch((event: TouchEvent) => {
+      if (event.type === TouchType.Down) {
+        this.pressed = true;
+      } else if (event.type === TouchType.Up || event.type === TouchType.Cancel) {
+        this.pressed = false;
+      }
+    })
+    .onClick(() => {
+      if (this.interactive() && this.onClickAction) {
+        this.onClickAction();
+      }
+    })
   }
 }

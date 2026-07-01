@@ -3,13 +3,12 @@ import { SectionLabel } from './Widgets';
 import { AppButton, AppButtonType, AppButtonSize } from '../designsystem/components/AppButton';
 import { AppCard } from '../designsystem/components/AppCard';
 import { AppTag, AppTagTone } from '../designsystem/components/AppTag';
+import { AppToast } from '../designsystem/components/AppToast';
 
 @Component
 export struct ComponentsSection {
   @StorageLink('isDark') isDark: boolean = false;
-  @State switchOn: boolean = true;
-  @State sliderVal: number = 40;
-  @State inputText: string = '';
+  @State loading: boolean = false;
 
   build() {
     Column() {
@@ -32,6 +31,19 @@ export struct ComponentsSection {
       .width('100%')
       .margin({ bottom: Token.space.md })
 
+      // Loading button
+      SectionLabel({ text: 'Button · Loading' })
+      AppButton({
+        label: this.loading ? '提交中' : '点击提交',
+        type: AppButtonType.Primary,
+        loading: this.loading,
+        onClickAction: (): void => {
+          this.loading = true;
+          setTimeout((): void => { this.loading = false; }, 1500);
+        }
+      })
+        .margin({ bottom: Token.space.md })
+
       // Tags
       SectionLabel({ text: 'Tag · 标签' })
       Flex({ wrap: FlexWrap.Wrap }) {
@@ -44,15 +56,18 @@ export struct ComponentsSection {
       .width('100%')
       .margin({ bottom: Token.space.md })
 
-      // Card
-      SectionLabel({ text: 'Card · 卡片' })
+      // Card（可点击）
+      SectionLabel({ text: 'Card · 卡片（可点击）' })
       Column() {
-        AppCard() {
+        AppCard({
+          clickable: true,
+          onCardClick: (): void => { AppToast.show('卡片被点击'); }
+        }) {
           Text('卡片标题')
             .fontSize(Token.font.titleMedium.size)
             .fontWeight(Token.font.titleMedium.weight)
             .fontColor(Token.color.onSurface())
-          Text('使用 Surface 底色、Level1 阴影、RadiusMD 圆角与 MD 内边距。')
+          Text('整卡可点，按下时阴影升至 Level2。使用 Surface 底色、RadiusMD 圆角与 MD 内边距。')
             .fontSize(Token.font.bodySmall.size)
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ top: Token.space.xxs })
@@ -60,44 +75,6 @@ export struct ComponentsSection {
       }
       .width('100%')
       .margin({ bottom: Token.space.md })
-
-      // TextField
-      SectionLabel({ text: 'TextField · 输入框' })
-      TextInput({ placeholder: '请输入内容', text: this.inputText })
-        .fontSize(Token.font.body.size)
-        .fontColor(Token.color.onSurface())
-        .placeholderColor(Token.color.onSurfaceVariant())
-        .backgroundColor(Token.color.surface())
-        .height(48)
-        .borderRadius(Token.radius.sm)
-        .border({ width: 1, color: Token.color.outline() })
-        .padding({ left: Token.space.md, right: Token.space.md })
-        .onChange((v: string) => { this.inputText = v; })
-        .margin({ bottom: Token.space.md })
-
-      // Switch + Slider + Progress
-      SectionLabel({ text: 'Switch · Slider · Progress' })
-      Row() {
-        Toggle({ type: ToggleType.Switch, isOn: this.switchOn })
-          .selectedColor(Token.color.primary())
-          .onChange((on: boolean) => { this.switchOn = on; })
-        Text(this.switchOn ? 'On' : 'Off')
-          .fontSize(Token.font.bodySmall.size)
-          .fontColor(Token.color.onSurfaceVariant())
-          .margin({ left: Token.space.xs })
-      }
-      .width('100%')
-      .margin({ bottom: Token.space.xs })
-
-      Slider({ value: this.sliderVal, min: 0, max: 100 })
-        .selectedColor(Token.color.primary())
-        .trackColor(Token.color.outline())
-        .onChange((v: number) => { this.sliderVal = v; })
-
-      Progress({ value: this.sliderVal, total: 100, type: ProgressType.Linear })
-        .color(Token.color.primary())
-        .backgroundColor(Token.color.outline())
-        .margin({ top: Token.space.xs })
     }
     .width('100%')
     .margin({ bottom: Token.space.lg })

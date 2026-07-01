@@ -36,15 +36,33 @@ Text('Hi')
 优先使用现成组件，不要重复造样式：
 
 ```ts
-import { AppButton, AppButtonType, AppCard, AppTag, AppTagTone,
-         AppBadge, AppAvatar, AppDialog, StateView, StateKind, Skeleton
+import {
+  // 基础
+  AppButton, AppButtonType, AppButtonSize, AppCard, AppTag, AppTagTone,
+  AppBadge, AppAvatar, AppAvatarShape,
+  // 表单
+  AppTextField, AppSearch, AppSwitch, AppCheckbox, AppRadioGroup, AppRadioOption,
+  AppSlider, AppProgress, AppProgressKind,
+  // 导航 / 列表
+  AppTabs, AppListItem,
+  // 浮层 / 反馈
+  AppDialog, AppMenu, AppMenuItem, AppSheet, AppPopover, AppToast,
+  // 选择器
+  AppDatePicker, AppCalendar,
+  // 状态页 / 占位
+  StateView, StateKind, Skeleton
 } from '@riclava/designsystem';
 ```
 
-- 需要按钮 → `AppButton`（type: Primary/Secondary/Text/Danger）
-- 需要容器 → `AppCard`
-- 需要标签 → `AppTag`；数字/圆点 → `AppBadge`；头像 → `AppAvatar`
-- 需要弹窗 → `AppDialog`（配合 `CustomDialogController`）
+- 按钮 → `AppButton`（type: Primary/Secondary/Text/Danger；支持 `loading`）
+- 容器 → `AppCard`（`clickable` 可点）
+- 标签 → `AppTag`；数字/圆点 → `AppBadge`；头像 → `AppAvatar`
+- 输入 → `AppTextField`；搜索 → `AppSearch`
+- 开关 → `AppSwitch`；复选 → `AppCheckbox`；单选 → `AppRadioGroup`
+- 滑块 → `AppSlider`；进度 → `AppProgress`（Linear/Ring）
+- 分段导航 → `AppTabs`；列表项 → `AppListItem`
+- 弹窗 → `AppDialog`；菜单 → `AppMenu`；底部面板 → `AppSheet`；气泡 → `AppPopover`；轻提示 → `AppToast.show(...)`
+- 日期 → `AppDatePicker`；日历 → `AppCalendar`
 - 空/错/加载 → `StateView`；加载占位 → `Skeleton`
 
 ## 强制约束

@@ -2,6 +2,7 @@ import { Token } from '../designsystem/Tokens';
 import { SectionLabel } from './Widgets';
 import { AppAvatar, AppAvatarShape } from '../designsystem/components/AppAvatar';
 import { AppBadge } from '../designsystem/components/AppBadge';
+import { AppProgress, AppProgressKind } from '../designsystem/components/AppProgress';
 
 @Component
 export struct DataDisplaySection {
@@ -46,18 +47,14 @@ export struct DataDisplaySection {
       .width('100%')
       .margin({ bottom: Token.space.md })
 
-      // Circular progress
-      SectionLabel({ text: 'Progress · 环形进度' })
+      // Progress
+      SectionLabel({ text: 'Progress · 进度' })
+      AppProgress({ value: 60, total: 100, kind: AppProgressKind.Linear })
+        .margin({ bottom: Token.space.md })
       Row() {
-        Progress({ value: 30, total: 100, type: ProgressType.Ring })
-          .color(Token.color.primary())
-          .backgroundColor(Token.color.outline())
-          .width(56).height(56)
+        AppProgress({ value: 30, total: 100, kind: AppProgressKind.Ring })
           .margin({ right: Token.space.lg })
-        Progress({ value: 70, total: 100, type: ProgressType.Ring })
-          .color(Token.color.success())
-          .backgroundColor(Token.color.outline())
-          .width(56).height(56)
+        AppProgress({ value: 70, total: 100, kind: AppProgressKind.Ring })
           .margin({ right: Token.space.lg })
         LoadingProgress()
           .width(40).height(40)

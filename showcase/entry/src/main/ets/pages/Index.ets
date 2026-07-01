@@ -13,6 +13,8 @@ import { DataDisplaySection } from '../sections/DataDisplaySection';
 import { OverlaysSection } from '../sections/OverlaysSection';
 import { StatesSection } from '../sections/StatesSection';
 import { AdaptiveSection } from '../sections/AdaptiveSection';
+import { NavigationSection } from '../sections/NavigationSection';
+import { PickersSection } from '../sections/PickersSection';
 
 /** 可滚动页容器：统一内边距 + 关闭滚动条。内容通过 @BuilderParam 注入。 */
 @Component
@@ -58,8 +60,8 @@ struct Index {
         .onChange((on: boolean) => {
           this.isDark = on;
           // 切换 App 级色彩模式，触发配置变更 → 全量重绘，令所有 Token 颜色重新求值
-          (getContext(this) as common.UIAbilityContext)
-            .getApplicationContext()
+          const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
+          ctx.getApplicationContext()
             .setColorMode(on
               ? ConfigurationConstant.ColorMode.COLOR_MODE_DARK
               : ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
@@ -90,6 +92,7 @@ struct Index {
       ComponentsSection()
       FormSection()
       DataDisplaySection()
+      NavigationSection()
     }
   }
 
@@ -100,8 +103,9 @@ struct Index {
         TabContent() { this.Foundation() }.tabBar(this.tabItem('Foundation', 0))
         TabContent() { this.Components() }.tabBar(this.tabItem('Components', 1))
         TabContent() { ScrollPage() { OverlaysSection() } }.tabBar(this.tabItem('Overlays', 2))
-        TabContent() { ScrollPage() { StatesSection() } }.tabBar(this.tabItem('States', 3))
-        TabContent() { ScrollPage() { AdaptiveSection() } }.tabBar(this.tabItem('Adaptive', 4))
+        TabContent() { ScrollPage() { PickersSection() } }.tabBar(this.tabItem('Pickers', 3))
+        TabContent() { ScrollPage() { StatesSection() } }.tabBar(this.tabItem('States', 4))
+        TabContent() { ScrollPage() { AdaptiveSection() } }.tabBar(this.tabItem('Adaptive', 5))
       }
       .barPosition(BarPosition.Start)
       .barMode(BarMode.Scrollable)

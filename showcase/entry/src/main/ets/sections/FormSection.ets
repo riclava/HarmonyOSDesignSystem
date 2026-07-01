@@ -1,75 +1,83 @@
 import { Token } from '../designsystem/Tokens';
 import { SectionLabel } from './Widgets';
+import { AppTextField } from '../designsystem/components/AppTextField';
+import { AppSearch } from '../designsystem/components/AppSearch';
+import { AppCheckbox } from '../designsystem/components/AppCheckbox';
+import { AppSwitch } from '../designsystem/components/AppSwitch';
+import { AppSlider } from '../designsystem/components/AppSlider';
+import { AppRadioGroup, AppRadioOption } from '../designsystem/components/AppRadioGroup';
 
 @Component
 export struct FormSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @State name: string = '';
   @State search: string = '';
   @State agree: boolean = true;
+  @State notify: boolean = true;
+  @State volume: number = 40;
   @State plan: string = 'monthly';
+
+  private planOptions: AppRadioOption[] = [
+    new AppRadioOption('按月', 'monthly'),
+    new AppRadioOption('按年', 'yearly')
+  ];
 
   build() {
     Column() {
-      // Search
+      SectionLabel({ text: 'TextField · 输入框' })
+      AppTextField({
+        label: '昵称',
+        text: this.name,
+        placeholder: '请输入昵称',
+        helper: '2~16 个字符',
+        onTextChange: (v: string): void => { this.name = v; }
+      })
+      AppTextField({
+        label: '邮箱',
+        placeholder: 'name@example.com',
+        error: '邮箱格式不正确'
+      })
+        .margin({ top: Token.space.md })
+      AppTextField({ label: '禁用态', text: '不可编辑', fieldDisabled: true })
+        .margin({ top: Token.space.md, bottom: Token.space.md })
+
       SectionLabel({ text: 'Search · 搜索框' })
-      Row() {
-        Text('🔍')
-          .fontSize(Token.font.bodySmall.size)
-          .margin({ right: Token.space.xs })
-        TextInput({ placeholder: '搜索…', text: this.search })
-          .fontSize(Token.font.body.size)
-          .fontColor(Token.color.onSurface())
-          .placeholderColor(Token.color.onSurfaceVariant())
-          .backgroundColor(Token.color.transparent())
-          .borderRadius(0)
-          .padding(0)
-          .layoutWeight(1)
-          .onChange((v: string) => { this.search = v; })
-      }
-      .width('100%')
-      .height(40)
-      .padding({ left: Token.space.md, right: Token.space.md })
-      .backgroundColor(Token.color.surface())
-      .borderRadius(Token.radius.full)
-      .border({ width: 1, color: Token.color.outline() })
-      .margin({ bottom: Token.space.md })
+      AppSearch({
+        text: this.search,
+        placeholder: '搜索组件…',
+        onTextChange: (v: string): void => { this.search = v; }
+      })
+        .margin({ bottom: Token.space.md })
 
-      // Checkbox
       SectionLabel({ text: 'Checkbox · 复选框' })
-      Row() {
-        Checkbox()
-          .select(this.agree)
-          .selectedColor(Token.color.primary())
-          .onChange((v: boolean) => { this.agree = v; })
-        Text('我已阅读并同意用户协议')
-          .fontSize(Token.font.body.size)
-          .fontColor(Token.color.onSurface())
-          .margin({ left: Token.space.xs })
-      }
-      .width('100%')
-      .margin({ bottom: Token.space.md })
+      AppCheckbox({
+        label: '我已阅读并同意用户协议',
+        checked: this.agree,
+        onCheck: (v: boolean): void => { this.agree = v; }
+      })
 
-      // Radio group
       SectionLabel({ text: 'Radio · 单选框' })
-      Row() {
-        Radio({ value: 'monthly', group: 'plan' })
-          .checked(this.plan === 'monthly')
-          .radioStyle({ checkedBackgroundColor: Token.color.primary() })
-          .onChange((c: boolean) => { if (c) this.plan = 'monthly'; })
-        Text('按月')
-          .fontSize(Token.font.body.size)
-          .fontColor(Token.color.onSurface())
-          .margin({ right: Token.space.lg, left: Token.space.xxs })
-        Radio({ value: 'yearly', group: 'plan' })
-          .checked(this.plan === 'yearly')
-          .radioStyle({ checkedBackgroundColor: Token.color.primary() })
-          .onChange((c: boolean) => { if (c) this.plan = 'yearly'; })
-        Text('按年')
-          .fontSize(Token.font.body.size)
-          .fontColor(Token.color.onSurface())
-          .margin({ left: Token.space.xxs })
-      }
-      .width('100%')
+      AppRadioGroup({
+        options: this.planOptions,
+        selected: this.plan,
+        groupName: 'plan',
+        onSelect: (v: string): void => { this.plan = v; }
+      })
+
+      SectionLabel({ text: 'Switch · 开关' })
+      AppSwitch({
+        label: '接收推送通知',
+        isOn: this.notify,
+        onToggle: (v: boolean): void => { this.notify = v; }
+      })
+      AppSwitch({ label: '禁用态', isOn: true, switchDisabled: true })
+
+      SectionLabel({ text: 'Slider · 滑块' })
+      AppSlider({
+        value: this.volume,
+        showValue: true,
+        onValueChange: (v: number): void => { this.volume = v; }
+      })
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')

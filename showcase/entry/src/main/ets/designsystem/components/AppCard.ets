@@ -1,13 +1,20 @@
 import { Token } from '../Tokens';
 
 /**
- * 通用卡片容器：Surface 底色 + Level1 阴影 + RadiusMD 圆角 + MD 内边距。
- * 用法：AppCard() { 子内容 }
+ * 通用卡片：Surface 底色 + Level1 阴影 + RadiusMD 圆角 + MD 内边距。
+ * clickable=true 时整卡可点，Pressed 升至 Level2。
  */
 @Component
 export struct AppCard {
+  @Prop clickable: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @State private pressed: boolean = false;
   @BuilderParam content: () => void;
+  onCardClick?: () => void;
+
+  private raised(): boolean {
+    return this.clickable && this.pressed;
+  }
 
   build() {
     Column() {
@@ -18,11 +25,34 @@ export struct AppCard {
     .padding(Token.space.md)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
-    .shadow({
-      radius: Token.shadow.level1.radius,
-      color: Token.shadow.level1.color,
-      offsetX: Token.shadow.level1.offsetX,
-      offsetY: Token.shadow.level1.offsetY
+    .shadow(this.raised()
+      ? {
+          radius: Token.shadow.level2.radius,
+          color: Token.shadow.level2.color,
+          offsetX: Token.shadow.level2.offsetX,
+          offsetY: Token.shadow.level2.offsetY
+        }
+      : {
+          radius: Token.shadow.level1.radius,
+          color: Token.shadow.level1.color,
+          offsetX: Token.shadow.level1.offsetX,
+          offsetY: Token.shadow.level1.offsetY
+        })
+    .animation({ duration: Token.motion.fast, curve: Token.motion.easeStandard })
+    .onTouch((event: TouchEvent) => {
+      if (!this.clickable) {
+        return;
+      }
+      if (event.type === TouchType.Down) {
+        this.pressed = true;
+      } else if (event.type === TouchType.Up || event.type === TouchType.Cancel) {
+        this.pressed = false;
+      }
+    })
+    .onClick(() => {
+      if (this.clickable && this.onCardClick) {
+        this.onCardClick();
+      }
     })
   }
 }
