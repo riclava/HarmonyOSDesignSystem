@@ -97,9 +97,3 @@ CI 见 [.github/workflows/ci.yml](.github/workflows/ci.yml)。贡献流程见 [C
 1. 阅读 [01 Design Principles](docs/01-design-principles.md) 理解原则。
 2. 所有取值都在 [16 Design Token](docs/16-design-token.md) 中定义。
 3. 开发时遵循 [17 Coding Specification](docs/17-coding-specification.md)，只引用 Token。
-
-## 版本
-
-- 版本：`1.0.0`
-- 命名：可将本系统命名为你自己的体系（例如 `AnyOS Design System`）。
-- 维护：Token 变更遵循语义化版本；破坏性变更升主版本号。
