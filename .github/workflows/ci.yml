@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality-gates:
+    name: Token & code quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Hard gate: generated Tokens.ets / color.json must match tokens/design-tokens.json.
+      - name: Token sync check
+        run: npm run tokens:check
+
+      # Hard gate: WCAG contrast (text pairs >= 4.5, status indicators >= 3.0).
+      - name: Contrast check
+        run: npm run contrast:check
+
+      # Hard gate: no hardcoded colors / fonts / spacing / radius in ArkUI code.
+      - name: Hardcode guard
+        run: npm run lint:hardcode
+
+      # Hard gate: icon buttons must expose an accessibility label.
+      - name: Accessibility guard
+        run: npm run lint:a11y
+
+      # Hard gate: generated API / token docs must be regenerated from source.
+      - name: Docs sync check
+        run: npm run docs:check
+
+      # Hard gate: tooling unit tests.
+      - name: Unit tests
+        run: npm test
