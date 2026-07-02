@@ -2,7 +2,7 @@
   "color": [
     {
       "name": "ds_primary",
-      "value": "#2979FF"
+      "value": "#126AFF"
     },
     {
       "name": "ds_primary_container",
@@ -22,19 +22,19 @@
     },
     {
       "name": "ds_success",
-      "value": "#34C759"
+      "value": "#2CA74B"
     },
     {
       "name": "ds_warning",
-      "value": "#FF9F0A"
+      "value": "#D17F00"
     },
     {
       "name": "ds_danger",
-      "value": "#FF3B30"
+      "value": "#EA0C00"
     },
     {
       "name": "ds_info",
-      "value": "#0A84FF"
+      "value": "#0072E5"
     },
     {
       "name": "ds_surface",

@@ -6,15 +6,15 @@
 
 | Token | 含义 | Light | Dark |
 | --- | --- | --- | --- |
-| `Token.color.primary()` | 主色，品牌与主行动 | `#2979FF` | `#6EA8FF` |
+| `Token.color.primary()` | 主色，品牌与主行动 | `#126AFF` | `#6EA8FF` |
 | `Token.color.primaryContainer()` | 主色容器（浅底） | `#D6E4FF` | `#00429A` |
 | `Token.color.onPrimary()` | 主色上的文字/图标 | `#FFFFFF` | `#00285C` |
 | `Token.color.secondary()` | 次要强调色 | `#00C48C` | `#4FE0B5` |
 | `Token.color.secondaryContainer()` | 次色容器 | `#C8F5E7` | `#00513A` |
-| `Token.color.success()` | 成功 | `#34C759` | `#4ADE80` |
-| `Token.color.warning()` | 警告 | `#FF9F0A` | `#FBBF24` |
-| `Token.color.danger()` | 危险 / 错误 | `#FF3B30` | `#FF6B6B` |
-| `Token.color.info()` | 信息提示 | `#0A84FF` | `#64B5FF` |
+| `Token.color.success()` | 成功 | `#2CA74B` | `#4ADE80` |
+| `Token.color.warning()` | 警告 | `#D17F00` | `#FBBF24` |
+| `Token.color.danger()` | 危险 / 错误 | `#EA0C00` | `#FF6B6B` |
+| `Token.color.info()` | 信息提示 | `#0072E5` | `#64B5FF` |
 | `Token.color.surface()` | 卡片 / 面板底色 | `#FFFFFF` | `#1E1E1E` |
 | `Token.color.background()` | 页面背景 | `#F6F6F6` | `#000000` |
 | `Token.color.onSurface()` | 主文字 | `#1A1A1A` | `#F5F5F5` |
@@ -30,6 +30,7 @@
 
 - **只用语义 Token**，禁止在业务代码中写 `#RRGGBB`。
 - 文字与背景对比度需满足 [无障碍](13-accessibility.md) 要求（正文 ≥ 4.5:1）。
+- Light 值已按 WCAG 调校：`primary / danger / info` 与白色达 ≥ 4.5（可作正文/按钮文字）；`success / warning` 作为状态指示（图标/边框/状态点）达 ≥ 3.0（WCAG 1.4.11 非文本）。生成时由 `node tools/design-system.mjs check --strict-contrast` 校验，CI 硬门禁。
 - `Container` 系列用于浅色填充背景，`On*` 系列用于其上的内容。
 - 状态色（Success / Warning / Danger / Info）仅用于反馈，不用于装饰。
 

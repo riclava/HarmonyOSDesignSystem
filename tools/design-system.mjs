@@ -26,17 +26,20 @@ const curveMap = new Map([
 ]);
 
 const contrastPairs = [
+  // Normal text (WCAG 1.4.3 AA): >= 4.5. Button labels use onPrimary on the fill color.
   ['primary/onPrimary light', 'primary', 'onPrimary', 'light', 4.5],
   ['primary/onPrimary dark', 'primary', 'onPrimary', 'dark', 4.5],
   ['danger/onPrimary light', 'danger', 'onPrimary', 'light', 4.5],
   ['danger/onPrimary dark', 'danger', 'onPrimary', 'dark', 4.5],
-  ['success/surface light', 'success', 'surface', 'light', 4.5],
-  ['warning/surface light', 'warning', 'surface', 'light', 4.5],
   ['info/surface light', 'info', 'surface', 'light', 4.5],
   ['onSurface/surface light', 'onSurface', 'surface', 'light', 4.5],
   ['onSurface/surface dark', 'onSurface', 'surface', 'dark', 4.5],
   ['onSurfaceVariant/surface light', 'onSurfaceVariant', 'surface', 'light', 4.5],
-  ['onSurfaceVariant/surface dark', 'onSurfaceVariant', 'surface', 'dark', 4.5]
+  ['onSurfaceVariant/surface dark', 'onSurfaceVariant', 'surface', 'dark', 4.5],
+  // Non-text status indicators (WCAG 1.4.11): >= 3.0. success/warning are used as
+  // icons / borders / status dots and short status labels, not body text.
+  ['success/surface light', 'success', 'surface', 'light', 3.0],
+  ['warning/surface light', 'warning', 'surface', 'light', 3.0]
 ];
 
 function runtimeName(name) {

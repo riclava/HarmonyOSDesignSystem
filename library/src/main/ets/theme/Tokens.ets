@@ -49,15 +49,15 @@ function pick(pair: ColorPair): ResourceColor {
 
 /** ---------- Color ---------- */
 class ColorTokens {
-  primary(): ResourceColor { return pick(new ColorPair('#2979FF', '#6EA8FF')); }
+  primary(): ResourceColor { return pick(new ColorPair('#126AFF', '#6EA8FF')); }
   primaryContainer(): ResourceColor { return pick(new ColorPair('#D6E4FF', '#00429A')); }
   onPrimary(): ResourceColor { return pick(new ColorPair('#FFFFFF', '#00285C')); }
   secondary(): ResourceColor { return pick(new ColorPair('#00C48C', '#4FE0B5')); }
   secondaryContainer(): ResourceColor { return pick(new ColorPair('#C8F5E7', '#00513A')); }
-  success(): ResourceColor { return pick(new ColorPair('#34C759', '#4ADE80')); }
-  warning(): ResourceColor { return pick(new ColorPair('#FF9F0A', '#FBBF24')); }
-  danger(): ResourceColor { return pick(new ColorPair('#FF3B30', '#FF6B6B')); }
-  info(): ResourceColor { return pick(new ColorPair('#0A84FF', '#64B5FF')); }
+  success(): ResourceColor { return pick(new ColorPair('#2CA74B', '#4ADE80')); }
+  warning(): ResourceColor { return pick(new ColorPair('#D17F00', '#FBBF24')); }
+  danger(): ResourceColor { return pick(new ColorPair('#EA0C00', '#FF6B6B')); }
+  info(): ResourceColor { return pick(new ColorPair('#0072E5', '#64B5FF')); }
   surface(): ResourceColor { return pick(new ColorPair('#FFFFFF', '#1E1E1E')); }
   background(): ResourceColor { return pick(new ColorPair('#F6F6F6', '#000000')); }
   onSurface(): ResourceColor { return pick(new ColorPair('#1A1A1A', '#F5F5F5')); }

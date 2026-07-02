@@ -11,6 +11,7 @@ import {
   resourceName,
   runtimeName,
   contrast,
+  validateContrast,
   renderRuntime,
   renderColorResources
 } from './design-system.mjs';
@@ -78,4 +79,9 @@ test('generated dark color.json is in sync', () => {
   const onDisk = fs.readFileSync(
     path.join(root, 'library/src/main/resources/dark/element/color.json'), 'utf8');
   assert.equal(onDisk, renderColorResources('dark'));
+});
+
+test('all token color pairs meet their WCAG contrast thresholds', () => {
+  const failures = validateContrast();
+  assert.deepEqual(failures, [], failures.join('; '));
 });

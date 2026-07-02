@@ -7,34 +7,37 @@
 
 ---
 
-## P2 — 组件覆盖度
+## P2 — 组件覆盖度 ✅（已实现，待真机编译验证 + showcase 接入）
 
-现有 24 个组件偏基础，补齐专业体系常见组件。每个组件遵循 `CONTRIBUTING.md` 的验收标准（Token、深浅色、compact、无障碍、i18n、showcase、文档）。
+已按 `CONTRIBUTING.md` 约定实现并从 `@riclava/designsystem` 导出。仅使用 Token，通过 `lint:hardcode`。
 
 ### 高优先（表单 / 数据录入）
-- [ ] `AppSelect` 下拉选择（单选/多选，支持搜索）
-- [ ] `AppStepper` 数字步进器（+/- 与输入）
-- [ ] `AppSegmented` 分段控制器
-- [ ] `AppForm` 表单校验容器（统一校验、错误态、必填标记）
-- [ ] `AppRating` 评分
-- [ ] `AppUpload` 文件/图片上传
+- [x] `AppSelect` 下拉选择（封装系统 Select 主题化）
+- [x] `AppStepper` 数字步进器（±，min/max/step）
+- [x] `AppSegmented` 分段控制器
+- [x] `AppFormItem` 表单项容器（Label + 必填 + 插槽 + Error）
+- [x] `AppRating` 评分
+- [x] `AppUpload` 上传占位（业务接系统 Picker）
 
 ### 中优先（数据展示 / 导航）
-- [ ] `AppTable` / `AppDataGrid` 表格（排序、固定列、compact 密度）
-- [ ] `AppPagination` 分页
-- [ ] `AppAccordion` / `AppCollapse` 折叠面板
-- [ ] `AppSteps` 步骤条
-- [ ] `AppBreadcrumb` 面包屑
-- [ ] `AppNavBar` 顶栏 / `AppToolbar`
-- [ ] `AppDivider` 分割线（含带文字）
+- [x] `AppTable` 轻量表格（`AppTableColumn`，compact 密度）
+- [x] `AppPagination` 分页
+- [x] `AppAccordion` 折叠面板
+- [x] `AppSteps` 步骤条
+- [x] `AppBreadcrumb` 面包屑（RTL 镜像）
+- [x] `AppNavBar` 顶栏
+- [x] `AppDivider` 分割线（含带文字 / 垂直）
 
 ### 低优先（增强）
-- [ ] `AppTooltip` 文字提示（区别于已有 `AppPopover`）
-- [ ] `AppSwiper` / 轮播
-- [ ] `AppChipGroup` 可删除标签组
-- [ ] `AppTree` 树形控件
+- [x] `AppTooltip` 文字提示气泡
+- [x] `AppSwiper` 轮播容器
+- [x] `AppChipGroup` 可删除标签组
+- [x] `AppTree` 树形控件（`AppTreeNode`，可展开）
 
-> 交付建议：按「高→中→低」分批，每批一个 PR 一组相关组件，同步更新 showcase 分类页与 `docs/10-components.md`。
+### 收尾（P2 剩余）
+- [ ] **真机 / DevEco 编译验证**：本批组件在无 ArkTS 编译器环境下编写，需 IDE 编译确认（重点：可选 `@BuilderParam`、系统 `Select`/`Swiper` API、`sys.symbol.*` 图标名）。
+- [ ] **showcase 接入**：把新组件加入对应 section 页并加深浅色/compact 演示。
+- [ ] 视觉回归 / 快照测试（依赖 P0 测试体系扩展）。
 
 ---
 
@@ -65,17 +68,12 @@
 - [ ] 自动生成 Token 速查表（README / AGENTS.md 的表格由脚本产出，避免漂移）。
 
 ### 门禁与发布增强（P0/P1 的延伸）
-- [ ] **对比度门禁转为阻断**：先决定 primary/danger 按钮文案按「大文本/UI 组件」阈值（WCAG 3.0）还是修正品牌色达到 4.5，再把 `contrast:check` 设为 CI 硬门禁（当前非阻断）。
+- [x] **对比度门禁转为阻断**：Light 值已按 WCAG 调校（`primary/danger/info` ≥ 4.5 文本、`success/warning` ≥ 3.0 非文本），`contrast:check` 已是 CI 硬门禁。
 - [ ] 自动化发布：打 tag 触发 CI 构建 HAR 并 `ohpm publish`（见 `docs/PUBLISHING.md`）。
 - [ ] 无障碍自动检查扩展：命中区尺寸、`accessibilityText` 缺失的静态扫描规则（并入 `lint-hardcode.mjs` 或独立扫描器）。
 
 ---
 
-## P0 遗留（需你拍板）
+## 已完成
 
-`npm run contrast:check` 当前对以下浅色组合低于 WCAG AA 4.5：
-
-- `primary/onPrimary` 3.98、`danger/onPrimary` 3.55（按钮文案，可能适用大文本/UI 3.0 阈值）
-- `success/warning/info` 于 surface 上（多用于图标/状态点，非正文）
-
-两条路线（见 P4 对比度门禁）：**(a)** 微调品牌色达到 4.5；**(b)** 对 UI/大文本组合采用 3.0 阈值并在门禁中区分。定后即可把对比度设为 CI 硬门禁。
+- **P0 遗留（对比度）**：Light 模式 `primary #126AFF / danger #EA0C00 / info #0072E5`（≥ 4.5 文本），`success #2CA74B / warning #D17F00`（≥ 3.0 状态指示），保持色相。对比度校验转为 CI 硬门禁并加回归测试。

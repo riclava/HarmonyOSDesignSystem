@@ -40,14 +40,17 @@ Text('Hi')
 import {
   // 基础
   AppButton, AppButtonType, AppButtonSize, AppCard, AppTag, AppTagTone,
-  AppBadge, AppAvatar, AppAvatarShape,
+  AppBadge, AppAvatar, AppAvatarShape, AppDivider, AppChipGroup,
   // 表单
   AppTextField, AppSearch, AppSwitch, AppCheckbox, AppRadioGroup, AppRadioOption,
   AppSlider, AppProgress, AppProgressKind,
+  AppSelect, AppStepper, AppSegmented, AppRating, AppUpload, AppFormItem,
   // 导航 / 列表
-  AppTabs, AppListItem,
+  AppTabs, AppListItem, AppNavBar, AppBreadcrumb, AppPagination, AppSteps,
+  // 数据展示
+  AppTable, AppTableColumn, AppAccordion, AppTree, AppTreeNode, AppSwiper,
   // 浮层 / 反馈
-  AppDialog, AppMenu, AppMenuItem, AppSheet, AppPopover, AppToast,
+  AppDialog, AppMenu, AppMenuItem, AppSheet, AppPopover, AppToast, AppTooltip,
   // 选择器
   AppDatePicker, AppTimePicker, AppTimePickerMode, AppCalendar,
   // 状态页 / 占位
@@ -56,13 +59,15 @@ import {
 ```
 
 - 按钮 → `AppButton`（type: Primary/Secondary/Text/Danger；支持 `loading`）
-- 容器 → `AppCard`（`clickable` 可点）
-- 标签 → `AppTag`；数字/圆点 → `AppBadge`；头像 → `AppAvatar`
-- 输入 → `AppTextField`；搜索 → `AppSearch`
-- 开关 → `AppSwitch`；复选 → `AppCheckbox`；单选 → `AppRadioGroup`
-- 滑块 → `AppSlider`；进度 → `AppProgress`（Linear/Ring）
-- 分段导航 → `AppTabs`；列表项 → `AppListItem`
-- 弹窗 → `AppDialog`；菜单 → `AppMenu`；底部面板 → `AppSheet`；气泡 → `AppPopover`；轻提示 → `AppToast.show(...)`
+- 容器 → `AppCard`（`clickable` 可点）；分割 → `AppDivider`（水平/带文字/垂直）
+- 标签 → `AppTag`；数字/圆点 → `AppBadge`；头像 → `AppAvatar`；可删标签组 → `AppChipGroup`
+- 输入 → `AppTextField`；搜索 → `AppSearch`；下拉 → `AppSelect`；步进 → `AppStepper`
+- 开关 → `AppSwitch`；复选 → `AppCheckbox`；单选 → `AppRadioGroup`；分段 → `AppSegmented`
+- 滑块 → `AppSlider`；进度 → `AppProgress`（Linear/Ring）；评分 → `AppRating`；上传 → `AppUpload`
+- 表单项 → `AppFormItem`（Label + 必填 + 插槽 + Error）
+- 分段导航 → `AppTabs`；列表项 → `AppListItem`；顶栏 → `AppNavBar`；面包屑 → `AppBreadcrumb`
+- 分页 → `AppPagination`；步骤 → `AppSteps`；表格 → `AppTable`；折叠 → `AppAccordion`；树 → `AppTree`；轮播 → `AppSwiper`
+- 弹窗 → `AppDialog`；菜单 → `AppMenu`；底部面板 → `AppSheet`；气泡 → `AppPopover`；提示 → `AppTooltip`；轻提示 → `AppToast.show(...)`
 - 日期 → `AppDatePicker`；时间 → `AppTimePicker`；日历 → `AppCalendar`
 - 空/错/加载 → `StateView`；加载占位 → `Skeleton`
 

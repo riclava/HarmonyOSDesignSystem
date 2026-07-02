@@ -12,7 +12,9 @@
 
 Button · TextField · Search · Card · List · Dialog · Toast · Tag · Badge · Tabs ·
 BottomSheet · Checkbox · Radio · Switch · Slider · Progress · Avatar · Menu ·
-Popover · DatePicker · Calendar · Loading · Empty · Error · Skeleton
+Popover · DatePicker · Calendar · Loading · Empty · Error · Skeleton ·
+Select · Stepper · Segmented · Rating · Upload · FormItem · Divider · ChipGroup ·
+NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swiper · Tooltip
 
 ## 实现：@riclava/designsystem 组件
 
@@ -156,6 +158,49 @@ Popover · DatePicker · Calendar · Loading · Empty · Error · Skeleton
 - **Empty**：`Token.icon.xxl` 插画 + `TitleMedium` 标题 + `BodySmall` 说明 + 可选行动按钮。
 - **Error**：同 Empty 结构，配 `Danger` 色图标 + 重试按钮。
 - **Skeleton**：占位块用 `Divider` 底色 + 微光动画 `Token.motion.extraSlow` 循环，圆角同目标元素。
+
+---
+
+## 扩展组件（P2）
+
+以下组件遵循同一 Token 与无障碍约束（深浅色、compact、命中区 ≥ 44、逻辑方向 start/end），全部从 `@riclava/designsystem` 导入。
+
+### 表单 / 录入
+
+| 组件 | 用途 | 关键属性 |
+| --- | --- | --- |
+| `AppSelect` | 下拉单选（封装系统 Select 主题化） | `options` `selectedIndex` `placeholder` `onSelectIndex` |
+| `AppStepper` | 数字步进（±，受 min/max/step 约束） | `value` `min` `max` `step` `onChange` |
+| `AppSegmented` | 分段控制（同级视图切换） | `segments` `selectedIndex` `onSelect` |
+| `AppRating` | 星级评分 | `rating` `max` `ratingReadonly` `onRate` |
+| `AppUpload` | 上传占位（业务接系统 Picker） | `files` `onAdd` `onRemove` |
+| `AppFormItem` | 表单项容器（Label + 必填 + 插槽 + Error） | `label` `required` `error` `helper` + `content` |
+| `AppChipGroup` | 可删除标签组（自动换行） | `chips` `onDelete` |
+
+### 导航
+
+| 组件 | 用途 | 关键属性 |
+| --- | --- | --- |
+| `AppNavBar` | 顶部导航栏（返回 + 标题 + 尾部插槽） | `title` `showBack` `onBack` + `trailing?` |
+| `AppBreadcrumb` | 面包屑（末项为当前，RTL 镜像） | `items` `onSelect` |
+| `AppPagination` | 分页器（窗口化页码） | `current` `pageCount` `maxButtons` `onChange` |
+| `AppSteps` | 步骤条（序号 + 连接线 + 标签） | `steps` `current` |
+
+### 数据展示
+
+| 组件 | 用途 | 关键属性 |
+| --- | --- | --- |
+| `AppTable` | 轻量表格（表头 + 行，随 compact 收紧） | `columns`（`AppTableColumn`）`rows` |
+| `AppAccordion` | 折叠面板（标题切换 + 内容插槽） | `title` `expanded` `onToggle` + `content` |
+| `AppTree` | 树形控件（可展开层级列表） | `nodes`（`AppTreeNode`）`onSelect` |
+| `AppSwiper` | 轮播容器（封装系统 Swiper） | `autoPlay` `interval` `loop` + `pages` |
+
+### 通用
+
+| 组件 | 用途 | 关键属性 |
+| --- | --- | --- |
+| `AppDivider` | 分割线（水平/带文字/垂直） | `text` `vertical` |
+| `AppTooltip` | 文字提示气泡（点按触发） | `message` `placement` + `content` |
 
 ---
 

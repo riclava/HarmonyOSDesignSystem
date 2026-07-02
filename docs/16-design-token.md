@@ -41,7 +41,7 @@ Size（控件尺寸，随 compact 密度切换）
 
 | 层 | 说明 | 示例 |
 | --- | --- | --- |
-| **Reference（基础）** | 原始调色板 / 尺寸原子值 | `blue.500 = #2979FF` |
+| **Reference（基础）** | 原始调色板 / 尺寸原子值 | `blue.500 = #126AFF` |
 | **System（语义）** | 语义化，业务引用这一层 | `color.primary → blue.500` |
 | **Component（组件）** | 组件专属，映射到 System | `button.container → color.primary` |
 

@@ -19,6 +19,38 @@
     {
       "name": "ds_time_placeholder",
       "value": "选择时间"
+    },
+    {
+      "name": "ds_stepper_decrease",
+      "value": "减少"
+    },
+    {
+      "name": "ds_stepper_increase",
+      "value": "增加"
+    },
+    {
+      "name": "ds_upload_hint",
+      "value": "点击添加文件"
+    },
+    {
+      "name": "ds_upload_remove",
+      "value": "移除文件"
+    },
+    {
+      "name": "ds_pagination_prev",
+      "value": "上一页"
+    },
+    {
+      "name": "ds_pagination_next",
+      "value": "下一页"
+    },
+    {
+      "name": "ds_navbar_back",
+      "value": "返回"
+    },
+    {
+      "name": "ds_chip_remove",
+      "value": "移除"
     }
   ]
 }

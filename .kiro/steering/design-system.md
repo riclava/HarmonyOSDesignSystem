@@ -32,10 +32,11 @@ Text('标题')
 
 需要 UI 时先用现成组件（全部从 `@riclava/designsystem` 导入）：
 
-- 基础：`AppButton`（含 `loading`）`AppCard`（含 `clickable`）`AppTag` `AppBadge` `AppAvatar`
-- 表单：`AppTextField` `AppSearch` `AppSwitch` `AppCheckbox` `AppRadioGroup` `AppSlider` `AppProgress`
-- 导航/列表：`AppTabs` `AppListItem`
-- 浮层/反馈：`AppDialog` `AppMenu` `AppSheet` `AppPopover` `AppToast`
+- 基础：`AppButton`（含 `loading`）`AppCard`（含 `clickable`）`AppTag` `AppBadge` `AppAvatar` `AppDivider` `AppChipGroup`
+- 表单：`AppTextField` `AppSearch` `AppSwitch` `AppCheckbox` `AppRadioGroup` `AppSlider` `AppProgress` `AppSelect` `AppStepper` `AppSegmented` `AppRating` `AppUpload` `AppFormItem`
+- 导航/列表：`AppTabs` `AppListItem` `AppNavBar` `AppBreadcrumb` `AppPagination` `AppSteps`
+- 数据展示：`AppTable` `AppAccordion` `AppTree` `AppSwiper`
+- 浮层/反馈：`AppDialog` `AppMenu` `AppSheet` `AppPopover` `AppTooltip` `AppToast`
 - 选择器：`AppDatePicker` `AppTimePicker` `AppCalendar`
 - 状态：`StateView` `Skeleton`
 
