@@ -1,6 +1,8 @@
 import { Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
+export enum AppTextFieldSize { Medium, Small }
+
 /**
  * 输入框：Label（上）+ 输入区 + Helper/Error（下）。
  * 状态：Default(Outline) / Focused(Primary 2vp) / Error(Danger) / Disabled(Divider + 38%)。
@@ -9,9 +11,11 @@ import { LengthMetrics } from '@kit.ArkUI';
 export struct AppTextField {
   @Prop label: string = '';
   @Prop text: string = '';
-  @Prop placeholder: string = '';
+  @Prop placeholder: ResourceStr = '';
   @Prop helper: string = '';
   @Prop error: string = '';
+  @Prop fieldSize: AppTextFieldSize = AppTextFieldSize.Medium;
+  @Prop fieldFontFamily: string = Token.font.family;
   @Prop fieldDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
@@ -29,7 +33,28 @@ export struct AppTextField {
   }
 
   private fieldTouch(): number {
-    return Math.max(Token.size.field(this.compact), Token.size.minTouch);
+    return Math.max(this.fieldHeight(), Token.size.minTouch);
+  }
+
+  private fieldHeight(): number {
+    if (this.fieldSize === AppTextFieldSize.Small) {
+      return Token.size.buttonSmall(this.compact);
+    }
+    return Token.size.field(this.compact);
+  }
+
+  private fieldTextSize(): number {
+    if (this.fieldSize === AppTextFieldSize.Small) {
+      return Token.font.bodySmall.sizeFor(this.compact);
+    }
+    return Token.font.body.sizeFor(this.compact);
+  }
+
+  private fieldPadding(): number {
+    if (this.fieldSize === AppTextFieldSize.Small) {
+      return Token.space.sm;
+    }
+    return Token.space.md;
   }
 
   build() {
@@ -42,15 +67,16 @@ export struct AppTextField {
           .margin({ bottom: Token.space.xxs })
       }
       TextInput({ placeholder: this.placeholder, text: this.text })
-        .fontSize(Token.font.body.sizeFor(this.compact))
+        .fontSize(this.fieldTextSize())
+        .fontFamily(this.fieldFontFamily)
         .fontColor(Token.color.onSurface())
         .placeholderColor(Token.color.onSurfaceVariant())
         .backgroundColor(this.fieldDisabled ? Token.color.divider() : Token.color.surface())
-        .height(Token.size.field(this.compact))
+        .height(this.fieldHeight())
         .borderRadius(Token.radius.sm)
         .border({ width: this.focused ? 2 : 1, color: this.fieldBorderColor() })
-        .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
-        .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
+        .padding({ start: LengthMetrics.vp(this.fieldPadding()), end: LengthMetrics.vp(this.fieldPadding()) })
+        .responseRegion({ x: 0, y: (this.fieldHeight() - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
         .enabled(!this.fieldDisabled)
         .opacity(this.fieldDisabled ? 0.38 : 1)
         .onFocus(() => { this.focused = true; })

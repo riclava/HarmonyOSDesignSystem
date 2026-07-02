@@ -16,7 +16,7 @@ export { AppBadge } from './src/main/ets/components/AppBadge';
 export { AppAvatar, AppAvatarShape } from './src/main/ets/components/AppAvatar';
 
 // 表单组件
-export { AppTextField } from './src/main/ets/components/AppTextField';
+export { AppTextField, AppTextFieldSize } from './src/main/ets/components/AppTextField';
 export { AppSearch } from './src/main/ets/components/AppSearch';
 export { AppSwitch } from './src/main/ets/components/AppSwitch';
 export { AppCheckbox } from './src/main/ets/components/AppCheckbox';

@@ -6,7 +6,7 @@ import { Token } from '../theme/Tokens';
  */
 @Component
 export struct AppTabs {
-  @Prop tabs: string[] = [];
+  @Prop tabs: ResourceStr[] = [];
   @Prop selectedIndex: number = 0;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
@@ -18,7 +18,7 @@ export struct AppTabs {
 
   build() {
     Row() {
-      ForEach(this.tabs, (label: string, index: number) => {
+      ForEach(this.tabs, (label: ResourceStr, index: number) => {
         Column() {
           Text(label)
             .fontSize(Token.font.label.sizeFor(this.compact))
@@ -39,7 +39,7 @@ export struct AppTabs {
             this.onSelect(index);
           }
         })
-      })
+      }, (label: ResourceStr, index: number): string => index.toString())
     }
     .width('100%')
     .height(Token.size.tabBar(this.compact))
