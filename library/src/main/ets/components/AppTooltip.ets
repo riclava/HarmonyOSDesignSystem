@@ -10,6 +10,7 @@ export struct AppTooltip {
   @Prop message: ResourceStr = '';
   @Prop placement: Placement = Placement.Top;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State private show: boolean = false;
   @BuilderParam content: () => void;

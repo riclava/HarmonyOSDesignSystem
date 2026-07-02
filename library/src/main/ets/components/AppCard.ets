@@ -8,6 +8,7 @@ import { Token } from '../theme/Tokens';
 export struct AppCard {
   @Prop clickable: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State private pressed: boolean = false;
   @BuilderParam content: () => void;

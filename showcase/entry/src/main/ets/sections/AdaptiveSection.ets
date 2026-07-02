@@ -5,6 +5,7 @@ import { DemoBlock, SectionLabel } from './Widgets';
 @Component
 export struct AdaptiveSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State breakpoint: string = 'sm';
 

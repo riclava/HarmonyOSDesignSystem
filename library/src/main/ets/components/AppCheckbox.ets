@@ -8,6 +8,7 @@ export struct AppCheckbox {
   @Prop checked: boolean = false;
   @Prop boxDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onCheck?: (value: boolean) => void;
 

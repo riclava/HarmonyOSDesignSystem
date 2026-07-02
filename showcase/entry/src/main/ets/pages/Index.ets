@@ -17,11 +17,13 @@ import { StatesSection } from '../sections/StatesSection';
 import { AdaptiveSection } from '../sections/AdaptiveSection';
 import { NavigationSection } from '../sections/NavigationSection';
 import { PickersSection } from '../sections/PickersSection';
+import { ExtrasSection } from '../sections/ExtrasSection';
 
 /** 可滚动页容器：统一内边距 + 关闭滚动条。内容通过 @BuilderParam 注入。 */
 @Component
 struct ScrollPage {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @BuilderParam content: () => void;
 
@@ -50,6 +52,7 @@ struct ScrollPage {
 struct Index {
   // 全局深浅色开关，写入 AppStorage 后所有 Token 联动刷新
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   // 全局密度开关，组件通过 @StorageProp('compact') 联动收紧尺寸
   @StorageLink('compact') compact: boolean = false;
   @State activeTab: number = 0;
@@ -87,6 +90,28 @@ struct Index {
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .layoutWeight(1)
+
+        // 品牌切换（蓝 / 紫），写入 @StorageLink('brand') 触发全量重绘
+        Text(this.brand === 'violet' ? $r('app.string.brand_violet') : $r('app.string.brand_default'))
+          .fontSize(Token.font.label.sizeFor(this.compact))
+          .lineHeight(Token.font.label.lineHeightFor(this.compact))
+          .fontWeight(Token.font.label.weight)
+          .fontColor(Token.color.primary())
+          .textAlign(TextAlign.Center)
+          .constraintSize({ minWidth: Token.icon.xl })
+          .height(Token.size.buttonSmall(this.compact))
+          .padding({ start: LengthMetrics.vp(Token.space.xs), end: LengthMetrics.vp(Token.space.xs) })
+          .borderRadius(Token.radius.sm)
+          .border({ width: 1, color: Token.color.outline() })
+          .margin({ end: LengthMetrics.vp(Token.space.xs) })
+          .responseRegion({
+            x: 0,
+            y: (Token.size.buttonSmall(this.compact) - Token.size.minTouch) / 2,
+            width: '100%',
+            height: Token.size.minTouch
+          })
+          .accessibilityText($r('app.string.topbar_brand_a11y'))
+          .onClick(() => { this.brand = this.brand === 'violet' ? 'default' : 'violet'; })
 
         // 应用内语言切换（中 / EN），命中区兜底到 44×44
         Text(this.prefersEnglish ? 'EN' : '中')
@@ -180,6 +205,7 @@ struct Index {
       FormSection()
       DataDisplaySection()
       NavigationSection()
+      ExtrasSection()
     }
   }
 

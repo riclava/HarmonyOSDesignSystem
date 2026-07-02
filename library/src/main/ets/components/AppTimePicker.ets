@@ -36,6 +36,7 @@ export struct AppTimePicker {
   /** 显示秒，默认 false（仅时:分）。 */
   @Prop showSeconds: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   /** 是否已经选择过（Field 初始展示占位）。 */
   @State private picked: boolean = false;

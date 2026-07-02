@@ -5,6 +5,7 @@ import { Token } from '@riclava/designsystem';
 export struct SectionLabel {
   @Prop text: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   build() {
@@ -23,6 +24,7 @@ export struct SectionLabel {
 export struct DemoBlock {
   @Prop title: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @BuilderParam content: () => void;
 
@@ -53,6 +55,7 @@ export struct SpecRow {
   @Prop name: ResourceStr;
   @Prop value: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   build() {

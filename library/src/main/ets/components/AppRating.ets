@@ -10,6 +10,7 @@ export struct AppRating {
   @Prop max: number = 5;
   @Prop ratingReadonly: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onRate?: (value: number) => void;
 

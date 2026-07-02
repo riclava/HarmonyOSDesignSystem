@@ -2,9 +2,9 @@
   "$description": "HarmonyOS Design System - Single Source of Truth. Follows the W3C Design Tokens format.",
   "$format": "https://design-tokens.github.io/community-group/format/",
   "color": {
-    "primary":            { "$type": "color", "$value": { "light": "#126AFF", "dark": "#6EA8FF" } },
-    "primaryContainer":   { "$type": "color", "$value": { "light": "#D6E4FF", "dark": "#00429A" } },
-    "onPrimary":          { "$type": "color", "$value": { "light": "#FFFFFF", "dark": "#00285C" } },
+    "primary":            { "$type": "color", "$value": { "light": "#126AFF", "dark": "#6EA8FF" }, "$extensions": { "brands": { "violet": { "light": "#6D28D9", "dark": "#A78BFA" } } } },
+    "primaryContainer":   { "$type": "color", "$value": { "light": "#D6E4FF", "dark": "#00429A" }, "$extensions": { "brands": { "violet": { "light": "#EDE9FE", "dark": "#4C1D95" } } } },
+    "onPrimary":          { "$type": "color", "$value": { "light": "#FFFFFF", "dark": "#00285C" }, "$extensions": { "brands": { "violet": { "light": "#FFFFFF", "dark": "#2E1065" } } } },
     "secondary":          { "$type": "color", "$value": { "light": "#00C48C", "dark": "#4FE0B5" } },
     "secondaryContainer": { "$type": "color", "$value": { "light": "#C8F5E7", "dark": "#00513A" } },
     "success":            { "$type": "color", "$value": { "light": "#2CA74B", "dark": "#4ADE80" } },

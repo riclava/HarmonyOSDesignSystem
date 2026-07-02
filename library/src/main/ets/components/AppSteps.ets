@@ -9,6 +9,7 @@ export struct AppSteps {
   @Prop steps: ResourceStr[] = [];
   @Prop current: number = 0;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private dotSize(): number {

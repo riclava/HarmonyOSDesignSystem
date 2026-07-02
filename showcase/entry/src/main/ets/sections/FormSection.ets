@@ -4,6 +4,7 @@ import { DemoBlock } from './Widgets';
 @Component
 export struct FormSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @State name: string = '';
   @State search: string = '';
   @State agree: boolean = true;

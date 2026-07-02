@@ -4,6 +4,7 @@ import { DemoBlock } from './Widgets';
 @Component
 export struct PickersSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
 
   private format(v: Date): string {
     return new Intl.DateTimeFormat().format(v);

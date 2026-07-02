@@ -33,6 +33,23 @@ export function isCompactMode(): boolean {
   return AppStorage.get<boolean>('compact') ?? false;
 }
 
+/** Current brand id. Colors with brand overrides resolve against this ('default' when unset). */
+export function currentBrand(): string {
+  return AppStorage.get<string>('brand') ?? 'default';
+}
+
+/** Switch the active brand at runtime. Components holding @StorageLink('brand') repaint. */
+export function setBrand(brand: string): void {
+  AppStorage.setOrCreate('brand', brand);
+}
+
+/** Initialize theme (brand + light/dark) at app startup, e.g. in the Ability. */
+export function initTheme(brand: string, colorMode: ConfigurationConstant.ColorMode): void {
+  AppStorage.setOrCreate('brand', brand);
+  AppStorage.setOrCreate('isDark',
+    colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
+}
+
 /** Current system language direction. Use this only for directional icon mirroring. */
 export function isRTL(): boolean {
   try {
@@ -49,9 +66,24 @@ function pick(pair: ColorPair): ResourceColor {
 
 /** ---------- Color ---------- */
 class ColorTokens {
-  primary(): ResourceColor { return pick(new ColorPair('#126AFF', '#6EA8FF')); }
-  primaryContainer(): ResourceColor { return pick(new ColorPair('#D6E4FF', '#00429A')); }
-  onPrimary(): ResourceColor { return pick(new ColorPair('#FFFFFF', '#00285C')); }
+  primary(): ResourceColor {
+    switch (currentBrand()) {
+      case 'violet': return pick(new ColorPair('#6D28D9', '#A78BFA'));
+      default: return pick(new ColorPair('#126AFF', '#6EA8FF'));
+    }
+  }
+  primaryContainer(): ResourceColor {
+    switch (currentBrand()) {
+      case 'violet': return pick(new ColorPair('#EDE9FE', '#4C1D95'));
+      default: return pick(new ColorPair('#D6E4FF', '#00429A'));
+    }
+  }
+  onPrimary(): ResourceColor {
+    switch (currentBrand()) {
+      case 'violet': return pick(new ColorPair('#FFFFFF', '#2E1065'));
+      default: return pick(new ColorPair('#FFFFFF', '#00285C'));
+    }
+  }
   secondary(): ResourceColor { return pick(new ColorPair('#00C48C', '#4FE0B5')); }
   secondaryContainer(): ResourceColor { return pick(new ColorPair('#C8F5E7', '#00513A')); }
   success(): ResourceColor { return pick(new ColorPair('#2CA74B', '#4ADE80')); }

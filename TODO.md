@@ -36,21 +36,23 @@
 
 ### 收尾（P2 剩余）
 - [ ] **真机 / DevEco 编译验证**：本批组件在无 ArkTS 编译器环境下编写，需 IDE 编译确认（重点：可选 `@BuilderParam`、系统 `Select`/`Swiper` API、`sys.symbol.*` 图标名）。
-- [ ] **showcase 接入**：把新组件加入对应 section 页并加深浅色/compact 演示。
+- [x] **showcase 接入**：新增 `ExtrasSection` 演示全部 17 个组件，接入 Components 页。
 - [ ] 视觉回归 / 快照测试（依赖 P0 测试体系扩展）。
 
 ---
 
-## P3 — 主题与品牌化（多品牌换肤）
+## P3 — 主题与品牌化（多品牌换肤）✅（基础设施 + 示例品牌已落地）
 
 当前是单一品牌（固定主色）+ 深浅两套值。让同一套结构支持多 App 换肤。
 
-- [ ] 抽象「品牌」层：将 `primary / secondary` 等品牌色从固定值改为可注入的 **brand token 组**。
-- [ ] `tokens/design-tokens.json` 支持多主题（如 `brand.default` / `brand.xxx`），生成器按主题产出多套色值。
-- [ ] 运行时主题切换 API：`initTheme(brandId)` + `Token.color.*()` 按当前 brand + 深浅色解析（现有 `isDark` 机制扩展为 `theme + isDark` 二维）。
-- [ ] showcase 增加「品牌切换」演示（default / 自定义品牌实时切换）。
-- [ ] 文档：`docs/` 增补「主题与品牌化」章节 + 接入指南（新 App 如何定义自己的品牌色）。
-- [ ] 校验：对每套品牌运行对比度检查（见 P4 对比度门禁）。
+- [x] 抽象「品牌」层：主色族（`primary` / `primaryContainer` / `onPrimary`）通过 `$extensions.brands.<id>` 注入品牌覆盖值。
+- [x] `tokens/design-tokens.json` 支持多主题：生成器对带品牌覆盖的颜色产出 `currentBrand()` 分支（无覆盖零开销、向后兼容）。
+- [x] 运行时主题切换 API：`initTheme(brand, colorMode)` / `setBrand(id)` / `currentBrand()`；组件持有 `@StorageLink('brand')` 实现全量重绘（与 `isDark` 同机制）。
+- [x] showcase 增加「品牌切换」演示（蓝 / 紫 实时切换）。
+- [x] 文档：`docs/19-theming.md` 主题与品牌化 + 新增品牌接入指南；README / AGENTS / steering 同步。
+- [x] 校验：对比度门禁逐品牌校验（新增品牌不达标即 CI 失败）。
+- [ ] 更多品牌色族覆盖（`secondary` / 语义色）与品牌级 `color.json` 资源导出（供 `$r('app.color.*')` 也换肤）。
+- [ ] 品牌切换动画过渡（颜色渐变）。
 
 ---
 

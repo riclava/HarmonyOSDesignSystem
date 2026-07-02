@@ -10,6 +10,7 @@ export struct AppSlider {
   @Prop step: number = 1;
   @Prop showValue: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onValueChange?: (value: number) => void;
 

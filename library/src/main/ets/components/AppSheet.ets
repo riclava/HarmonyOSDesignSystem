@@ -8,6 +8,7 @@ import { Token } from '../theme/Tokens';
 export struct AppSheet {
   @Prop title: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @BuilderParam content: () => void;
 

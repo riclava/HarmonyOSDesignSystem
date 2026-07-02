@@ -11,6 +11,7 @@ export struct AppStepper {
   @Prop step: number = 1;
   @Prop stepperDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onChange?: (value: number) => void;
 

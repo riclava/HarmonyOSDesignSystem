@@ -6,6 +6,7 @@ interface TypeItem { name: string; size: number; lineHeight: number; weight: num
 @Component
 export struct TypographySection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private items(): TypeItem[] {

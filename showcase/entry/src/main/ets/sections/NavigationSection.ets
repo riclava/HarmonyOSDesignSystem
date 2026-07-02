@@ -4,6 +4,7 @@ import { DemoBlock } from './Widgets';
 @Component
 export struct NavigationSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State activeIndex: number = 0;
   private tabs: ResourceStr[] = [

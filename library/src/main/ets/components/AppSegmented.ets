@@ -10,6 +10,7 @@ export struct AppSegmented {
   @Prop segments: ResourceStr[] = [];
   @Prop selectedIndex: number = 0;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onSelect?: (index: number) => void;
 

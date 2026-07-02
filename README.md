@@ -39,6 +39,7 @@ HarmonyOS Design System 是一套面向 **长期维护多个鸿蒙 App** 的通�
 | [16 Design Token](docs/16-design-token.md) | 设计令牌（核心） |
 | [17 Coding Specification](docs/17-coding-specification.md) | 开发规范 |
 | [18 Internationalization](docs/18-internationalization.md) | 国际化（多语言 / RTL） |
+| [19 Theming](docs/19-theming.md) | 主题与品牌化（多品牌换肤） |
 
 ## 可复用代码包（新 App 直接安装）
 

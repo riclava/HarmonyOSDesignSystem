@@ -11,6 +11,7 @@ export struct StateView {
   @Prop description: ResourceStr = '';
   @Prop actionLabel: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onAction?: () => void;
 

@@ -31,6 +31,7 @@ class TreeRow {
 export struct AppTree {
   @Prop nodes: AppTreeNode[] = [];
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State private revision: number = 0;
   onSelect?: (node: AppTreeNode) => void;

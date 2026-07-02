@@ -10,6 +10,7 @@ export struct AppSwiper {
   @Prop interval: number = 3000;
   @Prop loop: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @BuilderParam pages: () => void;
 

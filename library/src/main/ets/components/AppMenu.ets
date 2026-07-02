@@ -21,6 +21,7 @@ export class AppMenuItem {
 export struct AppMenu {
   @Prop items: AppMenuItem[] = [];
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private menuTouch(): number {

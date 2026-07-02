@@ -7,6 +7,7 @@ interface IconItem { name: string; size: number; }
 @Component
 export struct IconSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private items(): IconItem[] {

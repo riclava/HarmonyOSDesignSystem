@@ -7,6 +7,7 @@ interface SpaceItem { name: string; value: number; }
 @Component
 export struct SpacingSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private items(): SpaceItem[] {

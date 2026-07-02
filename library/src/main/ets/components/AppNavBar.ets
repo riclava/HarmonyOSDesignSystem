@@ -10,6 +10,7 @@ export struct AppNavBar {
   @Prop title: ResourceStr = '';
   @Prop showBack: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onBack?: () => void;
   @BuilderParam trailing?: () => void;

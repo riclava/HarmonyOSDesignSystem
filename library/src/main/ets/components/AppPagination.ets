@@ -11,6 +11,7 @@ export struct AppPagination {
   @Prop pageCount: number = 1;
   @Prop maxButtons: number = 5;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onChange?: (page: number) => void;
 

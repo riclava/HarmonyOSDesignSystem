@@ -5,6 +5,7 @@ import { Token } from '../theme/Tokens';
 export struct AppCalendar {
   @Prop selected: Date = new Date();
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onPick?: (value: Date) => void;
 

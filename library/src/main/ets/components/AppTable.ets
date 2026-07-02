@@ -22,6 +22,7 @@ export struct AppTable {
   @Prop columns: AppTableColumn[] = [];
   @Prop rows: ResourceStr[][] = [];
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private rowHeight(): number {

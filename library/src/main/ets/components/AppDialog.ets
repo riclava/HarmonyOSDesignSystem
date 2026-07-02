@@ -13,6 +13,7 @@ export struct AppDialog {
   @Prop confirmLabel: ResourceStr = $r('app.string.ds_dialog_confirm');
   @Prop cancelLabel: ResourceStr = $r('app.string.ds_dialog_cancel');
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   confirm?: () => void;
 

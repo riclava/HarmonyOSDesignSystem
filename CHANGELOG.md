@@ -10,7 +10,8 @@ Token 变更规则：新增 Token → minor；破坏性变更（重命名/删除
 
 ### Added
 - **P0 对比度门禁**：Light 模式语义色按 WCAG 调校（保持色相）——`primary #126AFF`、`danger #EA0C00`、`info #0072E5`（文本 ≥ 4.5），`success #2CA74B`、`warning #D17F00`（状态指示 ≥ 3.0）。对比度校验（文本 4.5 / 非文本 3.0）转为 CI 硬门禁并加回归测试。
-- **P2 扩展组件（17 个）**：`AppSelect` `AppStepper` `AppSegmented` `AppRating` `AppUpload` `AppFormItem` `AppChipGroup` `AppDivider` `AppNavBar` `AppBreadcrumb` `AppPagination` `AppSteps` `AppTable`（含 `AppTableColumn`）`AppAccordion` `AppTree`（含 `AppTreeNode`）`AppSwiper` `AppTooltip`。全部从 `@riclava/designsystem` 导出，遵循 Token / 深浅色 / compact / 无障碍 / i18n 约定。
+- **P2 扩展组件（17 个）**：`AppSelect` `AppStepper` `AppSegmented` `AppRating` `AppUpload` `AppFormItem` `AppChipGroup` `AppDivider` `AppNavBar` `AppBreadcrumb` `AppPagination` `AppSteps` `AppTable`（含 `AppTableColumn`）`AppAccordion` `AppTree`（含 `AppTreeNode`）`AppSwiper` `AppTooltip`。全部从 `@riclava/designsystem` 导出，遵循 Token / 深浅色 / compact / 无障碍 / i18n 约定；showcase 新增 `ExtrasSection` 演示。
+- **P3 多品牌换肤（基础设施 + 示例品牌 `violet`）**：Token 通过 `$extensions.brands.<id>` 注入品牌覆盖值；生成器产出 `currentBrand()` 分支（向后兼容、无覆盖零开销）；新增运行时 API `initTheme` / `setBrand` / `currentBrand`；全部组件持有 `@StorageLink('brand')` 实现实时换肤；对比度门禁逐品牌校验；新增 `docs/19-theming.md`；showcase 顶栏加「蓝 / 紫」品牌切换。
 - 新组件默认文案资源（`ds_stepper_*` `ds_upload_*` `ds_pagination_*` `ds_navbar_back` `ds_chip_remove`），含 `en_US`。
 - 工程化质量门禁：`tools/lint-hardcode.mjs` 硬编码扫描（禁止字面量颜色/字号/字重/行高/间距/圆角）。
 - Token 工具链单元测试（`tools/design-system.test.mjs`）与扫描器测试（`tools/lint-hardcode.test.mjs`）。

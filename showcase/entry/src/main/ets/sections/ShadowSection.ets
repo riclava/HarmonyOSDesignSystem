@@ -6,6 +6,7 @@ interface ShadowItem { name: string; radius: number; color: string; offsetX: num
 @Component
 export struct ShadowSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private items(): ShadowItem[] {

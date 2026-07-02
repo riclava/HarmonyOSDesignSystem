@@ -10,6 +10,7 @@ export struct AppAccordion {
   @Prop title: ResourceStr = '';
   @Prop expanded: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onToggle?: (expanded: boolean) => void;
   @BuilderParam content: () => void;

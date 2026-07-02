@@ -19,6 +19,7 @@ export struct AppRadioGroup {
   @Prop groupName: string = 'app-radio-group';
   @Prop vertical: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onSelect?: (value: string) => void;
 

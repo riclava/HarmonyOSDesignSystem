@@ -13,6 +13,7 @@ export struct AppFormItem {
   @Prop helper: ResourceStr = '';
   @Prop error: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @BuilderParam content: () => void;
 

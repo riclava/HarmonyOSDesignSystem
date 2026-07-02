@@ -18,6 +18,7 @@ export struct AppTextField {
   @Prop fieldFontFamily: string = Token.font.family;
   @Prop fieldDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State private focused: boolean = false;
   onTextChange?: (value: string) => void;

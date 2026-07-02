@@ -9,6 +9,7 @@ export struct AppTag {
   @Prop label: ResourceStr = '';
   @Prop tone: AppTagTone = AppTagTone.Neutral;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private fg(): ResourceColor {

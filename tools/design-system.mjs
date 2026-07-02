@@ -73,7 +73,13 @@ function renderRuntime() {
   const colorMethods = Object.entries(tokens.color).map(([name, token]) => {
     const light = arkColor(token.$value.light);
     const dark = arkColor(token.$value.dark);
-    return `  ${name}(): ResourceColor { return pick(new ColorPair('${light}', '${dark}')); }`;
+    const brands = token.$extensions?.brands;
+    if (!brands) {
+      return `  ${name}(): ResourceColor { return pick(new ColorPair('${light}', '${dark}')); }`;
+    }
+    const cases = Object.entries(brands).map(([brandId, value]) =>
+      `      case '${brandId}': return pick(new ColorPair('${arkColor(value.light)}', '${arkColor(value.dark)}'));`).join('\n');
+    return `  ${name}(): ResourceColor {\n    switch (currentBrand()) {\n${cases}\n      default: return pick(new ColorPair('${light}', '${dark}'));\n    }\n  }`;
   }).join('\n');
 
   const spaceFields = Object.entries(tokens.space).map(([name, token]) =>
@@ -152,6 +158,23 @@ export function isDarkMode(): boolean {
 /** Current compact-density flag. Components must pass their @StorageProp value to Token.size/font helpers. */
 export function isCompactMode(): boolean {
   return AppStorage.get<boolean>('compact') ?? false;
+}
+
+/** Current brand id. Colors with brand overrides resolve against this ('default' when unset). */
+export function currentBrand(): string {
+  return AppStorage.get<string>('brand') ?? 'default';
+}
+
+/** Switch the active brand at runtime. Components holding @StorageLink('brand') repaint. */
+export function setBrand(brand: string): void {
+  AppStorage.setOrCreate('brand', brand);
+}
+
+/** Initialize theme (brand + light/dark) at app startup, e.g. in the Ability. */
+export function initTheme(brand: string, colorMode: ConfigurationConstant.ColorMode): void {
+  AppStorage.setOrCreate('brand', brand);
+  AppStorage.setOrCreate('isDark',
+    colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
 }
 
 /** Current system language direction. Use this only for directional icon mirroring. */
@@ -288,12 +311,34 @@ function contrast(first, second) {
   return (high + 0.05) / (low + 0.05);
 }
 
+function brandIds() {
+  const ids = new Set(['default']);
+  for (const token of Object.values(tokens.color)) {
+    const brands = token.$extensions?.brands;
+    if (brands) {
+      Object.keys(brands).forEach((id) => ids.add(id));
+    }
+  }
+  return [...ids];
+}
+
+function resolveColor(name, mode, brand) {
+  const token = tokens.color[name];
+  const brands = token.$extensions?.brands;
+  if (brand !== 'default' && brands && brands[brand]) {
+    return brands[brand][mode];
+  }
+  return token.$value[mode];
+}
+
 function validateContrast() {
   const failures = [];
-  for (const [label, fg, bg, mode, minimum] of contrastPairs) {
-    const ratio = contrast(tokens.color[fg].$value[mode], tokens.color[bg].$value[mode]);
-    if (ratio < minimum) {
-      failures.push(`${label}: ${ratio.toFixed(2)} < ${minimum}`);
+  for (const brand of brandIds()) {
+    for (const [label, fg, bg, mode, minimum] of contrastPairs) {
+      const ratio = contrast(resolveColor(fg, mode, brand), resolveColor(bg, mode, brand));
+      if (ratio < minimum) {
+        failures.push(`[${brand}] ${label}: ${ratio.toFixed(2)} < ${minimum}`);
+      }
     }
   }
   return failures;

@@ -10,6 +10,7 @@ export struct AppChipGroup {
   @Prop chips: ResourceStr[] = [];
   @Prop chipDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onDelete?: (index: number) => void;
 

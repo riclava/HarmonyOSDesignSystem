@@ -7,6 +7,7 @@ export struct AppBadge {
   @Prop count: number = 0;
   @Prop dot: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private label(): string {

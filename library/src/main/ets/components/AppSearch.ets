@@ -7,6 +7,7 @@ export struct AppSearch {
   @Prop text: string = '';
   @Prop placeholder: ResourceStr = $r('app.string.ds_search_placeholder');
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onTextChange?: (value: string) => void;
   onSubmit?: (value: string) => void;

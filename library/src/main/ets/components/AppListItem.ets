@@ -16,6 +16,7 @@ export struct AppListItem {
   @Prop showArrow: boolean = false;
   @Prop showDivider: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onItemClick?: () => void;
 

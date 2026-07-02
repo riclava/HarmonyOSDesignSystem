@@ -12,6 +12,7 @@ export struct AppDivider {
   @Prop text: ResourceStr = '';
   @Prop vertical: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private hasText(value: ResourceStr): boolean {

@@ -6,6 +6,7 @@ interface Swatch { name: string; color: ResourceColor; onColor: ResourceColor; }
 @Component
 export struct ColorSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private swatches(): Swatch[] {

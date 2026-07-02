@@ -9,6 +9,7 @@ export struct AppProgress {
   @Prop total: number = 100;
   @Prop kind: AppProgressKind = AppProgressKind.Linear;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
 
   build() {
     if (this.kind === AppProgressKind.Ring) {

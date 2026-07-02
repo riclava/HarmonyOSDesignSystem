@@ -5,6 +5,7 @@ import { DemoBlock } from './Widgets';
 @Component
 export struct ComponentsSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State loading: boolean = false;
 

@@ -7,6 +7,7 @@ export struct AppSwitch {
   @Prop isOn: boolean = false;
   @Prop switchDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onToggle?: (value: boolean) => void;
 

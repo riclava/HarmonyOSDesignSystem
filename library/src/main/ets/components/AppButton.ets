@@ -16,6 +16,7 @@ export struct AppButton {
   @Prop disabled: boolean = false;
   @Prop loading: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State private pressed: boolean = false;
   onClickAction?: () => void;

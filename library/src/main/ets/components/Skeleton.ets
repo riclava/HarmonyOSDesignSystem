@@ -7,6 +7,7 @@ export struct Skeleton {
   @Prop blockHeight: Length = Token.size.skeletonLine;
   @Prop radius: number = Token.radius.xs;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @State shimmer: boolean = false;
 
   aboutToAppear(): void {

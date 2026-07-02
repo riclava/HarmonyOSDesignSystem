@@ -10,6 +10,7 @@ export struct AppAvatar {
   @Prop shape: AppAvatarShape = AppAvatarShape.Circle;
   @Prop bgColor: ResourceColor = Token.color.primary();
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private initial(): string {

@@ -5,6 +5,7 @@ import { DemoBlock } from './Widgets';
 @Component
 export struct DataDisplaySection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
 
   build() {
     Column() {

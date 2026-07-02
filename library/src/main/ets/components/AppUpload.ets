@@ -11,6 +11,7 @@ export struct AppUpload {
   @Prop hint: ResourceStr = $r('app.string.ds_upload_hint');
   @Prop uploadDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onAdd?: () => void;
   onRemove?: (index: number) => void;

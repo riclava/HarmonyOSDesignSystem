@@ -9,6 +9,7 @@ import { LengthMetrics } from '@kit.ArkUI';
 export struct AppBreadcrumb {
   @Prop items: ResourceStr[] = [];
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onSelect?: (index: number) => void;
 

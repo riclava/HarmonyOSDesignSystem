@@ -5,6 +5,7 @@ import { SectionLabel } from './Widgets';
 @Component
 export struct MotionSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State moved: boolean = false;
 

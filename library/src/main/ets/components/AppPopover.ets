@@ -9,6 +9,7 @@ export struct AppPopover {
   @Prop title: ResourceStr = '';
   @Prop text: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
 
   private hasText(value: ResourceStr): boolean {

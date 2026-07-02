@@ -11,6 +11,7 @@ export struct AppSelect {
   @Prop placeholder: ResourceStr = '';
   @Prop selectDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   onSelectIndex?: (index: number) => void;
 
