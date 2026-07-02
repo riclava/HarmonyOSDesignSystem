@@ -1,6 +1,5 @@
 import { Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
-import { i18n, intl } from '@kit.LocalizationKit';
 
 /** 时间选择器形态。 */
 export enum AppTimePickerMode {
@@ -56,9 +55,9 @@ export struct AppTimePicker {
     return n < 10 ? `0${n}` : `${n}`;
   }
 
-  /** 依据系统区域 + 24h/12h + 是否显秒，用 intl 做本地化格式化（AM/PM、次序均随语言）。 */
+  /** 依据系统区域 + 24h/12h + 是否显秒，用标准 Intl 做本地化格式化（AM/PM、次序均随语言）。 */
   private displayText(): string {
-    const options: intl.DateTimeOptions = {
+    const options: Intl.DateTimeFormatOptions = {
       hour: '2-digit',
       minute: '2-digit',
       hour12: !this.useMilitaryTime
@@ -67,17 +66,28 @@ export struct AppTimePicker {
       options.second = '2-digit';
     }
     try {
-      const formatter: intl.DateTimeFormat = new intl.DateTimeFormat(i18n.System.getSystemLocale(), options);
+      const formatter: Intl.DateTimeFormat = new Intl.DateTimeFormat(undefined, options);
       return formatter.format(this.current);
     } catch (err) {
       return this.fallbackText();
     }
   }
 
-  /** intl 不可用时的兜底格式（24h，零填充）。 */
+  /** Intl 不可用时的兜底格式（24h，零填充）。 */
   private fallbackText(): string {
     const base: string = `${this.pad(this.current.getHours())}:${this.pad(this.current.getMinutes())}`;
     return this.showSeconds ? `${base}:${this.pad(this.current.getSeconds())}` : base;
+  }
+
+  /** 无障碍朗读文案：已选朗读时间，未选朗读占位（占位为资源时解析为字符串）。 */
+  private accessibilityLabel(): string {
+    if (this.picked) {
+      return this.displayText();
+    }
+    if (typeof this.placeholder === 'string') {
+      return this.placeholder;
+    }
+    return getContext(this).resourceManager.getStringSync(this.placeholder);
   }
 
   private fieldBorderColor(): ResourceColor {
@@ -164,7 +174,7 @@ export struct AppTimePicker {
       .alignItems(VerticalAlign.Center)
       .opacity(this.fieldDisabled ? 0.38 : 1)
       .enabled(!this.fieldDisabled)
-      .accessibilityText(this.picked ? this.displayText() : this.placeholder)
+      .accessibilityText(this.accessibilityLabel())
       .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
       .onClick(() => {
         if (!this.fieldDisabled) {

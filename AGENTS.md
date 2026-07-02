@@ -96,7 +96,7 @@ import {
    .margin({ start: LengthMetrics.vp(Token.space.sm) })
    ```
    文本对齐用 `TextAlign.Start / End`（禁用 `Left / Right`）。方向性图标（箭头等）用 `isRTL()` 判定后镜像。
-3. **区域化格式**：日期 / 时间 / 数字不手拼字符串，用 `intl.DateTimeFormat` / `intl.NumberFormat`（`@kit.LocalizationKit`）按 `i18n.System.getSystemLocale()` 格式化。日期 / 日历优先用系统 `DatePicker / CalendarPicker`（自带区域化）。
+3. **区域化格式**：日期 / 时间 / 数字不手拼字符串，用标准 `Intl.DateTimeFormat` / `Intl.NumberFormat`（省略 locale 走系统默认区域）。日期 / 日历优先用系统 `DatePicker / CalendarPicker`（自带区域化）。注意 `@ohos.intl` 与 `i18n.System.getSystemLocale()` 已废弃，用标准 `Intl`。
 4. **判定 RTL**：`import { isRTL } from '@riclava/designsystem'`，仅用于镜像方向性图标；布局镜像由 `start/end` 自动完成，不要手动交换左右。
 
 ## 完整规范

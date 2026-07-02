@@ -50,7 +50,8 @@ export function isCompactMode(): boolean {
  */
 export function isRTL(): boolean {
   try {
-    return i18n.isRTL(i18n.System.getSystemLocale());
+    const locale: string = new Intl.DateTimeFormat().resolvedOptions().locale;
+    return i18n.isRTL(locale);
   } catch (err) {
     return false;
   }

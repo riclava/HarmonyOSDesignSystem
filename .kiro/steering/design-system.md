@@ -46,7 +46,7 @@ Text('标题')
 3. 可交互命中区 ≥ 44×44vp；图标按钮加 `.accessibilityText(...)`；信息不只靠颜色。
 4. 一屏一个 Primary 行动；破坏性操作用 `Danger` + 二次确认。
 5. 动画 ≤ 400ms，进 easeOut / 出 easeIn。
-6. 国际化：面向用户的文案走 `$r('app.string.*')`；内边距/外边距用逻辑方向 `start/end`（`LengthMetrics.vp(...)`），禁用物理 `left/right`；文本对齐用 `TextAlign.Start/End`；日期时间数字用 `intl`（`@kit.LocalizationKit`）按系统区域格式化；方向性图标用 `isRTL()` 镜像。
+6. 国际化：面向用户的文案走 `$r('app.string.*')`；内边距/外边距用逻辑方向 `start/end`（`LengthMetrics.vp(...)`），禁用物理 `left/right`；文本对齐用 `TextAlign.Start/End`；日期时间数字用标准 `Intl`（`Intl.DateTimeFormat`/`Intl.NumberFormat`）按系统区域格式化；方向性图标用 `isRTL()` 镜像。
 
 ## 权威来源
 

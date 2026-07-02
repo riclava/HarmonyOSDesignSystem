@@ -66,19 +66,19 @@ Text(isRTL() ? '‹' : '›')   // 列表箭头随语言方向
 
 ## 18.4 区域化格式：日期 / 时间 / 数字
 
-不要手拼时间字符串（AM/PM、次序在不同语言中不同）。用 `intl`：
+不要手拼时间字符串（AM/PM、次序在不同语言中不同）。用标准 `Intl`：
 
 ```ts
-import { i18n, intl } from '@kit.LocalizationKit';
-
-const options: intl.DateTimeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-const fmt = new intl.DateTimeFormat(i18n.System.getSystemLocale(), options);
+const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+const fmt = new Intl.DateTimeFormat(undefined, options);   // 省略 locale 用系统默认区域
 fmt.format(new Date());   // en-US: "3:05 PM"；zh-CN: "下午3:05"
 ```
 
-- `AppTimePicker` 的字段展示已改用 `intl.DateTimeFormat`（AM/PM 与次序随语言）。
+- `AppTimePicker` 的字段展示已改用标准 `Intl.DateTimeFormat`（AM/PM 与次序随语言）。
 - `AppDatePicker` / `AppCalendar` 直接用系统 `DatePicker` / `CalendarPicker`，自带区域化。
-- 数字 / 百分比 / 货币用 `intl.NumberFormat`。
+- 数字 / 百分比 / 货币用 `Intl.NumberFormat`。
+
+> 注意：`@ohos.intl`（`import { intl } from '@kit.LocalizationKit'`）与 `i18n.System.getSystemLocale()` 已废弃，请用 ECMAScript 标准 `Intl`。判定 RTL 仍用 `i18n.isRTL(...)`（未废弃），本库已封装为 `isRTL()`。
 
 ## 18.5 提供的工具
 
