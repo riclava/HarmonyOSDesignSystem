@@ -7,7 +7,7 @@
 
 ## 功能
 
-- **顶部开关**：深色（Light / Dark，App 级 `setColorMode` 全量重绘）+ 紧凑密度（compact），Token 与控件尺寸实时联动。
+- **顶部开关**：品牌、语言、深色（Light / Dark，App 级 `setColorMode` 全量重绘）+ 紧凑密度（compact），Token 与控件尺寸实时联动，并在重启后恢复上次配置。
 - **Foundation**：Color、Typography、Spacing、Radius、Shadow、Icon、Motion（可点击演示动画）。
 - **Components**：Button（含 loading）、Tag、Card（可点击）、Avatar、Badge、Progress（线性 / 环形）。
 - **Form**：TextField、Search、Checkbox、Radio、Switch、Slider。
@@ -32,7 +32,8 @@ showcase/
         │   ├── dark/element/color.json             # 深色 Token
         │   └── base/profile/main_pages.json
         └── ets/
-            ├── entryability/EntryAbility.ets       # initColorMode 跟随系统深浅色
+            ├── entryability/EntryAbility.ets       # 恢复持久化配置；未保存深浅色时跟随系统
+            ├── state/ShowcaseSettingsStore.ets     # preferences 持久化 brand / language / dark / compact
             ├── sections/                           # 各展示区块（只引用 @riclava/designsystem）
             │   ├── Widgets.ets
             │   ├── ColorSection … MotionSection            # Foundation
@@ -63,4 +64,5 @@ showcase/
 - Token 与组件来自 HAR 包 `@riclava/designsystem`（源码 [`../library`](../library)），与仓库根目录 [`tokens/`](../tokens/) 同源。showcase 通过 `file:../../library` 依赖它，**单一实现、无副本**。
 - 深色切换在 showcase 中通过 App 级 `setColorMode` 驱动（配合 `AppStorage('isDark')`），令所有 Token 颜色全量重绘；生产项目也可直接用 ArkUI 资源系统（`$r('app.color.*')` + `theme.json`）跟随系统。
 - 紧凑密度通过 `AppStorage('compact')` 驱动，组件持有 `@StorageProp('compact')` 并用 `Token.size.*(compact)` / `Token.font.*.sizeFor(compact)` 取值；详见 [16 Design Token](../docs/16-design-token.md)。
+- showcase 使用 `@kit.ArkData` 的 `preferences` 保存 brand / language / dark / compact；Ability 启动时先恢复到 `AppStorage` / 应用语言，再加载页面，避免首屏显示默认值后再跳变。
 - 组件实现与规范对应见 [10 Components](../docs/10-components.md) 与 [17 Coding Specification](../docs/17-coding-specification.md)。

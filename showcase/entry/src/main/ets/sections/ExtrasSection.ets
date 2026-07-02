@@ -15,7 +15,7 @@ export struct ExtrasSection {
   @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
   @State private priority: number = -1;
-  @State private qty: number = 1;
+  @State private qty: number = 3;
   @State private seg: number = 0;
   @State private rating: number = 3;
   @State private page: number = 1;

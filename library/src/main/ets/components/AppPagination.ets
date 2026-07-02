@@ -1,5 +1,4 @@
 import { Token, isRTL } from '../theme/Tokens';
-import { LengthMetrics } from '@kit.ArkUI';
 
 /**
  * 分页器：上一页 + 页码窗口（最多显示 maxButtons 个）+ 下一页。
@@ -17,6 +16,10 @@ export struct AppPagination {
 
   private cellSize(): number {
     return Token.size.buttonMedium(this.compact);
+  }
+
+  private cellTouch(): number {
+    return Math.max(this.cellSize(), Token.size.minTouch);
   }
 
   private pages(): number[] {
@@ -45,29 +48,85 @@ export struct AppPagination {
     }
   }
 
+  private prevGlyph(): string {
+    return isRTL() ? '›' : '‹';
+  }
+
+  private nextGlyph(): string {
+    return isRTL() ? '‹' : '›';
+  }
+
   @Builder
-  private navButton(glyph: Resource, enabled: boolean, accessibility: Resource, action: () => void) {
-    SymbolGlyph(glyph)
-      .fontSize(Token.icon.sm)
-      .fontColor([enabled ? Token.color.onSurface() : Token.color.onSurfaceVariant()])
+  private PreviousButton() {
+    Row() {
+      Text(this.prevGlyph())
+        .fontSize(Token.icon.lg)
+        .lineHeight(Token.icon.lg)
+        .fontWeight(Token.font.titleMedium.weight)
+        .fontColor(this.current > 1 ? Token.color.onSurface() : Token.color.onSurfaceVariant())
+        .textAlign(TextAlign.Center)
+        .width(Token.icon.lg)
+        .height(Token.icon.lg)
+    }
+      .justifyContent(FlexAlign.Center)
+      .alignItems(VerticalAlign.Center)
       .width(this.cellSize())
       .height(this.cellSize())
       .borderRadius(Token.radius.sm)
       .border({ width: 1, color: Token.color.outline() })
-      .opacity(enabled ? 1 : 0.38)
-      .enabled(enabled)
-      .responseRegion({ x: 0, y: (this.cellSize() - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })
-      .accessibilityText(accessibility)
-      .onClick(action)
+      .opacity(this.current > 1 ? 1 : 0.38)
+      .enabled(this.current > 1)
+      .responseRegion({
+        x: (this.cellSize() - this.cellTouch()) / 2,
+        y: (this.cellSize() - this.cellTouch()) / 2,
+        width: this.cellTouch(),
+        height: this.cellTouch()
+      })
+      .accessibilityText($r('app.string.ds_pagination_prev'))
+      .onClick(() => {
+        if (this.current > 1) {
+          this.go(this.current - 1);
+        }
+      })
+  }
+
+  @Builder
+  private NextButton() {
+    Row() {
+      Text(this.nextGlyph())
+        .fontSize(Token.icon.lg)
+        .lineHeight(Token.icon.lg)
+        .fontWeight(Token.font.titleMedium.weight)
+        .fontColor(this.current < this.pageCount ? Token.color.onSurface() : Token.color.onSurfaceVariant())
+        .textAlign(TextAlign.Center)
+        .width(Token.icon.lg)
+        .height(Token.icon.lg)
+    }
+      .justifyContent(FlexAlign.Center)
+      .alignItems(VerticalAlign.Center)
+      .width(this.cellSize())
+      .height(this.cellSize())
+      .borderRadius(Token.radius.sm)
+      .border({ width: 1, color: Token.color.outline() })
+      .opacity(this.current < this.pageCount ? 1 : 0.38)
+      .enabled(this.current < this.pageCount)
+      .responseRegion({
+        x: (this.cellSize() - this.cellTouch()) / 2,
+        y: (this.cellSize() - this.cellTouch()) / 2,
+        width: this.cellTouch(),
+        height: this.cellTouch()
+      })
+      .accessibilityText($r('app.string.ds_pagination_next'))
+      .onClick(() => {
+        if (this.current < this.pageCount) {
+          this.go(this.current + 1);
+        }
+      })
   }
 
   build() {
     Row({ space: Token.space.xxs }) {
-      this.navButton(
-        isRTL() ? $r('sys.symbol.chevron_right') : $r('sys.symbol.chevron_left'),
-        this.current > 1,
-        $r('app.string.ds_pagination_prev'),
-        () => { this.go(this.current - 1); })
+      this.PreviousButton()
       ForEach(this.pages(), (page: number) => {
         Text(page.toString())
           .fontSize(Token.font.label.sizeFor(this.compact))
@@ -78,15 +137,18 @@ export struct AppPagination {
           .borderRadius(Token.radius.sm)
           .backgroundColor(page === this.current ? Token.color.primary(this.brand) : Token.color.transparent())
           .border(page === this.current ? { width: 0 } : { width: 1, color: Token.color.outline() })
-          .responseRegion({ x: 0, y: (this.cellSize() - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })
+          .responseRegion({
+            x: (this.cellSize() - this.cellTouch()) / 2,
+            y: (this.cellSize() - this.cellTouch()) / 2,
+            width: this.cellTouch(),
+            height: this.cellTouch()
+          })
           .onClick(() => { this.go(page); })
       }, (page: number): string => page.toString())
-      this.navButton(
-        isRTL() ? $r('sys.symbol.chevron_left') : $r('sys.symbol.chevron_right'),
-        this.current < this.pageCount,
-        $r('app.string.ds_pagination_next'),
-        () => { this.go(this.current + 1); })
+      this.NextButton()
     }
+    .width('100%')
+    .justifyContent(FlexAlign.Center)
     .alignItems(VerticalAlign.Center)
   }
 }

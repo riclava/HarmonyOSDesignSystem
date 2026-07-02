@@ -14,10 +14,6 @@ export struct AppCard {
   @BuilderParam content: () => void;
   onCardClick?: () => void;
 
-  private raised(): boolean {
-    return this.clickable && this.pressed;
-  }
-
   build() {
     Column() {
       this.content()
@@ -27,7 +23,7 @@ export struct AppCard {
     .padding(this.compact ? Token.space.sm : Token.space.md)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
-    .shadow(this.raised()
+    .shadow(this.clickable && this.pressed
       ? {
           radius: Token.shadow.level2.radius,
           color: Token.shadow.level2.color,

@@ -13,10 +13,6 @@ export struct AppBreadcrumb {
   @StorageProp('compact') compact: boolean = false;
   onSelect?: (index: number) => void;
 
-  private isLast(index: number): boolean {
-    return index === this.items.length - 1;
-  }
-
   private separator(): Resource {
     return isRTL() ? $r('sys.symbol.chevron_left') : $r('sys.symbol.chevron_right');
   }
@@ -26,17 +22,17 @@ export struct AppBreadcrumb {
       ForEach(this.items, (item: ResourceStr, index: number) => {
         Text(item)
           .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-          .fontColor(this.isLast(index) ? Token.color.onSurface() : Token.color.primary(this.brand))
+          .fontColor(index === this.items.length - 1 ? Token.color.onSurface() : Token.color.primary(this.brand))
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .constraintSize({ minHeight: Token.size.minTouch })
-          .enabled(!this.isLast(index))
+          .enabled(index < this.items.length - 1)
           .onClick(() => {
-            if (!this.isLast(index) && this.onSelect) {
+            if (index < this.items.length - 1 && this.onSelect) {
               this.onSelect(index);
             }
           })
-        if (!this.isLast(index)) {
+        if (index < this.items.length - 1) {
           SymbolGlyph(this.separator())
             .fontSize(Token.icon.xs)
             .fontColor([Token.color.onSurfaceVariant()])

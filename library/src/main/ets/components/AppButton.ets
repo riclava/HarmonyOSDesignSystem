@@ -62,10 +62,6 @@ export struct AppButton {
     return Token.color.primary(this.brand);
   }
 
-  private interactive(): boolean {
-    return !this.disabled && !this.loading;
-  }
-
   build() {
     Row() {
       if (this.loading) {
@@ -89,11 +85,11 @@ export struct AppButton {
     .border(this.type === AppButtonType.Secondary
       ? { width: 1, color: Token.color.outline() }
       : { width: 0 })
-    .opacity(this.interactive() ? 1 : 0.38)
+    .opacity(!this.disabled && !this.loading ? 1 : 0.38)
     .scale(this.pressed ? { x: 0.98, y: 0.98 } : { x: 1, y: 1 })
     .animation({ duration: Token.motion.instant, curve: Token.motion.easeStandard })
     .responseRegion({ x: 0, y: (this.btnHeight() - this.touchHeight()) / 2, width: '100%', height: this.touchHeight() })
-    .enabled(this.interactive())
+    .enabled(!this.disabled && !this.loading)
     .onTouch((event: TouchEvent) => {
       if (event.type === TouchType.Down) {
         this.pressed = true;
@@ -102,7 +98,7 @@ export struct AppButton {
       }
     })
     .onClick(() => {
-      if (this.interactive() && this.onClickAction) {
+      if (!this.disabled && !this.loading && this.onClickAction) {
         this.onClickAction();
       }
     })

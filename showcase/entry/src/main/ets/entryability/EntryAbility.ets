@@ -1,11 +1,15 @@
 import { AbilityConstant, ConfigurationConstant, Configuration, UIAbility, Want } from '@kit.AbilityKit';
 import { window } from '@kit.ArkUI';
 import { initColorMode } from '@riclava/designsystem';
+import { ShowcaseSettingsStore } from '../state/ShowcaseSettingsStore';
 
 export default class EntryAbility extends UIAbility {
   onCreate(_want: Want, _launchParam: AbilityConstant.LaunchParam): void {
-    // 启动时按系统深浅色初始化
-    initColorMode(this.context.config.colorMode ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+    // 启动时优先恢复用户配置；未保存深浅色时仍按系统配置初始化
+    ShowcaseSettingsStore.restore(
+      this.context,
+      this.context.config.colorMode ?? ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET
+    );
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {

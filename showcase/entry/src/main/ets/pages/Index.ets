@@ -1,7 +1,6 @@
 import { Token } from '@riclava/designsystem';
 import { common, ConfigurationConstant } from '@kit.AbilityKit';
 import { LengthMetrics } from '@kit.ArkUI';
-import { i18n } from '@kit.LocalizationKit';
 import { ColorSection } from '../sections/ColorSection';
 import { TypographySection } from '../sections/TypographySection';
 import { SpacingSection } from '../sections/SpacingSection';
@@ -18,6 +17,7 @@ import { AdaptiveSection } from '../sections/AdaptiveSection';
 import { NavigationSection } from '../sections/NavigationSection';
 import { PickersSection } from '../sections/PickersSection';
 import { ExtrasSection } from '../sections/ExtrasSection';
+import { ShowcaseSettingsStore } from '../state/ShowcaseSettingsStore';
 
 /** 可滚动页容器：统一内边距 + 关闭滚动条。内容通过 @BuilderParam 注入。 */
 @Component
@@ -60,22 +60,18 @@ struct Index {
   @State prefersEnglish: boolean = false;
 
   aboutToAppear(): void {
-    try {
-      this.prefersEnglish = i18n.System.getAppPreferredLanguage().toLowerCase().startsWith('en');
-    } catch (err) {
-      this.prefersEnglish = false;
-    }
+    this.prefersEnglish = ShowcaseSettingsStore.prefersEnglish();
   }
 
   // 在中文 / 英文之间切换应用首选语言，触发配置更新 → 资源随语言重新求值
   private toggleLanguage(): void {
     const next: boolean = !this.prefersEnglish;
-    try {
-      i18n.System.setAppPreferredLanguage(next ? 'en-US' : 'zh-Hans');
-      this.prefersEnglish = next;
-    } catch (err) {
-      this.prefersEnglish = next;
-    }
+    ShowcaseSettingsStore.saveLanguage(this.hostContext(), next ? 'en-US' : 'zh-Hans');
+    this.prefersEnglish = next;
+  }
+
+  private hostContext(): common.UIAbilityContext {
+    return this.getUIContext().getHostContext() as common.UIAbilityContext;
   }
 
   @Builder
@@ -111,7 +107,11 @@ struct Index {
             height: Token.size.minTouch
           })
           .accessibilityText($r('app.string.topbar_brand_a11y'))
-          .onClick(() => { this.brand = this.brand === 'violet' ? 'default' : 'violet'; })
+          .onClick(() => {
+            const nextBrand: string = this.brand === 'violet' ? 'default' : 'violet';
+            ShowcaseSettingsStore.saveBrand(this.hostContext(), nextBrand);
+            this.brand = nextBrand;
+          })
 
         // 应用内语言切换（中 / EN），命中区兜底到 44×44
         Text(this.prefersEnglish ? 'EN' : '中')
@@ -146,7 +146,10 @@ struct Index {
             .margin({ end: LengthMetrics.vp(Token.space.xxs) })
           Toggle({ type: ToggleType.Switch, isOn: this.compact })
             .selectedColor(Token.color.primary(this.brand))
-            .onChange((on: boolean) => { this.compact = on; })
+            .onChange((on: boolean) => {
+              ShowcaseSettingsStore.saveCompact(this.hostContext(), on);
+              this.compact = on;
+            })
         }
         .layoutWeight(1)
         .constraintSize({ minHeight: Token.size.minTouch })
@@ -161,9 +164,10 @@ struct Index {
           Toggle({ type: ToggleType.Switch, isOn: this.isDark })
             .selectedColor(Token.color.primary(this.brand))
             .onChange((on: boolean) => {
+              const ctx = this.hostContext();
               this.isDark = on;
+              ShowcaseSettingsStore.saveDarkMode(ctx, on);
               // 切换 App 级色彩模式，触发配置变更 → 全量重绘，令所有 Token 颜色重新求值
-              const ctx = this.getUIContext().getHostContext() as common.UIAbilityContext;
               ctx.getApplicationContext()
                 .setColorMode(on
                   ? ConfigurationConstant.ColorMode.COLOR_MODE_DARK
