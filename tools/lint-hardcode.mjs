@@ -71,6 +71,11 @@ const rules = [
     id: 'system-color-enum',
     test: (line) => /\bColor\.[A-Z][A-Za-z]+/.test(line),
     hint: 'Use Token.color.*() instead of the built-in Color enum.'
+  },
+  {
+    id: 'implicit-brand-color',
+    test: (line) => /Token\.color\.(?:primary|primaryContainer|onPrimary)\(\s*\)/.test(line),
+    hint: 'Pass the component @StorageLink brand value, e.g. Token.color.primary(this.brand), so brand switches repaint.'
   }
 ];
 

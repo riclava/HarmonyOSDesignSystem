@@ -12,7 +12,7 @@ export struct AppDatePicker {
   build() {
     DatePicker({ selected: this.selected })
       .selectedTextStyle({
-        color: Token.color.primary(),
+        color: Token.color.primary(this.brand),
         font: { size: Token.font.titleMedium.sizeFor(this.compact), weight: FontWeight.Medium }
       })
       .textStyle({

@@ -47,7 +47,7 @@ export struct AppButton {
 
   private bgColor(): ResourceColor {
     if (this.type === AppButtonType.Primary) {
-      return Token.color.primary();
+      return Token.color.primary(this.brand);
     }
     if (this.type === AppButtonType.Danger) {
       return Token.color.danger();
@@ -57,9 +57,9 @@ export struct AppButton {
 
   private fgColor(): ResourceColor {
     if (this.type === AppButtonType.Primary || this.type === AppButtonType.Danger) {
-      return Token.color.onPrimary();
+      return Token.color.onPrimary(this.brand);
     }
-    return Token.color.primary();
+    return Token.color.primary(this.brand);
   }
 
   private interactive(): boolean {

@@ -21,7 +21,7 @@ export struct AppUpload {
       Row() {
         SymbolGlyph($r('sys.symbol.plus'))
           .fontSize(Token.icon.md)
-          .fontColor([Token.color.primary()])
+          .fontColor([Token.color.primary(this.brand)])
           .width(Token.icon.lg)
           .height(Token.icon.lg)
         Text(this.hint)

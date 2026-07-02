@@ -33,7 +33,7 @@ export struct AppListItem {
     if (this.showLeadingIcon) {
       SymbolGlyph(this.leadingIcon)
         .fontSize(Token.icon.md)
-        .fontColor([Token.color.primary()])
+        .fontColor([Token.color.primary(this.brand)])
         .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
         .width(Token.icon.lg)
         .height(Token.icon.lg)

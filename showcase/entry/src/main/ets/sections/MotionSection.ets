@@ -17,7 +17,7 @@ export struct MotionSection {
           Column()
             .width(Token.size.avatarMd)
             .height(Token.size.avatarMd)
-            .backgroundColor(Token.color.primary())
+            .backgroundColor(Token.color.primary(this.brand))
             .borderRadius(Token.radius.sm)
         }
         .width('100%')

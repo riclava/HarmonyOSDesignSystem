@@ -27,10 +27,16 @@ test('flags built-in Color enum usage', () => {
   assert.ok(matches('.backgroundColor(Color.Red)').includes('system-color-enum'));
 });
 
+test('flags implicit brand color calls', () => {
+  assert.ok(matches('.fontColor(Token.color.primary())').includes('implicit-brand-color'));
+  assert.ok(matches('.backgroundColor(Token.color.primaryContainer())').includes('implicit-brand-color'));
+  assert.ok(matches('.fontColor(Token.color.onPrimary())').includes('implicit-brand-color'));
+});
+
 test('accepts Token-based values', () => {
   assert.deepEqual(matches('.fontSize(Token.font.label.sizeFor(this.compact))'), []);
   assert.deepEqual(matches('.padding(LengthMetrics.vp(Token.space.md))'), []);
-  assert.deepEqual(matches('.fontColor(Token.color.primary())'), []);
+  assert.deepEqual(matches('.fontColor(Token.color.primary(this.brand))'), []);
   assert.deepEqual(matches('.borderRadius(Token.radius.sm)'), []);
 });
 

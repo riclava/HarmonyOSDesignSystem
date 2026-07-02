@@ -32,7 +32,7 @@ export struct AppTextField {
       return Token.color.danger();
     }
     if (this.focused) {
-      return Token.color.primary();
+      return Token.color.primary(this.brand);
     }
     return Token.color.outline();
   }

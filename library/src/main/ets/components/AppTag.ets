@@ -14,7 +14,7 @@ export struct AppTag {
 
   private fg(): ResourceColor {
     switch (this.tone) {
-      case AppTagTone.Primary: return Token.color.primary();
+      case AppTagTone.Primary: return Token.color.primary(this.brand);
       case AppTagTone.Success: return Token.color.success();
       case AppTagTone.Warning: return Token.color.warning();
       case AppTagTone.Danger: return Token.color.danger();

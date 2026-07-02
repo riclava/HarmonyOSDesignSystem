@@ -88,7 +88,8 @@ test('all token color pairs meet their WCAG contrast thresholds', () => {
 
 test('runtime emits brand-aware color resolution for branded tokens', () => {
   const runtime = renderRuntime();
-  assert.match(runtime, /switch \(currentBrand\(\)\)/);
+  assert.match(runtime, /primary\(brand: string = currentBrand\(\)\): ResourceColor/);
+  assert.match(runtime, /switch \(brand\)/);
   assert.match(runtime, /case 'violet': return pick/);
   assert.match(runtime, /export function setBrand/);
 });

@@ -76,7 +76,7 @@ export struct OverlaysSection {
           Text($r('app.string.demo_overlay_menu'))
             .fontSize(Token.font.label.sizeFor(this.compact))
             .lineHeight(Token.font.label.lineHeightFor(this.compact))
-            .fontColor(Token.color.primary())
+            .fontColor(Token.color.primary(this.brand))
             .height(Token.size.buttonMedium(this.compact))
             .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
             .borderRadius(Token.radius.sm)

@@ -28,7 +28,7 @@ export struct AppRadioGroup {
     Row() {
       Radio({ value: opt.value, group: this.groupName })
         .checked(this.selected === opt.value)
-        .radioStyle({ checkedBackgroundColor: Token.color.primary() })
+        .radioStyle({ checkedBackgroundColor: Token.color.primary(this.brand) })
         .onChange((checked: boolean) => {
           if (checked) {
             this.selected = opt.value;

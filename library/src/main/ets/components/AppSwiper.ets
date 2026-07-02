@@ -25,7 +25,7 @@ export struct AppSwiper {
     .indicator(
       Indicator.dot()
         .color(Token.color.outline())
-        .selectedColor(Token.color.primary())
+        .selectedColor(Token.color.primary(this.brand))
     )
     .curve(Token.motion.easeStandard)
     .duration(Token.motion.normal)

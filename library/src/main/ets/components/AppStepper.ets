@@ -38,7 +38,7 @@ export struct AppStepper {
   private stepButton(glyph: Resource, enabled: boolean, accessibility: Resource, action: () => void) {
     SymbolGlyph(glyph)
       .fontSize(Token.icon.sm)
-      .fontColor([enabled ? Token.color.primary() : Token.color.onSurfaceVariant()])
+      .fontColor([enabled ? Token.color.primary(this.brand) : Token.color.onSurfaceVariant()])
       .width(this.btnSize())
       .height(this.btnSize())
       .borderRadius(Token.radius.sm)

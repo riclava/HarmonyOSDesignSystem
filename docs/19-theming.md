@@ -26,9 +26,9 @@
 }
 ```
 
-改完执行 `npm run tokens:generate`，生成器会把带品牌覆盖的颜色渲染为按 `currentBrand()` 分支的方法（无覆盖的颜色保持单一取值，零额外开销）。
+改完执行 `npm run tokens:generate`，生成器会把带品牌覆盖的颜色渲染为可接收 `brand` 参数的方法（默认回退到 `currentBrand()`；无覆盖的颜色保持单一取值，零额外开销）。
 
-> **约束**：品牌切换只作用于运行时 `Token.color.*()`。资源文件 `color.json`（`$r('app.color.*')`）只承载 `default` 品牌值。设计系统组件统一走 `Token.color.*()`，因此天然支持换肤；业务若直接用 `$r('app.color.*')` 则不随 brand 切换。
+> **约束**：品牌切换只作用于运行时 `Token.color.*`。资源文件 `color.json`（`$r('app.color.*')`）只承载 `default` 品牌值。组件内使用有品牌覆盖的颜色（`primary` / `primaryContainer` / `onPrimary`）时，必须传入 `this.brand`，例如 `Token.color.primary(this.brand)`；业务若直接用 `$r('app.color.*')` 则不随 brand 切换。
 
 ## 运行时 API
 
@@ -51,9 +51,17 @@ const brand: string = currentBrand();   // 'default' | 'violet' | ...
 ## 组件如何随品牌重绘
 
 与 `isDark` 一致：组件持有 `@StorageLink('brand') brand: string = 'default'`。
-`setBrand(id)`（或直接写 `AppStorage.setOrCreate('brand', id)`）更新后，所有持有该 link 的组件重绘，`build` 内的 `Token.color.*()` 重新按新品牌求值。
+`setBrand(id)`（或直接写 `AppStorage.setOrCreate('brand', id)`）更新后，所有持有该 link 且在 `build` 内读取 `this.brand` 的组件重绘，品牌色重新按新品牌求值。
 
-自定义业务组件若要随品牌切换，同样持有 `@StorageLink('brand')` 即可（无需引用其值）。
+```ts
+@StorageLink('brand') brand: string = 'default';
+
+Text($r('app.string.action'))
+  .fontColor(Token.color.primary(this.brand))
+  .backgroundColor(Token.color.primaryContainer(this.brand))
+```
+
+自定义业务组件若要随品牌切换，同样持有 `@StorageLink('brand')`，并把 `this.brand` 直接传给品牌色 Token；只持有 link 但不引用其值，ArkUI 不会把具体颜色属性登记成品牌依赖。
 
 ## 新增一个品牌
 

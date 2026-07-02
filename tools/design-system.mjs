@@ -79,7 +79,10 @@ function renderRuntime() {
     }
     const cases = Object.entries(brands).map(([brandId, value]) =>
       `      case '${brandId}': return pick(new ColorPair('${arkColor(value.light)}', '${arkColor(value.dark)}'));`).join('\n');
-    return `  ${name}(): ResourceColor {\n    switch (currentBrand()) {\n${cases}\n      default: return pick(new ColorPair('${light}', '${dark}'));\n    }\n  }`;
+    // Branded colors take an explicit brand argument so callers that pass their
+    // @StorageLink('brand') read it during build() and repaint on brand switch.
+    // Defaults to currentBrand() to keep the parameter-less call site working.
+    return `  ${name}(brand: string = currentBrand()): ResourceColor {\n    switch (brand) {\n${cases}\n      default: return pick(new ColorPair('${light}', '${dark}'));\n    }\n  }`;
   }).join('\n');
 
   const spaceFields = Object.entries(tokens.space).map(([name, token]) =>

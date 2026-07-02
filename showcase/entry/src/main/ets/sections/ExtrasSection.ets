@@ -200,9 +200,9 @@ export struct ExtrasSection {
 
       DemoBlock({ title: $r('app.string.sec_swiper') }) {
         AppSwiper({ autoPlay: false, loop: true }) {
-          this.slide($r('app.string.ext_slide_a'), Token.color.primaryContainer())
+          this.slide($r('app.string.ext_slide_a'), Token.color.primaryContainer(this.brand))
           this.slide($r('app.string.ext_slide_b'), Token.color.secondaryContainer())
-          this.slide($r('app.string.ext_slide_c'), Token.color.primaryContainer())
+          this.slide($r('app.string.ext_slide_c'), Token.color.primaryContainer(this.brand))
         }
       }
 
@@ -210,7 +210,7 @@ export struct ExtrasSection {
         AppTooltip({ message: $r('app.string.ext_tip_msg') }) {
           Text($r('app.string.ext_tip_trigger'))
             .fontSize(Token.font.body.sizeFor(this.compact))
-            .fontColor(Token.color.primary())
+            .fontColor(Token.color.primary(this.brand))
             .padding({ top: LengthMetrics.vp(Token.space.xs), bottom: LengthMetrics.vp(Token.space.xs) })
         }
       }

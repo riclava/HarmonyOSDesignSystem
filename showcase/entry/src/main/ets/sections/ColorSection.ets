@@ -10,11 +10,11 @@ export struct ColorSection {
   @StorageProp('compact') compact: boolean = false;
 
   private swatches(): Swatch[] {
-    const onLight = Token.color.onPrimary();
+    const onLight = Token.color.onPrimary(this.brand);
     const onDark = Token.color.onSurface();
     return [
-      { name: 'Primary', color: Token.color.primary(), onColor: onLight },
-      { name: 'PrimaryContainer', color: Token.color.primaryContainer(), onColor: Token.color.onSurface() },
+      { name: 'Primary', color: Token.color.primary(this.brand), onColor: onLight },
+      { name: 'PrimaryContainer', color: Token.color.primaryContainer(this.brand), onColor: Token.color.onSurface() },
       { name: 'Secondary', color: Token.color.secondary(), onColor: onLight },
       { name: 'Success', color: Token.color.success(), onColor: onLight },
       { name: 'Warning', color: Token.color.warning(), onColor: onLight },

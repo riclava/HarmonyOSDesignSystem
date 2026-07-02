@@ -8,7 +8,7 @@ export struct AppAvatar {
   @Prop text: string = '';
   @Prop avatarSize: number = Token.size.avatarMd;
   @Prop shape: AppAvatarShape = AppAvatarShape.Circle;
-  @Prop bgColor: ResourceColor = Token.color.primary();
+  @Prop bgColor: ResourceColor | null = null;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
   @StorageProp('compact') compact: boolean = false;
@@ -30,15 +30,19 @@ export struct AppAvatar {
     return Token.font.titleMedium.sizeFor(this.compact);
   }
 
+  private bgColorValue(): ResourceColor {
+    return this.bgColor === null ? Token.color.primary(this.brand) : this.bgColor;
+  }
+
   build() {
     Text(this.initial())
       .fontSize(this.textSize())
       .fontWeight(Token.font.label.weight)
-      .fontColor(Token.color.onPrimary())
+      .fontColor(Token.color.onPrimary(this.brand))
       .textAlign(TextAlign.Center)
       .width(this.avatarSize)
       .height(this.avatarSize)
-      .backgroundColor(this.bgColor)
+      .backgroundColor(this.bgColorValue())
       .borderRadius(this.shape === AppAvatarShape.Circle ? Token.radius.full : Token.radius.md)
   }
 }

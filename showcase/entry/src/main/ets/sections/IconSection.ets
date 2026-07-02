@@ -27,7 +27,7 @@ export struct IconSection {
           Column() {
             // 用一个圆形代替图标，演示尺寸网格与命中区概念
             Circle({ width: item.size, height: item.size })
-              .fill(Token.color.primary())
+              .fill(Token.color.primary(this.brand))
             Text(`${item.name} · ${item.size}`)
               .fontSize(Token.font.caption.sizeFor(this.compact))
               .lineHeight(Token.font.caption.lineHeightFor(this.compact))

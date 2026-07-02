@@ -108,7 +108,7 @@ export struct AppTimePicker {
 
   private selectedTextStyle(): PickerTextStyle {
     return {
-      color: Token.color.primary(),
+      color: Token.color.primary(this.brand),
       font: { size: Token.font.titleMedium.sizeFor(this.compact), weight: FontWeight.Medium }
     };
   }
@@ -135,8 +135,8 @@ export struct AppTimePicker {
       selectedTextStyle: this.selectedTextStyle(),
       textStyle: this.normalTextStyle(),
       disappearTextStyle: this.disappearTextStyle(),
-      acceptButtonStyle: { fontColor: Token.color.onPrimary(), backgroundColor: Token.color.primary() },
-      cancelButtonStyle: { fontColor: Token.color.primary() },
+      acceptButtonStyle: { fontColor: Token.color.onPrimary(this.brand), backgroundColor: Token.color.primary(this.brand) },
+      cancelButtonStyle: { fontColor: Token.color.primary(this.brand) },
       backgroundColor: Token.color.surface(),
       onAccept: (value: TimePickerResult) => {
         const next: Date = new Date(this.current);

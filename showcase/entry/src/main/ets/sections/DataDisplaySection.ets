@@ -12,7 +12,7 @@ export struct DataDisplaySection {
       // Avatar
       DemoBlock({ title: $r('app.string.sec_avatar') }) {
         Flex({ wrap: FlexWrap.Wrap, alignItems: ItemAlign.Center }) {
-          AppAvatar({ text: 'A', avatarSize: Token.size.avatarSm, bgColor: Token.color.primary() })
+          AppAvatar({ text: 'A', avatarSize: Token.size.avatarSm, bgColor: Token.color.primary(this.brand) })
             .margin({ end: LengthMetrics.vp(Token.space.sm), bottom: Token.space.xs })
           AppAvatar({ text: 'B', avatarSize: Token.size.avatarMd, bgColor: Token.color.secondary() })
             .margin({ end: LengthMetrics.vp(Token.space.sm), bottom: Token.space.xs })
@@ -28,7 +28,7 @@ export struct DataDisplaySection {
       DemoBlock({ title: $r('app.string.sec_badge') }) {
         Flex({ wrap: FlexWrap.Wrap, alignItems: ItemAlign.Center }) {
           Stack({ alignContent: Alignment.TopEnd }) {
-            AppAvatar({ text: 'M', avatarSize: Token.size.avatarLg, bgColor: Token.color.primary() })
+            AppAvatar({ text: 'M', avatarSize: Token.size.avatarLg, bgColor: Token.color.primary(this.brand) })
             AppBadge({ count: 5 })
           }
           .margin({ end: LengthMetrics.vp(Token.space.lg), bottom: Token.space.xs })
@@ -59,7 +59,7 @@ export struct DataDisplaySection {
             .margin({ end: LengthMetrics.vp(Token.space.lg), bottom: Token.space.xs })
           LoadingProgress()
             .width(Token.size.avatarMd).height(Token.size.avatarMd)
-            .color(Token.color.primary())
+            .color(Token.color.primary(this.brand))
             .margin({ bottom: Token.space.xs })
         }
         .width('100%')

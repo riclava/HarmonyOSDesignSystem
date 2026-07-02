@@ -19,9 +19,11 @@ Text('标题')
 import { Token } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 
+@StorageLink('brand') brand: string = 'default';
+
 Text('标题')
   .fontSize(Token.font.titleMedium.size)
-  .fontColor(Token.color.primary())
+  .fontColor(Token.color.primary(this.brand))
   .padding({
     start: LengthMetrics.vp(Token.space.md),
     end: LengthMetrics.vp(Token.space.md)
@@ -32,7 +34,7 @@ Text('标题')
 
 | 维度 | 必须来自 |
 | --- | --- |
-| 颜色 | `Token.color.*()` |
+| 颜色 | `Token.color.*()`；有品牌覆盖的颜色在组件内用 `Token.color.*(this.brand)` |
 | 字体大小 / 行高 / 字重 | `Token.font.*` |
 | 间距（padding/margin/space） | `Token.space.*` |
 | 圆角 | `Token.radius.*` |
@@ -52,12 +54,13 @@ import { Token } from '@riclava/designsystem';
 struct AppButton {
   @Prop label: ResourceStr = '';
   @Prop primary: boolean = true;
+  @StorageLink('brand') brand: string = 'default';
 
   build() {
     Text(this.label)
       .fontSize(Token.font.label.size)
-      .fontColor(this.primary ? Token.color.onPrimary() : Token.color.primary())
-      .backgroundColor(this.primary ? Token.color.primary() : Token.color.transparent())
+      .fontColor(this.primary ? Token.color.onPrimary(this.brand) : Token.color.primary(this.brand))
+      .backgroundColor(this.primary ? Token.color.primary(this.brand) : Token.color.transparent())
       .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
       .height(Token.size.buttonLarge(false))
       .borderRadius(Token.radius.sm)
@@ -77,6 +80,7 @@ struct AppButton {
 - 字面量颜色：`#[0-9a-fA-F]{3,8}`、`rgb(` / `rgba(`
 - 数值样式属性直接传数字字面量（`fontSize(18)`、`padding(16)`）
 - 未引用 `Token` 的样式调用
+- 有品牌覆盖的 Token 裸调用（如 `Token.color.primary()`），组件内必须传 `this.brand`
 - Token 生成物与 `tokens/design-tokens.json` 不一致
 - 面向文本 / 图标使用的颜色组合低于 [无障碍](13-accessibility.md) 要求
 
@@ -88,7 +92,7 @@ node tools/design-system.mjs check
 
 ## 命名约定
 
-- 组件文件 `PascalCase.ets`；变量 `camelCase`；运行时 Token 使用 `Token.color.primary()` / `Token.space.md` 这种 lower camel API。
+- 组件文件 `PascalCase.ets`；变量 `camelCase`；运行时 Token 使用 `Token.color.primary(this.brand)` / `Token.space.md` 这种 lower camel API。
 - 组件前缀统一（如 `App*`），便于跨项目复用与检索。
 
 ## 复用与维护

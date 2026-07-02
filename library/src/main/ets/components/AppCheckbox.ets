@@ -20,7 +20,7 @@ export struct AppCheckbox {
     Row() {
       Checkbox()
         .select(this.checked)
-        .selectedColor(Token.color.primary())
+        .selectedColor(Token.color.primary(this.brand))
         .enabled(!this.boxDisabled)
         .onChange((v: boolean) => {
           this.checked = v;

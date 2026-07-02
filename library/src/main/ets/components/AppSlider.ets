@@ -17,7 +17,7 @@ export struct AppSlider {
   build() {
     Row() {
       Slider({ value: this.value, min: this.min, max: this.max, step: this.step })
-        .selectedColor(Token.color.primary())
+        .selectedColor(Token.color.primary(this.brand))
         .trackColor(Token.color.outline())
         .blockColor(Token.color.surface())
         .layoutWeight(1)

@@ -33,7 +33,7 @@ export struct SpacingSection {
           Row()
             .width(item.value)
             .height(Token.size.skeletonLine)
-            .backgroundColor(Token.color.primary())
+            .backgroundColor(Token.color.primary(this.brand))
             .borderRadius(Token.radius.xs)
           Text(`${item.value}vp`)
             .fontSize(Token.font.caption.sizeFor(this.compact))

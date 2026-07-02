@@ -66,20 +66,20 @@ function pick(pair: ColorPair): ResourceColor {
 
 /** ---------- Color ---------- */
 class ColorTokens {
-  primary(): ResourceColor {
-    switch (currentBrand()) {
+  primary(brand: string = currentBrand()): ResourceColor {
+    switch (brand) {
       case 'violet': return pick(new ColorPair('#6D28D9', '#A78BFA'));
       default: return pick(new ColorPair('#126AFF', '#6EA8FF'));
     }
   }
-  primaryContainer(): ResourceColor {
-    switch (currentBrand()) {
+  primaryContainer(brand: string = currentBrand()): ResourceColor {
+    switch (brand) {
       case 'violet': return pick(new ColorPair('#EDE9FE', '#4C1D95'));
       default: return pick(new ColorPair('#D6E4FF', '#00429A'));
     }
   }
-  onPrimary(): ResourceColor {
-    switch (currentBrand()) {
+  onPrimary(brand: string = currentBrand()): ResourceColor {
+    switch (brand) {
       case 'violet': return pick(new ColorPair('#FFFFFF', '#2E1065'));
       default: return pick(new ColorPair('#FFFFFF', '#00285C'));
     }

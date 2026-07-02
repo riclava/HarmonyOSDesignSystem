@@ -20,7 +20,7 @@ export struct AppBadge {
     } else {
       Text(this.label())
         .fontSize(Token.font.caption.sizeFor(this.compact))
-        .fontColor(Token.color.onPrimary())
+        .fontColor(Token.color.onPrimary(this.brand))
         .height(Token.size.badgeMin)
         .constraintSize({ minWidth: Token.size.badgeMin })
         .padding({ start: LengthMetrics.vp(Token.space.xxs), end: LengthMetrics.vp(Token.space.xxs) })

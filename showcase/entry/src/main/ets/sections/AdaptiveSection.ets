@@ -15,13 +15,13 @@ export struct AdaptiveSection {
       Text(label)
         .fontSize(Token.font.label.sizeFor(this.compact))
         .lineHeight(Token.font.label.lineHeightFor(this.compact))
-        .fontColor(Token.color.onPrimary())
+        .fontColor(Token.color.onPrimary(this.brand))
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
     .height(Token.size.rowMin(this.compact))
     .width('100%')
-    .backgroundColor(Token.color.primary())
+    .backgroundColor(Token.color.primary(this.brand))
     .borderRadius(Token.radius.sm)
   }
 
@@ -55,10 +55,10 @@ export struct AdaptiveSection {
         // 触摸区域：视觉 24，命中 ≥ 44
         Row() {
           Stack() {
-            Circle({ width: Token.size.avatarXs, height: Token.size.avatarXs }).fill(Token.color.primary())
+            Circle({ width: Token.size.avatarXs, height: Token.size.avatarXs }).fill(Token.color.primary(this.brand))
           }
           .width(Token.size.minTouch).height(Token.size.minTouch)
-          .backgroundColor(Token.color.primaryContainer())
+          .backgroundColor(Token.color.primaryContainer(this.brand))
           .borderRadius(Token.radius.sm)
           .accessibilityText($r('app.string.a11y_more'))
 
@@ -94,8 +94,8 @@ export struct AdaptiveSection {
           Text($r('app.string.contrast_primary'))
             .fontSize(Token.font.body.sizeFor(this.compact))
             .lineHeight(Token.font.body.lineHeightFor(this.compact))
-            .fontColor(Token.color.onPrimary())
-            .backgroundColor(Token.color.primary())
+            .fontColor(Token.color.onPrimary(this.brand))
+            .backgroundColor(Token.color.primary(this.brand))
             .padding(Token.space.xs)
             .borderRadius(Token.radius.xs)
             .margin({ bottom: Token.space.xs })

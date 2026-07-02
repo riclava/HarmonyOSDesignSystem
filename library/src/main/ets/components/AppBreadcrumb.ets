@@ -26,7 +26,7 @@ export struct AppBreadcrumb {
       ForEach(this.items, (item: ResourceStr, index: number) => {
         Text(item)
           .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-          .fontColor(this.isLast(index) ? Token.color.onSurface() : Token.color.primary())
+          .fontColor(this.isLast(index) ? Token.color.onSurface() : Token.color.primary(this.brand))
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })
           .constraintSize({ minHeight: Token.size.minTouch })

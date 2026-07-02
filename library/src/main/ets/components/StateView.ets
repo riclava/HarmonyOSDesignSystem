@@ -35,7 +35,7 @@ export struct StateView {
   build() {
     Column() {
       if (this.kind === StateKind.Loading) {
-        LoadingProgress().width(Token.icon.xxl).height(Token.icon.xxl).color(Token.color.primary())
+        LoadingProgress().width(Token.icon.xxl).height(Token.icon.xxl).color(Token.color.primary(this.brand))
       } else {
         SymbolGlyph(this.stateIconResource())
           .fontSize(Token.icon.xxl)
@@ -59,10 +59,10 @@ export struct StateView {
       if (this.hasText(this.actionLabel)) {
         Text(this.actionLabel)
           .fontSize(Token.font.label.sizeFor(this.compact))
-          .fontColor(Token.color.onPrimary())
+          .fontColor(Token.color.onPrimary(this.brand))
           .height(Token.size.buttonMedium(this.compact))
           .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
-          .backgroundColor(Token.color.primary())
+          .backgroundColor(Token.color.primary(this.brand))
           .borderRadius(Token.radius.sm)
           .margin({ top: Token.space.md })
           .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })

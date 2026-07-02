@@ -24,7 +24,7 @@ export struct AppSwitch {
           .layoutWeight(1)
       }
       Toggle({ type: ToggleType.Switch, isOn: this.isOn })
-        .selectedColor(Token.color.primary())
+        .selectedColor(Token.color.primary(this.brand))
         .enabled(!this.switchDisabled)
         .opacity(this.switchDisabled ? 0.38 : 1)
         .onChange((v: boolean) => {

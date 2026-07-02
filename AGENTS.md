@@ -13,9 +13,10 @@ Text('Hi').fontSize(18).fontColor('#2979FF').padding(16)
 
 // ✅ 正确
 import { Token } from '@riclava/designsystem';
+@StorageLink('brand') brand: string = 'default';
 Text('Hi')
   .fontSize(Token.font.titleMedium.size)
-  .fontColor(Token.color.primary())
+  .fontColor(Token.color.primary(this.brand))
   .padding(Token.space.md)
 ```
 
@@ -23,7 +24,7 @@ Text('Hi')
 
 | 类别 | 引用方式 | 可选值 |
 | --- | --- | --- |
-| 颜色 | `Token.color.X()` | primary, primaryContainer, onPrimary, secondary, secondaryContainer, success, warning, danger, info, surface, background, onSurface, onSurfaceVariant, outline, divider, mask, transparent |
+| 颜色 | `Token.color.X()`；品牌色在组件内用 `Token.color.X(this.brand)` | primary, primaryContainer, onPrimary, secondary, secondaryContainer, success, warning, danger, info, surface, background, onSurface, onSurfaceVariant, outline, divider, mask, transparent |
 | 字体 | `Token.font.X.size / .lineHeight / .weight` | displayLarge, displayMedium, headlineLarge, headlineMedium, titleLarge, titleMedium, body, bodySmall, label, caption |
 | 间距 | `Token.space.X` | none, xxs(4), xs(8), sm(12), md(16), lg(24), xl(32), xxl(40), xxxl(48), xxxxl(56), xxxxxl(64) |
 | 圆角 | `Token.radius.X` | none, xs(4), sm(8), md(12), lg(16), xl(20), xxl(24), xxxl(32), full(999) |
@@ -83,7 +84,7 @@ import {
 
 ## 强制约束
 
-1. 深浅色 / 品牌：颜色只用 `Token.color.*`，随深浅色与品牌自动切换。组件持有 `@StorageLink('isDark') isDark: boolean` 与 `@StorageLink('brand') brand: string` 以触发重绘。跟随系统：在 Ability 里调用 `initColorMode(config.colorMode)`；多品牌用 `initTheme(brandId, config.colorMode)` / 运行时 `setBrand(brandId)`。详见 `docs/19-theming.md`。
+1. 深浅色 / 品牌：颜色只用 `Token.color.*`，随深浅色与品牌自动切换。组件持有 `@StorageLink('isDark') isDark: boolean` 与 `@StorageLink('brand') brand: string` 以触发重绘；有品牌覆盖的颜色（`primary` / `primaryContainer` / `onPrimary`）必须在 build 内传 `this.brand`，例如 `Token.color.primary(this.brand)`，否则品牌切换不会实时刷新。跟随系统：在 Ability 里调用 `initColorMode(config.colorMode)`；多品牌用 `initTheme(brandId, config.colorMode)` / 运行时 `setBrand(brandId)`。详见 `docs/19-theming.md`。
 2. 无障碍：可交互元素命中区 ≥ 44×44vp；图标按钮必须带 `.accessibilityText(...)`；信息不能只靠颜色传达。
 3. 一屏一个主行动（Primary），破坏性操作用 `Danger` 色并二次确认。
 4. 间距只取 8pt Grid 值（4 的倍数），禁止 13/15/18 等随意数值。

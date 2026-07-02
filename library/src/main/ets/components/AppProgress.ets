@@ -14,13 +14,13 @@ export struct AppProgress {
   build() {
     if (this.kind === AppProgressKind.Ring) {
       Progress({ value: this.value, total: this.total, type: ProgressType.Ring })
-        .color(Token.color.primary())
+        .color(Token.color.primary(this.brand))
         .backgroundColor(Token.color.outline())
         .width(Token.size.progressRing)
         .height(Token.size.progressRing)
     } else {
       Progress({ value: this.value, total: this.total, type: ProgressType.Linear })
-        .color(Token.color.primary())
+        .color(Token.color.primary(this.brand))
         .backgroundColor(Token.color.outline())
         .width('100%')
         .height(Token.size.progressTrack)

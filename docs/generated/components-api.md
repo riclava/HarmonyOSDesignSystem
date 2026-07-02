@@ -38,7 +38,7 @@
 | `text` | `string` | `''` |
 | `avatarSize` | `number` | `Token.size.avatarMd` |
 | `shape` | `AppAvatarShape` | `AppAvatarShape.Circle` |
-| `bgColor` | `ResourceColor` | `Token.color.primary()` |
+| `bgColor` | `ResourceColor \| null` | `null` |
 
 **枚举**
 
