@@ -10,9 +10,6 @@ const runtimePath = path.join(root, 'library/src/main/ets/theme/Tokens.ets');
 const lightResourcePath = path.join(root, 'library/src/main/resources/base/element/color.json');
 const darkResourcePath = path.join(root, 'library/src/main/resources/dark/element/color.json');
 
-const args = process.argv.slice(2);
-const command = args[0] ?? 'check';
-const strictContrast = args.includes('--strict-contrast');
 const tokens = JSON.parse(fs.readFileSync(tokenPath, 'utf8'));
 
 const nameMap = new Map([
@@ -310,7 +307,7 @@ function generate() {
   fs.writeFileSync(darkResourcePath, renderColorResources('dark'));
 }
 
-function check() {
+function check(strictContrast) {
   const failures = [
     ...compareFile(runtimePath, renderRuntime()),
     ...compareFile(lightResourcePath, renderColorResources('light')),
@@ -324,11 +321,34 @@ function check() {
   console.log('Design system token checks passed.');
 }
 
-if (command === 'generate') {
-  generate();
-} else if (command === 'check') {
-  check();
-} else {
-  console.error(`Unknown command: ${command}`);
-  process.exit(1);
+function main() {
+  const args = process.argv.slice(2);
+  const command = args[0] ?? 'check';
+  const strictContrast = args.includes('--strict-contrast');
+  if (command === 'generate') {
+    generate();
+  } else if (command === 'check') {
+    check(strictContrast);
+  } else {
+    console.error(`Unknown command: ${command}`);
+    process.exit(1);
+  }
 }
+
+// Only run the CLI when executed directly, so tests can import pure helpers.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main();
+}
+
+export {
+  tokens,
+  arkColor,
+  parseDimension,
+  resourceName,
+  runtimeName,
+  contrast,
+  luminance,
+  validateContrast,
+  renderRuntime,
+  renderColorResources
+};

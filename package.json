@@ -1,0 +1,20 @@
+{
+  "name": "harmonyos-design-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HarmonyOS Design System — tooling, token generation and quality gates",
+  "type": "module",
+  "license": "MIT",
+  "author": "riclava",
+  "scripts": {
+    "tokens:generate": "node tools/design-system.mjs generate",
+    "tokens:check": "node tools/design-system.mjs check",
+    "contrast:check": "node tools/design-system.mjs check --strict-contrast",
+    "lint:hardcode": "node tools/lint-hardcode.mjs",
+    "test": "node --test tools/*.test.mjs",
+    "verify": "npm run tokens:check && npm run lint:hardcode && npm test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
