@@ -6,10 +6,10 @@
 
 | 手势 | 反馈 |
 | --- | --- |
-| 点击 Tap | Opacity 叠加 + Ripple 水波纹，`MotionInstant` (100ms) |
+| 点击 Tap | Opacity 叠加 + Ripple 水波纹，`Token.motion.instant` (100ms) |
 | 长按 Long Press | 触发上下文 Menu + 轻微 Scale(0.98) + 触感反馈 |
 | 拖动 Drag | 元素 Scale(1.03) + `Level2` 浮起，跟手移动 |
-| 滑动 Swipe | 跟手，松手 `EaseSpring` 回弹或吸附 |
+| 滑动 Swipe | 跟手，松手使用系统组件默认弹性回弹或吸附 |
 | 下拉 Pull | 下拉刷新指示器，超过阈值触发 |
 | 双指缩放 Pinch | 内容缩放，边界回弹 |
 

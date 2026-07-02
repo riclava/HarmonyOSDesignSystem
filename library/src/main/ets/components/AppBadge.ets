@@ -15,13 +15,13 @@ export struct AppBadge {
 
   build() {
     if (this.dot) {
-      Circle({ width: 8, height: 8 }).fill(Token.color.danger())
+      Circle({ width: Token.size.badgeDot, height: Token.size.badgeDot }).fill(Token.color.danger())
     } else {
       Text(this.label())
         .fontSize(Token.font.caption.sizeFor(this.compact))
         .fontColor(Token.color.onPrimary())
-        .height(16)
-        .constraintSize({ minWidth: 16 })
+        .height(Token.size.badgeMin)
+        .constraintSize({ minWidth: Token.size.badgeMin })
         .padding({ start: LengthMetrics.vp(Token.space.xxs), end: LengthMetrics.vp(Token.space.xxs) })
         .backgroundColor(Token.color.danger())
         .borderRadius(Token.radius.full)

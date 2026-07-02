@@ -6,25 +6,25 @@
 
 | Token | Size (fp) | Line Height | Weight | 用途 |
 | --- | --- | --- | --- | --- |
-| `DisplayLarge` | 48 | 56 | Bold (700) | 大标题 / 营销页 |
-| `DisplayMedium` | 36 | 44 | Bold (700) | 页面主标题 |
-| `HeadlineLarge` (H1) | 30 | 38 | Semibold (600) | 一级标题 |
-| `HeadlineMedium` (H2) | 24 | 32 | Semibold (600) | 二级标题 |
-| `TitleLarge` (H3) | 20 | 28 | Medium (500) | 卡片 / 区块标题 |
-| `TitleMedium` (H4) | 18 | 26 | Medium (500) | 小节标题 |
-| `Body` | 16 | 24 | Regular (400) | 正文 |
-| `BodySmall` | 14 | 20 | Regular (400) | 次要正文 |
-| `Label` | 14 | 20 | Medium (500) | 按钮 / 标签文字 |
-| `Caption` | 12 | 16 | Regular (400) | 辅助说明 / 时间戳 |
+| `Token.font.displayLarge` | 48 | 56 | Bold (700) | 大标题 / 营销页 |
+| `Token.font.displayMedium` | 36 | 44 | Bold (700) | 页面主标题 |
+| `Token.font.headlineLarge` (H1) | 30 | 38 | Semibold (600) | 一级标题 |
+| `Token.font.headlineMedium` (H2) | 24 | 32 | Semibold (600) | 二级标题 |
+| `Token.font.titleLarge` (H3) | 20 | 28 | Medium (500) | 卡片 / 区块标题 |
+| `Token.font.titleMedium` (H4) | 18 | 26 | Medium (500) | 小节标题 |
+| `Token.font.body` | 16 | 24 | Regular (400) | 正文 |
+| `Token.font.bodySmall` | 14 | 20 | Regular (400) | 次要正文 |
+| `Token.font.label` | 14 | 20 | Medium (500) | 按钮 / 标签文字 |
+| `Token.font.caption` | 12 | 16 | Regular (400) | 辅助说明 / 时间戳 |
 
 ## 字重
 
-| Token | 值 |
+| 用法 | 值 |
 | --- | --- |
-| `WeightRegular` | 400 |
-| `WeightMedium` | 500 |
-| `WeightSemibold` | 600 |
-| `WeightBold` | 700 |
+| `Token.font.body.weight` / `Token.font.caption.weight` | 400 |
+| `Token.font.titleLarge.weight` / `Token.font.label.weight` | 500 |
+| `Token.font.headlineLarge.weight` / `Token.font.headlineMedium.weight` | 600 |
+| `Token.font.displayLarge.weight` / `Token.font.displayMedium.weight` | 700 |
 
 ## 使用规则
 
@@ -38,7 +38,7 @@
 
 ```ts
 Text('标题')
-  .fontSize(Token.Font.TitleLarge.size)
-  .lineHeight(Token.Font.TitleLarge.lineHeight)
-  .fontWeight(Token.Font.WeightMedium)
+  .fontSize(Token.font.titleLarge.size)
+  .lineHeight(Token.font.titleLarge.lineHeight)
+  .fontWeight(Token.font.titleLarge.weight)
 ```

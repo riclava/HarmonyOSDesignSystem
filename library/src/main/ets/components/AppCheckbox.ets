@@ -4,12 +4,16 @@ import { LengthMetrics } from '@kit.ArkUI';
 /** 复选框：左侧 Checkbox + 右侧文案。命中区 ≥ 44。 */
 @Component
 export struct AppCheckbox {
-  @Prop label: string = '';
+  @Prop label: ResourceStr = '';
   @Prop checked: boolean = false;
   @Prop boxDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
   onCheck?: (value: boolean) => void;
+
+  private hasLabel(): boolean {
+    return typeof this.label !== 'string' || this.label.length > 0;
+  }
 
   build() {
     Row() {
@@ -23,7 +27,7 @@ export struct AppCheckbox {
             this.onCheck(v);
           }
         })
-      if (this.label.length > 0) {
+      if (this.hasLabel()) {
         Text(this.label)
           .fontSize(Token.font.body.sizeFor(this.compact))
           .fontColor(Token.color.onSurface())
@@ -32,7 +36,7 @@ export struct AppCheckbox {
       }
     }
     .width('100%')
-    .constraintSize({ minHeight: 44 })
+    .constraintSize({ minHeight: Token.size.minTouch })
     .alignItems(VerticalAlign.Center)
     .opacity(this.boxDisabled ? 0.38 : 1)
   }

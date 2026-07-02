@@ -1,4 +1,5 @@
 import { Token } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 interface RadiusItem { name: string; value: number; }
@@ -23,17 +24,17 @@ export struct RadiusSection {
         ForEach(this.items(), (item: RadiusItem) => {
           Column() {
             Column()
-              .width(56)
-              .height(56)
+              .width(Token.size.progressRing)
+              .height(Token.size.progressRing)
               .backgroundColor(Token.color.primaryContainer())
-              .borderRadius(item.value === Token.radius.full ? 28 : item.value)
+              .borderRadius(item.value)
               .border({ width: 1, color: Token.color.primary() })
             Text(item.name)
               .fontSize(Token.font.caption.size)
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }
-          .margin({ right: Token.space.md, bottom: Token.space.sm })
+          .margin({ end: LengthMetrics.vp(Token.space.md), bottom: Token.space.sm })
         })
       }
       .width('100%')

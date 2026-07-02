@@ -6,21 +6,25 @@ import { Token } from '../theme/Tokens';
  */
 @Component
 export struct AppPopover {
-  @Prop title: string = '';
-  @Prop text: string = '';
+  @Prop title: ResourceStr = '';
+  @Prop text: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
 
+  private hasText(value: ResourceStr): boolean {
+    return typeof value !== 'string' || value.length > 0;
+  }
+
   build() {
     Column() {
-      if (this.title.length > 0) {
+      if (this.hasText(this.title)) {
         Text(this.title)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontWeight(Token.font.label.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.xxs })
       }
-      if (this.text.length > 0) {
+      if (this.hasText(this.text)) {
         Text(this.text)
           .fontSize(Token.font.bodySmall.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
@@ -30,7 +34,7 @@ export struct AppPopover {
     .padding(Token.space.sm)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
-    .constraintSize({ maxWidth: 240 })
+    .constraintSize({ maxWidth: Token.size.popoverMaxWidth })
     .shadow({
       radius: Token.shadow.level3.radius,
       color: Token.shadow.level3.color,

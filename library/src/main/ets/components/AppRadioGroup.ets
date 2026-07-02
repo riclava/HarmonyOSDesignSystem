@@ -3,9 +3,9 @@ import { LengthMetrics } from '@kit.ArkUI';
 
 /** 单选项数据模型。 */
 export class AppRadioOption {
-  label: string;
+  label: ResourceStr;
   value: string;
-  constructor(label: string, value: string) {
+  constructor(label: ResourceStr, value: string) {
     this.label = label;
     this.value = value;
   }
@@ -41,7 +41,7 @@ export struct AppRadioGroup {
         .fontColor(Token.color.onSurface())
         .margin({ start: LengthMetrics.vp(Token.space.xxs), end: LengthMetrics.vp(Token.space.lg) })
     }
-    .constraintSize({ minHeight: 44 })
+    .constraintSize({ minHeight: Token.size.minTouch })
     .alignItems(VerticalAlign.Center)
   }
 

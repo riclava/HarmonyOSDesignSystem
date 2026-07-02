@@ -22,13 +22,13 @@ export struct AppTimePicker {
   /** 已选时间（读取时/分/秒）。 */
   @Prop selected: Date = new Date();
   /** 字段上方标签（仅 Field）。 */
-  @Prop label: string = '';
+  @Prop label: ResourceStr = '';
   /** 未选择时的占位文案（仅 Field）。 */
   @Prop placeholder: ResourceStr = $r('app.string.ds_time_placeholder');
   /** 辅助说明（仅 Field）。 */
-  @Prop helper: string = '';
+  @Prop helper: ResourceStr = '';
   /** 错误信息，非空时字段转为 Danger（仅 Field）。 */
-  @Prop error: string = '';
+  @Prop error: ResourceStr = '';
   /** 禁用（仅 Field）。 */
   @Prop fieldDisabled: boolean = false;
   /** 24 小时制，默认 true；false 为上午/下午制。 */
@@ -79,7 +79,11 @@ export struct AppTimePicker {
     return this.showSeconds ? `${base}:${this.pad(this.current.getSeconds())}` : base;
   }
 
-  /** 无障碍朗读文案：已选朗读时间，未选朗读占位（占位为资源时解析为字符串）。 */
+  private hasText(value: ResourceStr): boolean {
+    return typeof value !== 'string' || value.length > 0;
+  }
+
+  /** 无障碍朗读文案：已选朗读时间；字符串占位直接朗读，资源占位交给可见文本自身。 */
   private accessibilityLabel(): string {
     if (this.picked) {
       return this.displayText();
@@ -87,11 +91,11 @@ export struct AppTimePicker {
     if (typeof this.placeholder === 'string') {
       return this.placeholder;
     }
-    return getContext(this).resourceManager.getStringSync(this.placeholder);
+    return '';
   }
 
   private fieldBorderColor(): ResourceColor {
-    if (this.error.length > 0) {
+    if (this.hasText(this.error)) {
       return Token.color.danger();
     }
     return Token.color.outline();
@@ -123,7 +127,7 @@ export struct AppTimePicker {
   }
 
   private openDialog(): void {
-    TimePickerDialog.show({
+    this.getUIContext().showTimePickerDialog({
       selected: this.current,
       format: this.pickerFormat(),
       useMilitaryTime: this.useMilitaryTime,
@@ -148,7 +152,7 @@ export struct AppTimePicker {
   @Builder
   private FieldView() {
     Column() {
-      if (this.label.length > 0) {
+      if (this.hasText(this.label)) {
         Text(this.label)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontWeight(Token.font.label.weight)
@@ -184,12 +188,12 @@ export struct AppTimePicker {
           this.openDialog();
         }
       })
-      if (this.error.length > 0) {
+      if (this.hasText(this.error)) {
         Text(this.error)
           .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.danger())
           .margin({ top: Token.space.xxs })
-      } else if (this.helper.length > 0) {
+      } else if (this.hasText(this.helper)) {
         Text(this.helper)
           .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())

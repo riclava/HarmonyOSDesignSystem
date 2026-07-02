@@ -1,4 +1,5 @@
 import { Token } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 interface SpaceItem { name: string; value: number; }
@@ -25,16 +26,16 @@ export struct SpacingSection {
           Text(`Space.${item.name}`)
             .fontSize(Token.font.bodySmall.size)
             .fontColor(Token.color.onSurface())
-            .width(110)
+            .width(Token.size.avatarXl + Token.space.xxxl)
           Row()
             .width(item.value)
-            .height(16)
+            .height(Token.size.skeletonLine)
             .backgroundColor(Token.color.primary())
             .borderRadius(Token.radius.xs)
           Text(`${item.value}vp`)
             .fontSize(Token.font.caption.size)
             .fontColor(Token.color.onSurfaceVariant())
-            .margin({ left: Token.space.xs })
+            .margin({ start: LengthMetrics.vp(Token.space.xs) })
         }
         .width('100%')
         .padding({ top: Token.space.xxs, bottom: Token.space.xxs })

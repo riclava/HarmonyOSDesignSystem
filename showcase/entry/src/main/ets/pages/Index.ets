@@ -1,5 +1,6 @@
 import { Token } from '@riclava/designsystem';
 import { common, ConfigurationConstant } from '@kit.AbilityKit';
+import { LengthMetrics } from '@kit.ArkUI';
 import { ColorSection } from '../sections/ColorSection';
 import { TypographySection } from '../sections/TypographySection';
 import { SpacingSection } from '../sections/SpacingSection';
@@ -28,7 +29,12 @@ struct ScrollPage {
         this.content()
       }
       .width('100%')
-      .padding({ left: Token.space.md, right: Token.space.md, top: Token.space.lg, bottom: Token.space.xxl })
+      .padding({
+        start: LengthMetrics.vp(Token.space.md),
+        end: LengthMetrics.vp(Token.space.md),
+        top: LengthMetrics.vp(Token.space.lg),
+        bottom: LengthMetrics.vp(Token.space.xxl)
+      })
     }
     .scrollBar(BarState.Off)
     .align(Alignment.TopStart)
@@ -58,15 +64,15 @@ struct Index {
       Text('紧凑')
         .fontSize(Token.font.caption.size)
         .fontColor(this.compact ? Token.color.primary() : Token.color.onSurfaceVariant())
-        .margin({ right: Token.space.xxs })
+        .margin({ end: LengthMetrics.vp(Token.space.xxs) })
       Toggle({ type: ToggleType.Switch, isOn: this.compact })
         .selectedColor(Token.color.primary())
-        .margin({ right: Token.space.md })
+        .margin({ end: LengthMetrics.vp(Token.space.md) })
         .onChange((on: boolean) => { this.compact = on; })
 
       Text(this.isDark ? '🌙' : '☀️')
         .fontSize(Token.font.body.size)
-        .margin({ right: Token.space.xxs })
+        .margin({ end: LengthMetrics.vp(Token.space.xxs) })
       Toggle({ type: ToggleType.Switch, isOn: this.isDark })
         .selectedColor(Token.color.primary())
         .onChange((on: boolean) => {
@@ -80,8 +86,8 @@ struct Index {
         })
     }
     .width('100%')
-    .height(56)
-    .padding({ left: Token.space.md, right: Token.space.md })
+    .height(Token.size.rowMin(false))
+    .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
     .backgroundColor(Token.color.surface())
   }
 
@@ -133,7 +139,7 @@ struct Index {
   tabItem(label: string, index: number) {
     Text(label)
       .fontSize(Token.font.label.size)
-      .fontWeight(this.activeTab === index ? Token.font.label.weight : 400)
+      .fontWeight(this.activeTab === index ? Token.font.label.weight : Token.font.caption.weight)
       .fontColor(this.activeTab === index ? Token.color.primary() : Token.color.onSurfaceVariant())
       .padding(Token.space.sm)
   }

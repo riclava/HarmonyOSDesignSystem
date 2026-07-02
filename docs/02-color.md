@@ -6,22 +6,25 @@
 
 | Token | 含义 | Light | Dark |
 | --- | --- | --- | --- |
-| `Primary` | 主色，品牌与主行动 | `#2979FF` | `#6EA8FF` |
-| `PrimaryContainer` | 主色容器（浅底） | `#D6E4FF` | `#00429A` |
-| `OnPrimary` | 主色上的文字/图标 | `#FFFFFF` | `#00285C` |
-| `Secondary` | 次要强调色 | `#00C48C` | `#4FE0B5` |
-| `SecondaryContainer` | 次色容器 | `#C8F5E7` | `#00513A` |
-| `Success` | 成功 | `#34C759` | `#4ADE80` |
-| `Warning` | 警告 | `#FF9F0A` | `#FBBF24` |
-| `Danger` | 危险 / 错误 | `#FF3B30` | `#FF6B6B` |
-| `Info` | 信息提示 | `#0A84FF` | `#64B5FF` |
-| `Surface` | 卡片 / 面板底色 | `#FFFFFF` | `#1E1E1E` |
-| `Background` | 页面背景 | `#F6F6F6` | `#000000` |
-| `OnSurface` | 主文字 | `#1A1A1A` | `#F5F5F5` |
-| `OnSurfaceVariant` | 次要文字 | `#666666` | `#A8A8A8` |
-| `Outline` / `Border` | 边框 | `#E0E0E0` | `#3A3A3A` |
-| `Divider` | 分割线 | `#EEEEEE` | `#2A2A2A` |
-| `Mask` / `Overlay` | 遮罩层 | `rgba(0,0,0,0.45)` | `rgba(0,0,0,0.6)` |
+| `Token.color.primary()` | 主色，品牌与主行动 | `#2979FF` | `#6EA8FF` |
+| `Token.color.primaryContainer()` | 主色容器（浅底） | `#D6E4FF` | `#00429A` |
+| `Token.color.onPrimary()` | 主色上的文字/图标 | `#FFFFFF` | `#00285C` |
+| `Token.color.secondary()` | 次要强调色 | `#00C48C` | `#4FE0B5` |
+| `Token.color.secondaryContainer()` | 次色容器 | `#C8F5E7` | `#00513A` |
+| `Token.color.success()` | 成功 | `#34C759` | `#4ADE80` |
+| `Token.color.warning()` | 警告 | `#FF9F0A` | `#FBBF24` |
+| `Token.color.danger()` | 危险 / 错误 | `#FF3B30` | `#FF6B6B` |
+| `Token.color.info()` | 信息提示 | `#0A84FF` | `#64B5FF` |
+| `Token.color.surface()` | 卡片 / 面板底色 | `#FFFFFF` | `#1E1E1E` |
+| `Token.color.background()` | 页面背景 | `#F6F6F6` | `#000000` |
+| `Token.color.onSurface()` | 主文字 | `#1A1A1A` | `#F5F5F5` |
+| `Token.color.onSurfaceVariant()` | 次要文字 | `#666666` | `#A8A8A8` |
+| `Token.color.outline()` | 边框 | `#E0E0E0` | `#3A3A3A` |
+| `Token.color.divider()` | 分割线 | `#EEEEEE` | `#2A2A2A` |
+| `Token.color.mask()` | 遮罩层 | `#00000073` | `#00000099` |
+| `Token.color.transparent()` | 透明 | `#00000000` | `#00000000` |
+
+> `tokens/design-tokens.json` 按 W3C Design Tokens 习惯保存透明色为 `#RRGGBBAA`；生成到 ArkUI 运行时与资源文件时会自动转换为 `#AARRGGBB`。
 
 ## 使用规则
 

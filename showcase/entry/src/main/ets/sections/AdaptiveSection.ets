@@ -1,4 +1,5 @@
 import { Token } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 @Component
@@ -15,7 +16,7 @@ export struct AdaptiveSection {
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .height(56)
+    .height(Token.size.rowMin(false))
     .width('100%')
     .backgroundColor(Token.color.primary())
     .borderRadius(Token.radius.sm)
@@ -48,9 +49,9 @@ export struct AdaptiveSection {
       // 触摸区域：视觉 24，命中 ≥ 44
       Row() {
         Stack() {
-          Circle({ width: 24, height: 24 }).fill(Token.color.primary())
+          Circle({ width: Token.size.avatarXs, height: Token.size.avatarXs }).fill(Token.color.primary())
         }
-        .width(44).height(44)
+        .width(Token.size.minTouch).height(Token.size.minTouch)
         .backgroundColor(Token.color.primaryContainer())
         .borderRadius(Token.radius.sm)
         .accessibilityText('更多操作')
@@ -65,7 +66,7 @@ export struct AdaptiveSection {
         }
         .alignItems(HorizontalAlign.Start)
         .layoutWeight(1)
-        .margin({ left: Token.space.md })
+        .margin({ start: LengthMetrics.vp(Token.space.md) })
       }
       .width('100%')
       .margin({ top: Token.space.xs })
@@ -78,7 +79,7 @@ export struct AdaptiveSection {
           .backgroundColor(Token.color.surface())
           .padding(Token.space.xs)
           .borderRadius(Token.radius.xs)
-          .margin({ right: Token.space.xs })
+          .margin({ end: LengthMetrics.vp(Token.space.xs) })
         Text('主色按钮')
           .fontSize(Token.font.body.size)
           .fontColor(Token.color.onPrimary())

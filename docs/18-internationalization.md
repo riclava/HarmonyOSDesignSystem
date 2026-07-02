@@ -6,7 +6,7 @@
 
 1. **文案外置**：面向用户的文字不硬编码，走资源 `$r('app.string.*')`。
 2. **逻辑方向**：布局用 `start / end`，不用物理 `left / right`；文本对齐用 `TextAlign.Start / End`。
-3. **区域化格式**：日期 / 时间 / 数字用 `intl`（`@kit.LocalizationKit`）按系统区域格式化，不手拼字符串。
+3. **区域化格式**：日期 / 时间 / 数字用标准 `Intl.DateTimeFormat` / `Intl.NumberFormat` 按系统区域格式化，不手拼字符串。
 
 ## 18.2 文案资源化
 
@@ -28,11 +28,11 @@
 组件中这些文案的 Prop 类型为 `ResourceStr`，默认值为 `$r('app.string.ds_*')`，调用方可覆盖：
 
 ```ts
-// 用内置本地化默认值
-AppDialog({ title: '删除', message: '确认删除？' })
+// 用业务资源覆盖
+AppDialog({ title: $r('app.string.delete_title'), message: $r('app.string.delete_message') })
 
-// 覆盖为自己的资源（推荐）或纯字符串
-AppDialog({ confirmLabel: $r('app.string.my_delete'), cancelLabel: '再想想' })
+// 纯字符串仅用于临时 Demo，不用于生产用户文案
+AppDialog({ confirmLabel: $r('app.string.my_delete'), cancelLabel: $r('app.string.cancel_later') })
 ```
 
 业务侧新增语言：在 App 工程补 `resources/<locale>/element/string.json`（如 `zh_CN`、`en_US`、`ar` 等），把用户可见文案都放进去，用 `$r('app.string.xxx')` 引用。
@@ -89,5 +89,5 @@ fmt.format(new Date());   // en-US: "3:05 PM"；zh-CN: "下午3:05"
 - [ ] 无硬编码用户可见文案（全部 `$r('app.string.*')`）。
 - [ ] 无 `left/right` 内外边距，无 `TextAlign.Left/Right`。
 - [ ] 方向性图标已按 `isRTL()` 镜像。
-- [ ] 日期 / 时间 / 数字经 `intl` 或系统组件格式化。
+- [ ] 日期 / 时间 / 数字经标准 `Intl` 或系统组件格式化。
 - [ ] 目标语言的 `string.json` 已补齐。

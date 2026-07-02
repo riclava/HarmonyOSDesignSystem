@@ -30,7 +30,7 @@ export struct AppSlider {
         Text(`${Math.round(this.value)}`)
           .fontSize(Token.font.bodySmall.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
-          .width(40)
+          .width(Token.size.sliderValueWidth)
           .textAlign(TextAlign.End)
           .margin({ start: LengthMetrics.vp(Token.space.sm) })
       }

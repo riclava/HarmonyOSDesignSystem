@@ -5,6 +5,7 @@ import { Token } from '../theme/Tokens';
 export struct AppCalendar {
   @Prop selected: Date = new Date();
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
   onPick?: (value: Date) => void;
 
   build() {
@@ -12,7 +13,7 @@ export struct AppCalendar {
       .edgeAlign(CalendarAlign.END)
       .textStyle({
         color: Token.color.onSurface(),
-        font: { size: Token.font.body.size, weight: FontWeight.Normal }
+        font: { size: Token.font.body.sizeFor(this.compact), weight: FontWeight.Normal }
       })
       .backgroundColor(Token.color.surface())
       .borderRadius(Token.radius.sm)

@@ -17,23 +17,27 @@ Text('标题')
 
 ```ts
 import { Token } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 
 Text('标题')
-  .fontSize(Token.Font.TitleMedium.size)
-  .fontColor(Token.Color.Primary)
-  .padding(Token.Space.MD)
+  .fontSize(Token.font.titleMedium.size)
+  .fontColor(Token.color.primary())
+  .padding({
+    start: LengthMetrics.vp(Token.space.md),
+    end: LengthMetrics.vp(Token.space.md)
+  })
 ```
 
 ## 检查项
 
 | 维度 | 必须来自 |
 | --- | --- |
-| 颜色 | `Token.Color.*` |
-| 字体大小 / 行高 / 字重 | `Token.Font.*` |
-| 间距（padding/margin/space） | `Token.Space.*` |
-| 圆角 | `Token.Radius.*` |
-| 阴影 | `Token.Shadow.*` |
-| 动画时长 / 曲线 | `Token.Motion.*` |
+| 颜色 | `Token.color.*()` |
+| 字体大小 / 行高 / 字重 | `Token.font.*` |
+| 间距（padding/margin/space） | `Token.space.*` |
+| 圆角 | `Token.radius.*` |
+| 阴影 | `Token.shadow.*` |
+| 动画时长 / 曲线 | `Token.motion.*` |
 
 ## 组件封装
 
@@ -41,19 +45,22 @@ Text('标题')
 - 组件通过 props 暴露语义变体（`type: 'primary' | 'secondary'`），不暴露原始颜色。
 
 ```ts
+import { LengthMetrics } from '@kit.ArkUI';
+import { Token } from '@riclava/designsystem';
+
 @Component
 struct AppButton {
-  @Prop label: string;
-  @Prop type: 'primary' | 'secondary' = 'primary';
+  @Prop label: ResourceStr = '';
+  @Prop primary: boolean = true;
 
   build() {
     Text(this.label)
-      .fontSize(Token.Font.Label.size)
-      .fontColor(this.type === 'primary' ? Token.Color.OnPrimary : Token.Color.Primary)
-      .backgroundColor(this.type === 'primary' ? Token.Color.Primary : Token.Color.Transparent)
-      .padding({ left: Token.Space.LG, right: Token.Space.LG })
-      .height(48)
-      .borderRadius(Token.Radius.SM)
+      .fontSize(Token.font.label.size)
+      .fontColor(this.primary ? Token.color.onPrimary() : Token.color.primary())
+      .backgroundColor(this.primary ? Token.color.primary() : Token.color.transparent())
+      .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
+      .height(Token.size.buttonLarge(false))
+      .borderRadius(Token.radius.sm)
   }
 }
 ```
@@ -70,10 +77,18 @@ struct AppButton {
 - 字面量颜色：`#[0-9a-fA-F]{3,8}`、`rgb(` / `rgba(`
 - 数值样式属性直接传数字字面量（`fontSize(18)`、`padding(16)`）
 - 未引用 `Token` 的样式调用
+- Token 生成物与 `tokens/design-tokens.json` 不一致
+- 面向文本 / 图标使用的颜色组合低于 [无障碍](13-accessibility.md) 要求
+
+本仓库已提供基础校验：
+
+```sh
+node tools/design-system.mjs check
+```
 
 ## 命名约定
 
-- 组件文件 `PascalCase.ets`；变量 `camelCase`；Token 常量 `PascalCase`。
+- 组件文件 `PascalCase.ets`；变量 `camelCase`；运行时 Token 使用 `Token.color.primary()` / `Token.space.md` 这种 lower camel API。
 - 组件前缀统一（如 `App*`），便于跨项目复用与检索。
 
 ## 复用与维护

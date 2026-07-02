@@ -7,12 +7,16 @@ export enum StateKind { Loading, Empty, Error }
 @Component
 export struct StateView {
   @Prop kind: StateKind = StateKind.Empty;
-  @Prop title: string = '';
-  @Prop description: string = '';
-  @Prop actionLabel: string = '';
+  @Prop title: ResourceStr = '';
+  @Prop description: ResourceStr = '';
+  @Prop actionLabel: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
   onAction?: () => void;
+
+  private hasText(value: ResourceStr): boolean {
+    return typeof value !== 'string' || value.length > 0;
+  }
 
   private stateIconResource(): Resource {
     switch (this.kind) {
@@ -44,22 +48,23 @@ export struct StateView {
         .fontWeight(Token.font.titleMedium.weight)
         .fontColor(Token.color.onSurface())
         .margin({ top: Token.space.sm })
-      if (this.description.length > 0) {
+      if (this.hasText(this.description)) {
         Text(this.description)
           .fontSize(Token.font.bodySmall.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
           .textAlign(TextAlign.Center)
           .margin({ top: Token.space.xxs })
       }
-      if (this.actionLabel.length > 0) {
+      if (this.hasText(this.actionLabel)) {
         Text(this.actionLabel)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onPrimary())
-          .height(40)
+          .height(Token.size.buttonMedium(this.compact))
           .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
           .backgroundColor(Token.color.primary())
           .borderRadius(Token.radius.sm)
           .margin({ top: Token.space.md })
+          .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })
           .onClick(() => { if (this.onAction) this.onAction(); })
       }
     }

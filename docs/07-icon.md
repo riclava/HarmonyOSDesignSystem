@@ -4,17 +4,17 @@
 
 | Token | 值 (vp) | 用途 |
 | --- | --- | --- |
-| `IconXS` | 16 | 文字内联、辅助小图标 |
-| `IconSM` | 20 | 列表项、输入框内图标 |
-| `IconMD` | 24 | **默认尺寸**（导航、按钮） |
-| `IconLG` | 28 | 强调图标 |
-| `IconXL` | 32 | 顶部大图标 |
-| `Icon2XL` | 48 | 空状态 / 引导插画图标 |
+| `Token.icon.xs` | 16 | 文字内联、辅助小图标 |
+| `Token.icon.sm` | 20 | 列表项、输入框内图标 |
+| `Token.icon.md` | 24 | **默认尺寸**（导航、按钮） |
+| `Token.icon.lg` | 28 | 强调图标 |
+| `Token.icon.xl` | 32 | 顶部大图标 |
+| `Token.icon.xxl` | 48 | 空状态 / 引导插画图标 |
 
 ## 绘制规范
 
 - 统一 **24dp 网格** 绘制，默认导出尺寸 24。
-- 线宽统一 **2dp**，端点圆角 `RadiusXS`。
+- 线宽统一 **2dp**，端点圆角 `Token.radius.xs`。
 - 保持 2dp 内边距（visual padding），确保光学一致。
 - 描边（Outline）与填充（Filled）风格不混用；同一界面统一一种。
 - 选中态用 Filled，未选中用 Outline（如底部 Tab）。

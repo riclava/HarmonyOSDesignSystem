@@ -6,17 +6,17 @@
 
 | Token | 值 (vp) | 典型用途 |
 | --- | --- | --- |
-| `SpaceNone` | 0 | 紧贴 |
-| `SpaceXXS` | 4 | 图标与文字间距、微调 |
-| `SpaceXS` | 8 | 标签内边距、列表项内间距 |
-| `SpaceSM` | 12 | 紧凑组件内边距 |
-| `SpaceMD` | 16 | 默认内边距、页面左右边距 |
-| `SpaceLG` | 24 | 区块（Section）间距 |
-| `SpaceXL` | 32 | 大区块分隔 |
-| `SpaceXXL` | 40 | 页面级留白 |
-| `Space3XL` | 48 | 空状态 / 首屏留白 |
-| `Space4XL` | 56 | 超大留白 |
-| `Space5XL` | 64 | 特殊场景 |
+| `Token.space.none` | 0 | 紧贴 |
+| `Token.space.xxs` | 4 | 图标与文字间距、微调 |
+| `Token.space.xs` | 8 | 标签内边距、列表项内间距 |
+| `Token.space.sm` | 12 | 紧凑组件内边距 |
+| `Token.space.md` | 16 | 默认内边距、页面左右边距 |
+| `Token.space.lg` | 24 | 区块（Section）间距 |
+| `Token.space.xl` | 32 | 大区块分隔 |
+| `Token.space.xxl` | 40 | 页面级留白 |
+| `Token.space.xxxl` | 48 | 空状态 / 首屏留白 |
+| `Token.space.xxxxl` | 56 | 超大留白 |
+| `Token.space.xxxxxl` | 64 | 特殊场景 |
 
 ## 使用规则
 
@@ -29,8 +29,8 @@
 
 | 场景 | 间距 |
 | --- | --- |
-| 页面左右 Padding | `SpaceMD` (16) |
-| 列表项之间 | `SpaceXS` (8) |
-| 卡片内边距 | `SpaceMD` (16) |
-| Section 之间 | `SpaceLG` (24) |
-| 图标与文字 | `SpaceXXS` (4) ~ `SpaceXS` (8) |
+| 页面左右 Padding | `Token.space.md` (16) |
+| 列表项之间 | `Token.space.xs` (8) |
+| 卡片内边距 | `Token.space.md` (16) |
+| Section 之间 | `Token.space.lg` (24) |
+| 图标与文字 | `Token.space.xxs` (4) ~ `Token.space.xs` (8) |

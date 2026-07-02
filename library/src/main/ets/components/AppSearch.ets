@@ -29,8 +29,8 @@ export struct AppSearch {
         .fontColor(Token.color.onSurface())
         .placeholderColor(Token.color.onSurfaceVariant())
         .backgroundColor(Token.color.transparent())
-        .borderRadius(0)
-        .padding(0)
+        .borderRadius(Token.radius.none)
+        .padding(Token.space.none)
         .layoutWeight(1)
         .onChange((v: string) => {
           this.text = v;
@@ -52,8 +52,8 @@ export struct AppSearch {
             .width(Token.icon.xs)
             .height(Token.icon.xs)
         }
-          .width(44)
-          .height(44)
+          .width(Token.size.minTouch)
+          .height(Token.size.minTouch)
           .justifyContent(FlexAlign.Center)
           .accessibilityText($r('app.string.ds_search_clear'))
           .onClick(() => {

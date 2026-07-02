@@ -3,10 +3,10 @@ import { LengthMetrics } from '@kit.ArkUI';
 
 /** 菜单项数据模型。destructive=true 时使用 Danger 色。 */
 export class AppMenuItem {
-  label: string;
+  label: ResourceStr;
   destructive: boolean;
   onSelect?: () => void;
-  constructor(label: string, onSelect?: () => void, destructive: boolean = false) {
+  constructor(label: ResourceStr, onSelect?: () => void, destructive: boolean = false) {
     this.label = label;
     this.onSelect = onSelect;
     this.destructive = destructive;
@@ -51,7 +51,7 @@ export struct AppMenu {
     .padding(Token.space.xxs)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
-    .constraintSize({ minWidth: 160 })
+    .constraintSize({ minWidth: Token.size.menuMinWidth })
     .shadow({
       radius: Token.shadow.level3.radius,
       color: Token.shadow.level3.color,

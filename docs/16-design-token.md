@@ -32,7 +32,7 @@ Motion
 └── Fast · Normal · Slow · ExtraSlow
 
 Size（控件尺寸，随 compact 密度切换）
-└── buttonLarge/Medium/Small · field · tabBar · tabLabel · rowMin · menuItem · minTouch(44)
+└── buttonLarge/Medium/Small · field · tabBar · rowMin · menuItem · avatar · badge · progress · menu/popover · minTouch(44)
 ```
 
 ## 分层：Reference → System → Component
@@ -77,6 +77,20 @@ Size（控件尺寸，随 compact 密度切换）
 | `size.menuItem` | 40 | 36 | 菜单项高 |
 | `size.minTouch` | 44 | 44 | 无障碍最小命中区（常量） |
 
+组件固定尺寸（不随 compact 变化，仍来自 Token）：
+
+| 尺寸 Token | 值 | 用于 |
+| --- | --- | --- |
+| `size.avatarXs/sm/md/lg/xl` | 24 / 32 / 40 / 48 / 64 | 头像尺寸 |
+| `size.badgeDot` / `size.badgeMin` | 8 / 16 | 徽标圆点与数字徽标 |
+| `size.tagHeight` | 24 | 标签高度 |
+| `size.sliderValueWidth` | 40 | 滑块右侧数值区 |
+| `size.skeletonLine` | 16 | 默认骨架行高 |
+| `size.progressRing` / `size.progressTrack` | 56 / 4 | 环形进度与线性进度轨道 |
+| `size.sheetHandleWidth/Height` | 32 / 4 | BottomSheet 拖拽条 |
+| `size.dialogMaxWidth` | 400 | Dialog 最大宽度 |
+| `size.menuMinWidth` / `size.popoverMaxWidth` | 160 / 240 | 菜单与气泡面板 |
+
 字号（size / lineHeight 随 compact 切换，weight 不变）：
 
 | 字阶 | 常规 | 紧凑 |
@@ -110,13 +124,15 @@ Size（控件尺寸，随 compact 密度切换）
 ```
 design-tokens.json  ──┬──▶  Figma Variables（设计）
  (Single Source)      │
-                      ├──▶  library/ Tokens.ets + resources（开发）
+                      ├──▶  node tools/design-system.mjs generate
+                      │       └──▶ library/ Tokens.ets + resources（开发）
                       │
-                      └──▶  对比度 / 命名校验（测试 CI）
+                      └──▶  node tools/design-system.mjs check（漂移校验）
 ```
 
 ## 变更规则
 
 - Token 变更走评审；破坏性变更（删除/改名）升主版本号。
 - 新增语义色前先确认现有 Token 不能满足。
-- 保持颜色 Token ≤ 16 个，字阶 ≤ 10 个。
+- 保持语义颜色 Token ≤ 16 个（另有 `transparent` 功能色），字阶 ≤ 10 个。
+- 改 `tokens/design-tokens.json` 后必须运行 `node tools/design-system.mjs generate`，提交生成物；CI / 本地检查运行 `node tools/design-system.mjs check`。

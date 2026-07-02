@@ -1,4 +1,5 @@
 import { Token, StateView, StateKind, Skeleton, AppCard } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 /** 状态展示用的边框卡片容器，内容通过 @BuilderParam 注入。 */
@@ -53,14 +54,14 @@ export struct StatesSection {
       SectionLabel({ text: 'Skeleton · 骨架屏' })
       AppCard() {
         Row() {
-          Skeleton({ blockWidth: 48, blockHeight: 48, radius: Token.radius.full })
+          Skeleton({ blockWidth: Token.size.avatarLg, blockHeight: Token.size.avatarLg, radius: Token.radius.full })
           Column({ space: Token.space.xs }) {
-            Skeleton({ blockWidth: '60%', blockHeight: 16 })
-            Skeleton({ blockWidth: '90%', blockHeight: 12 })
+            Skeleton({ blockWidth: '60%', blockHeight: Token.size.skeletonLine })
+            Skeleton({ blockWidth: '90%', blockHeight: Token.font.caption.size })
           }
           .alignItems(HorizontalAlign.Start)
           .layoutWeight(1)
-          .margin({ left: Token.space.md })
+          .margin({ start: LengthMetrics.vp(Token.space.md) })
         }
         .width('100%')
       }

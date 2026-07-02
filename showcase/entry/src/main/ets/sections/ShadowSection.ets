@@ -30,7 +30,7 @@ export struct ShadowSection {
           .justifyContent(FlexAlign.Center)
           .alignItems(HorizontalAlign.Center)
           .width('47%')
-          .height(72)
+          .height(Token.size.rowMin(false) + Token.space.md)
           .margin({ bottom: Token.space.md })
           .backgroundColor(Token.color.surface())
           .borderRadius(Token.radius.md)

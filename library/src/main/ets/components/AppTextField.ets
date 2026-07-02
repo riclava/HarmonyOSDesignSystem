@@ -9,11 +9,11 @@ export enum AppTextFieldSize { Medium, Small }
  */
 @Component
 export struct AppTextField {
-  @Prop label: string = '';
+  @Prop label: ResourceStr = '';
   @Prop text: string = '';
   @Prop placeholder: ResourceStr = '';
-  @Prop helper: string = '';
-  @Prop error: string = '';
+  @Prop helper: ResourceStr = '';
+  @Prop error: ResourceStr = '';
   @Prop fieldSize: AppTextFieldSize = AppTextFieldSize.Medium;
   @Prop fieldFontFamily: string = Token.font.family;
   @Prop fieldDisabled: boolean = false;
@@ -22,8 +22,12 @@ export struct AppTextField {
   @State private focused: boolean = false;
   onTextChange?: (value: string) => void;
 
+  private hasText(value: ResourceStr): boolean {
+    return typeof value !== 'string' || value.length > 0;
+  }
+
   private fieldBorderColor(): ResourceColor {
-    if (this.error.length > 0) {
+    if (this.hasText(this.error)) {
       return Token.color.danger();
     }
     if (this.focused) {
@@ -59,7 +63,7 @@ export struct AppTextField {
 
   build() {
     Column() {
-      if (this.label.length > 0) {
+      if (this.hasText(this.label)) {
         Text(this.label)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontWeight(Token.font.label.weight)
@@ -87,12 +91,12 @@ export struct AppTextField {
             this.onTextChange(v);
           }
         })
-      if (this.error.length > 0) {
+      if (this.hasText(this.error)) {
         Text(this.error)
           .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.danger())
           .margin({ top: Token.space.xxs })
-      } else if (this.helper.length > 0) {
+      } else if (this.hasText(this.helper)) {
         Text(this.helper)
           .fontSize(Token.font.caption.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())

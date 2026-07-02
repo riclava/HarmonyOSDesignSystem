@@ -16,6 +16,10 @@ export struct AppDialog {
   @StorageProp('compact') compact: boolean = false;
   confirm?: () => void;
 
+  private actionTouchY(): number {
+    return (Token.size.buttonMedium(this.compact) - Token.size.minTouch) / 2;
+  }
+
   build() {
     Column() {
       Text(this.title)
@@ -33,17 +37,19 @@ export struct AppDialog {
         Text(this.cancelLabel)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onSurfaceVariant())
-          .height(40)
+          .height(Token.size.buttonMedium(this.compact))
           .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
+          .responseRegion({ x: 0, y: this.actionTouchY(), width: '100%', height: Token.size.minTouch })
           .onClick(() => { this.controller.close(); })
         Text(this.confirmLabel)
           .fontSize(Token.font.label.sizeFor(this.compact))
           .fontColor(Token.color.onPrimary())
-          .height(40)
+          .height(Token.size.buttonMedium(this.compact))
           .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
           .backgroundColor(Token.color.primary())
           .borderRadius(Token.radius.sm)
           .margin({ start: LengthMetrics.vp(Token.space.sm) })
+          .responseRegion({ x: 0, y: this.actionTouchY(), width: '100%', height: Token.size.minTouch })
           .onClick(() => {
             if (this.confirm) this.confirm();
             this.controller.close();
@@ -54,6 +60,7 @@ export struct AppDialog {
       .margin({ top: Token.space.lg })
     }
     .width('100%')
+    .constraintSize({ maxWidth: Token.size.dialogMaxWidth })
     .padding(this.compact ? Token.space.md : Token.space.lg)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.lg)

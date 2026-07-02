@@ -1,4 +1,5 @@
 import { Token } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 interface IconItem { name: string; size: number; }
@@ -32,8 +33,8 @@ export struct IconSection {
           }
           .justifyContent(FlexAlign.End)
           .alignItems(HorizontalAlign.Center)
-          .width(64)
-          .margin({ right: Token.space.sm, bottom: Token.space.sm })
+          .width(Token.size.avatarXl)
+          .margin({ end: LengthMetrics.vp(Token.space.sm), bottom: Token.space.sm })
         })
       }
       .width('100%')

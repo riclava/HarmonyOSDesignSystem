@@ -8,8 +8,8 @@
 | --- | --- |
 | 高度 | 56（不含状态栏） |
 | 标题字阶 | `TitleLarge`（居中或左对齐） |
-| 图标尺寸 | `IconMD` (24) |
-| 左右 Padding | `SpaceMD` (16) |
+| 图标尺寸 | `Token.icon.md` (24) |
+| 左右 Padding | `Token.space.md` (16) |
 | 图标命中区 | 44×44 |
 | 背景 | `Surface`，滚动时升 `Level2` |
 
@@ -21,24 +21,24 @@
 | --- | --- |
 | 高度 | 56 + 底部安全区 |
 | 项数 | 3~5 |
-| 图标尺寸 | `IconMD` (24) |
+| 图标尺寸 | `Token.icon.md` (24) |
 | 文字字阶 | `Caption` (12) |
-| 图标文字间距 | `SpaceXXS` (4) |
+| 图标文字间距 | `Token.space.xxs` (4) |
 | 选中色 | `Primary`（Filled 图标） |
 | 未选中色 | `OnSurfaceVariant`（Outline 图标） |
 
-- 切换动画 `MotionFast`；不做页面滑动转场，直接切换。
+- 切换动画 `Token.motion.fast`；不做页面滑动转场，直接切换。
 
 ## Navigation Rail / Side Menu 侧栏
 
 - 用于 Medium / Expanded 屏（见 [自适应布局](15-adaptive-layout.md)）。
-- Rail 宽 80，图标 `IconMD` + `Caption`；抽屉宽 280~320。
-- 选中项 `PrimaryContainer` 背景 + `Primary` 内容，圆角 `RadiusSM`。
+- Rail 宽 80，图标 `Token.icon.md` + `Caption`；抽屉宽 280~320。
+- 选中项 `PrimaryContainer` 背景 + `Primary` 内容，圆角 `Token.radius.sm`。
 
 ## Back 返回
 
-- 手势：左缘右滑返回；顶栏返回箭头 `IconMD`。
-- 转场：新页从右侧进入 `MotionSlow` / `EaseStandard`，返回反向。
+- 手势：左缘右滑返回；顶栏返回箭头 `Token.icon.md`。
+- 转场：新页从右侧进入 `Token.motion.slow` / `Token.motion.easeStandard`，返回反向。
 
 ## 原则
 

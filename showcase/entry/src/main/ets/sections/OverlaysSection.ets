@@ -1,4 +1,5 @@
 import { Token, AppDialog, AppButton, AppButtonType, AppSheet, AppMenu, AppMenuItem, AppPopover, AppToast } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 @Component
@@ -52,28 +53,28 @@ export struct OverlaysSection {
           type: AppButtonType.Primary,
           onClickAction: (): void => { this.dialogController.open(); }
         })
-          .margin({ right: Token.space.xs, bottom: Token.space.xs })
+          .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
         AppButton({
           label: 'Toast',
           type: AppButtonType.Secondary,
           onClickAction: (): void => { AppToast.show('这是一条轻提示 Toast'); }
         })
-          .margin({ right: Token.space.xs, bottom: Token.space.xs })
+          .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
         AppButton({
           label: 'BottomSheet',
           type: AppButtonType.Secondary,
           onClickAction: (): void => { this.sheetShown = true; }
         })
-          .margin({ right: Token.space.xs, bottom: Token.space.xs })
+          .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
         // 系统菜单（原生 bindMenu；弹层密度由系统控制，触发器与同行按钮同规格随 compact 收紧）
         Text('Menu ▾')
           .fontSize(Token.font.label.size)
           .fontColor(Token.color.primary())
           .height(Token.size.buttonMedium(this.compact))
-          .padding({ left: Token.space.md, right: Token.space.md })
+          .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
           .borderRadius(Token.radius.sm)
           .border({ width: 1, color: Token.color.outline() })
           .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - this.triggerTouch()) / 2, width: '100%', height: this.triggerTouch() })

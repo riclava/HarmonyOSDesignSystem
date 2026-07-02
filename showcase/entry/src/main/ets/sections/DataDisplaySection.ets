@@ -1,4 +1,5 @@
 import { Token, AppAvatar, AppAvatarShape, AppBadge, AppProgress, AppProgressKind } from '@riclava/designsystem';
+import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
 @Component
@@ -10,13 +11,13 @@ export struct DataDisplaySection {
       // Avatar
       SectionLabel({ text: 'Avatar · 头像' })
       Row() {
-        AppAvatar({ text: 'A', avatarSize: 32, bgColor: Token.color.primary() })
-          .margin({ right: Token.space.sm })
-        AppAvatar({ text: 'B', avatarSize: 40, bgColor: Token.color.secondary() })
-          .margin({ right: Token.space.sm })
-        AppAvatar({ text: 'C', avatarSize: 48, bgColor: Token.color.warning() })
-          .margin({ right: Token.space.sm })
-        AppAvatar({ text: 'D', avatarSize: 48, shape: AppAvatarShape.Rounded, bgColor: Token.color.info() })
+        AppAvatar({ text: 'A', avatarSize: Token.size.avatarSm, bgColor: Token.color.primary() })
+          .margin({ end: LengthMetrics.vp(Token.space.sm) })
+        AppAvatar({ text: 'B', avatarSize: Token.size.avatarMd, bgColor: Token.color.secondary() })
+          .margin({ end: LengthMetrics.vp(Token.space.sm) })
+        AppAvatar({ text: 'C', avatarSize: Token.size.avatarLg, bgColor: Token.color.warning() })
+          .margin({ end: LengthMetrics.vp(Token.space.sm) })
+        AppAvatar({ text: 'D', avatarSize: Token.size.avatarLg, shape: AppAvatarShape.Rounded, bgColor: Token.color.info() })
       }
       .width('100%')
       .margin({ bottom: Token.space.md })
@@ -25,19 +26,19 @@ export struct DataDisplaySection {
       SectionLabel({ text: 'Badge · 徽标' })
       Row() {
         Stack({ alignContent: Alignment.TopEnd }) {
-          AppAvatar({ text: 'M', avatarSize: 48, bgColor: Token.color.primary() })
+          AppAvatar({ text: 'M', avatarSize: Token.size.avatarLg, bgColor: Token.color.primary() })
           AppBadge({ count: 5 })
         }
-        .margin({ right: Token.space.lg })
+        .margin({ end: LengthMetrics.vp(Token.space.lg) })
 
         Stack({ alignContent: Alignment.TopEnd }) {
-          AppAvatar({ text: 'N', avatarSize: 48, bgColor: Token.color.secondary() })
+          AppAvatar({ text: 'N', avatarSize: Token.size.avatarLg, bgColor: Token.color.secondary() })
           AppBadge({ count: 128 })
         }
-        .margin({ right: Token.space.lg })
+        .margin({ end: LengthMetrics.vp(Token.space.lg) })
 
         Stack({ alignContent: Alignment.TopEnd }) {
-          AppAvatar({ text: 'O', avatarSize: 48, bgColor: Token.color.info() })
+          AppAvatar({ text: 'O', avatarSize: Token.size.avatarLg, bgColor: Token.color.info() })
           AppBadge({ dot: true })
         }
       }
@@ -50,11 +51,11 @@ export struct DataDisplaySection {
         .margin({ bottom: Token.space.md })
       Row() {
         AppProgress({ value: 30, total: 100, kind: AppProgressKind.Ring })
-          .margin({ right: Token.space.lg })
+          .margin({ end: LengthMetrics.vp(Token.space.lg) })
         AppProgress({ value: 70, total: 100, kind: AppProgressKind.Ring })
-          .margin({ right: Token.space.lg })
+          .margin({ end: LengthMetrics.vp(Token.space.lg) })
         LoadingProgress()
-          .width(40).height(40)
+          .width(Token.size.avatarMd).height(Token.size.avatarMd)
           .color(Token.color.primary())
       }
       .width('100%')

@@ -6,20 +6,24 @@ import { Token } from '../theme/Tokens';
  */
 @Component
 export struct AppSheet {
-  @Prop title: string = '';
+  @Prop title: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
   @BuilderParam content: () => void;
 
+  private hasTitle(): boolean {
+    return typeof this.title !== 'string' || this.title.length > 0;
+  }
+
   build() {
     Column() {
       Row()
-        .width(32)
-        .height(4)
+        .width(Token.size.sheetHandleWidth)
+        .height(Token.size.sheetHandleHeight)
         .backgroundColor(Token.color.outline())
         .borderRadius(Token.radius.full)
         .margin({ bottom: Token.space.md })
-      if (this.title.length > 0) {
+      if (this.hasTitle()) {
         Text(this.title)
           .fontSize(Token.font.titleLarge.sizeFor(this.compact))
           .fontWeight(Token.font.titleLarge.weight)

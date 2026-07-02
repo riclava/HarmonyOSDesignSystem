@@ -4,7 +4,7 @@ import { Token } from '../theme/Tokens';
 @Component
 export struct Skeleton {
   @Prop blockWidth: Length = '100%';
-  @Prop blockHeight: Length = 16;
+  @Prop blockHeight: Length = Token.size.skeletonLine;
   @Prop radius: number = Token.radius.xs;
   @StorageLink('isDark') isDark: boolean = false;
   @State shimmer: boolean = false;

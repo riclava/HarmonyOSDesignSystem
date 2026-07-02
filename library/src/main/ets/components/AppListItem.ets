@@ -7,12 +7,12 @@ import { LengthMetrics } from '@kit.ArkUI';
  */
 @Component
 export struct AppListItem {
-  @Prop title: string = '';
-  @Prop subtitle: string = '';
+  @Prop title: ResourceStr = '';
+  @Prop subtitle: ResourceStr = '';
   @Prop leadingIcon: Resource = $r('sys.symbol.square_grid_2x2');
   @Prop showLeadingIcon: boolean = false;
   @Prop leadingGlyph: string = '';
-  @Prop trailingText: string = '';
+  @Prop trailingText: ResourceStr = '';
   @Prop showArrow: boolean = false;
   @Prop showDivider: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
@@ -21,6 +21,10 @@ export struct AppListItem {
 
   private arrowIcon(): Resource {
     return isRTL() ? $r('sys.symbol.chevron_left') : $r('sys.symbol.chevron_right');
+  }
+
+  private hasText(value: ResourceStr): boolean {
+    return typeof value !== 'string' || value.length > 0;
   }
 
   @Builder
@@ -50,7 +54,7 @@ export struct AppListItem {
           Text(this.title)
             .fontSize(Token.font.body.sizeFor(this.compact))
             .fontColor(Token.color.onSurface())
-          if (this.subtitle.length > 0) {
+          if (this.hasText(this.subtitle)) {
             Text(this.subtitle)
               .fontSize(Token.font.caption.sizeFor(this.compact))
               .fontColor(Token.color.onSurfaceVariant())
@@ -59,7 +63,7 @@ export struct AppListItem {
         }
         .alignItems(HorizontalAlign.Start)
         .layoutWeight(1)
-        if (this.trailingText.length > 0) {
+        if (this.hasText(this.trailingText)) {
           Text(this.trailingText)
             .fontSize(Token.font.bodySmall.sizeFor(this.compact))
             .fontColor(Token.color.onSurfaceVariant())

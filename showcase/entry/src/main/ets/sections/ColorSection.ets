@@ -40,7 +40,7 @@ export struct ColorSection {
             .justifyContent(FlexAlign.End)
             .alignItems(HorizontalAlign.Start)
             .width('100%')
-            .height(72)
+            .height(Token.size.rowMin(false) + Token.space.md)
             .padding(Token.space.xs)
             .backgroundColor(s.color)
             .borderRadius(Token.radius.sm)

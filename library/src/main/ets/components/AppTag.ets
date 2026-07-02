@@ -6,7 +6,7 @@ export enum AppTagTone { Neutral, Primary, Success, Warning, Danger, Info }
 /** 胶囊标签，颜色使用状态语义 Token。 */
 @Component
 export struct AppTag {
-  @Prop label: string;
+  @Prop label: ResourceStr = '';
   @Prop tone: AppTagTone = AppTagTone.Neutral;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
@@ -26,7 +26,7 @@ export struct AppTag {
     Text(this.label)
       .fontSize(Token.font.caption.sizeFor(this.compact))
       .fontColor(this.fg())
-      .height(24)
+      .height(Token.size.tagHeight)
       .padding({ start: LengthMetrics.vp(Token.space.xs), end: LengthMetrics.vp(Token.space.xs) })
       .borderRadius(Token.radius.full)
       .border({ width: 1, color: this.fg() })

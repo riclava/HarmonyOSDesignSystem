@@ -14,12 +14,12 @@
 
 | 区域 | 间距 Token |
 | --- | --- |
-| 页面左右 Padding | `SpaceMD` (16) |
-| 页面上下 Padding | `SpaceLG` (24) |
-| Section 之间 | `SpaceLG` (24) |
-| Card 内边距 | `SpaceMD` (16) |
-| 列表项之间 | `SpaceXS` (8) |
-| 表单字段之间 | `SpaceMD` (16) |
+| 页面左右 Padding | `Token.space.md` (16) |
+| 页面上下 Padding | `Token.space.lg` (24) |
+| Section 之间 | `Token.space.lg` (24) |
+| Card 内边距 | `Token.space.md` (16) |
+| 列表项之间 | `Token.space.xs` (8) |
+| 表单字段之间 | `Token.space.md` (16) |
 
 ## 布局原则
 
@@ -32,8 +32,15 @@
 ## 示例
 
 ```ts
-Column({ space: Token.Space.LG }) {
+import { LengthMetrics } from '@kit.ArkUI';
+import { Token } from '@riclava/designsystem';
+
+Column({ space: Token.space.lg }) {
   // sections...
 }
-.padding({ left: Token.Space.MD, right: Token.Space.MD, top: Token.Space.LG })
+.padding({
+  start: LengthMetrics.vp(Token.space.md),
+  end: LengthMetrics.vp(Token.space.md),
+  top: LengthMetrics.vp(Token.space.lg)
+})
 ```
