@@ -24,21 +24,24 @@ export struct NavigationSection {
       Column() {
         AppListItem({
           title: '账户与安全',
-          leadingGlyph: '🔐',
+          leadingIcon: $r('sys.symbol.lock_fill'),
+          showLeadingIcon: true,
           showArrow: true,
           onItemClick: (): void => { AppToast.show('账户与安全'); }
         })
         AppListItem({
           title: '通知',
           subtitle: '推送、声音与振动',
-          leadingGlyph: '🔔',
+          leadingIcon: $r('sys.symbol.bell_fill'),
+          showLeadingIcon: true,
           trailingText: '已开启',
           showArrow: true,
           onItemClick: (): void => { AppToast.show('通知'); }
         })
         AppListItem({
           title: '通用',
-          leadingGlyph: '⚙️',
+          leadingIcon: $r('sys.symbol.gearshape_fill'),
+          showLeadingIcon: true,
           showArrow: true,
           showDivider: false,
           onItemClick: (): void => { AppToast.show('通用'); }

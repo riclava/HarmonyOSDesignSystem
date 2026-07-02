@@ -3,12 +3,14 @@ import { LengthMetrics } from '@kit.ArkUI';
 
 /**
  * 列表项：左图标（可选）+ 主/次标题 + 右附件文本（可选）+ 箭头（可选）。
- * 单行 ≥ 56。leadingGlyph 传入 emoji 或图标字符占位。
+ * 单行 ≥ 56。新代码使用 leadingIcon + showLeadingIcon 渲染系统 Symbol。
  */
 @Component
 export struct AppListItem {
   @Prop title: string = '';
   @Prop subtitle: string = '';
+  @Prop leadingIcon: Resource = $r('sys.symbol.square_grid_2x2');
+  @Prop showLeadingIcon: boolean = false;
   @Prop leadingGlyph: string = '';
   @Prop trailingText: string = '';
   @Prop showArrow: boolean = false;
@@ -17,21 +19,33 @@ export struct AppListItem {
   @StorageProp('compact') compact: boolean = false;
   onItemClick?: () => void;
 
-  /** 方向性箭头：RTL 语言下指向左侧。 */
-  private arrowGlyph(): string {
-    return isRTL() ? '‹' : '›';
+  private arrowIcon(): Resource {
+    return isRTL() ? $r('sys.symbol.chevron_left') : $r('sys.symbol.chevron_right');
+  }
+
+  @Builder
+  private leadingAccessory(): void {
+    if (this.showLeadingIcon) {
+      SymbolGlyph(this.leadingIcon)
+        .fontSize(Token.icon.md)
+        .fontColor([Token.color.primary()])
+        .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
+        .width(Token.icon.lg)
+        .height(Token.icon.lg)
+        .margin({ end: LengthMetrics.vp(Token.space.sm) })
+    } else if (this.leadingGlyph.length > 0) {
+      Text(this.leadingGlyph)
+        .fontSize(Token.icon.md)
+        .width(Token.icon.lg)
+        .textAlign(TextAlign.Center)
+        .margin({ end: LengthMetrics.vp(Token.space.sm) })
+    }
   }
 
   build() {
     Column() {
       Row() {
-        if (this.leadingGlyph.length > 0) {
-          Text(this.leadingGlyph)
-            .fontSize(Token.icon.md)
-            .width(Token.icon.lg)
-            .textAlign(TextAlign.Center)
-            .margin({ end: LengthMetrics.vp(Token.space.sm) })
-        }
+        this.leadingAccessory()
         Column() {
           Text(this.title)
             .fontSize(Token.font.body.sizeFor(this.compact))
@@ -52,9 +66,12 @@ export struct AppListItem {
             .margin({ start: LengthMetrics.vp(Token.space.sm) })
         }
         if (this.showArrow) {
-          Text(this.arrowGlyph())
-            .fontSize(Token.font.titleLarge.sizeFor(this.compact))
-            .fontColor(Token.color.onSurfaceVariant())
+          SymbolGlyph(this.arrowIcon())
+            .fontSize(Token.icon.xs)
+            .fontColor([Token.color.onSurfaceVariant()])
+            .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
+            .width(Token.icon.sm)
+            .height(Token.icon.sm)
             .margin({ start: LengthMetrics.vp(Token.space.xs) })
         }
       }

@@ -17,8 +17,12 @@ export struct AppSearch {
 
   build() {
     Row() {
-      Text('🔍')
-        .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+      SymbolGlyph($r('sys.symbol.magnifyingglass'))
+        .fontSize(Token.icon.xs)
+        .fontColor([Token.color.onSurfaceVariant()])
+        .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
+        .width(Token.icon.sm)
+        .height(Token.icon.sm)
         .margin({ end: LengthMetrics.vp(Token.space.xs) })
       TextInput({ placeholder: this.placeholder, text: this.text })
         .fontSize(Token.font.body.sizeFor(this.compact))
@@ -40,12 +44,17 @@ export struct AppSearch {
           }
         })
       if (this.text.length > 0) {
-        Text('✕')
-          .fontSize(Token.font.caption.sizeFor(this.compact))
-          .fontColor(Token.color.onSurfaceVariant())
+        Row() {
+          SymbolGlyph($r('sys.symbol.xmark'))
+            .fontSize(Token.icon.xs)
+            .fontColor([Token.color.onSurfaceVariant()])
+            .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
+            .width(Token.icon.xs)
+            .height(Token.icon.xs)
+        }
           .width(44)
           .height(44)
-          .textAlign(TextAlign.Center)
+          .justifyContent(FlexAlign.Center)
           .accessibilityText($r('app.string.ds_search_clear'))
           .onClick(() => {
             this.text = '';

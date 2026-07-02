@@ -14,11 +14,12 @@ export struct StateView {
   @StorageProp('compact') compact: boolean = false;
   onAction?: () => void;
 
-  private glyph(): string {
+  private stateIconResource(): Resource {
     switch (this.kind) {
-      case StateKind.Loading: return '⏳';
-      case StateKind.Error: return '⚠️';
-      default: return '📭';
+      case StateKind.Error:
+        return $r('sys.symbol.exclamationmark_triangle_fill');
+      default:
+        return $r('sys.symbol.archivebox');
     }
   }
 
@@ -31,7 +32,12 @@ export struct StateView {
       if (this.kind === StateKind.Loading) {
         LoadingProgress().width(Token.icon.xxl).height(Token.icon.xxl).color(Token.color.primary())
       } else {
-        Text(this.glyph()).fontSize(Token.icon.xxl).fontColor(this.iconColor())
+        SymbolGlyph(this.stateIconResource())
+          .fontSize(Token.icon.xxl)
+          .fontColor([this.iconColor()])
+          .renderingStrategy(SymbolRenderingStrategy.MULTIPLE_OPACITY)
+          .width(Token.icon.xxl)
+          .height(Token.icon.xxl)
       }
       Text(this.title)
         .fontSize(Token.font.titleMedium.sizeFor(this.compact))
