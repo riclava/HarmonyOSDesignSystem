@@ -6,17 +6,18 @@ interface TypeItem { name: string; size: number; lineHeight: number; weight: num
 @Component
 export struct TypographySection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   private items(): TypeItem[] {
     const f = Token.font;
     return [
-      { name: 'DisplayLarge', size: f.displayLarge.size, lineHeight: f.displayLarge.lineHeight, weight: f.displayLarge.weight },
-      { name: 'HeadlineLarge', size: f.headlineLarge.size, lineHeight: f.headlineLarge.lineHeight, weight: f.headlineLarge.weight },
-      { name: 'HeadlineMedium', size: f.headlineMedium.size, lineHeight: f.headlineMedium.lineHeight, weight: f.headlineMedium.weight },
-      { name: 'TitleLarge', size: f.titleLarge.size, lineHeight: f.titleLarge.lineHeight, weight: f.titleLarge.weight },
-      { name: 'Body', size: f.body.size, lineHeight: f.body.lineHeight, weight: f.body.weight },
-      { name: 'Label', size: f.label.size, lineHeight: f.label.lineHeight, weight: f.label.weight },
-      { name: 'Caption', size: f.caption.size, lineHeight: f.caption.lineHeight, weight: f.caption.weight },
+      { name: 'DisplayLarge', size: f.displayLarge.sizeFor(this.compact), lineHeight: f.displayLarge.lineHeightFor(this.compact), weight: f.displayLarge.weight },
+      { name: 'HeadlineLarge', size: f.headlineLarge.sizeFor(this.compact), lineHeight: f.headlineLarge.lineHeightFor(this.compact), weight: f.headlineLarge.weight },
+      { name: 'HeadlineMedium', size: f.headlineMedium.sizeFor(this.compact), lineHeight: f.headlineMedium.lineHeightFor(this.compact), weight: f.headlineMedium.weight },
+      { name: 'TitleLarge', size: f.titleLarge.sizeFor(this.compact), lineHeight: f.titleLarge.lineHeightFor(this.compact), weight: f.titleLarge.weight },
+      { name: 'Body', size: f.body.sizeFor(this.compact), lineHeight: f.body.lineHeightFor(this.compact), weight: f.body.weight },
+      { name: 'Label', size: f.label.sizeFor(this.compact), lineHeight: f.label.lineHeightFor(this.compact), weight: f.label.weight },
+      { name: 'Caption', size: f.caption.sizeFor(this.compact), lineHeight: f.caption.lineHeightFor(this.compact), weight: f.caption.weight },
     ];
   }
 
@@ -31,7 +32,8 @@ export struct TypographySection {
             .fontWeight(t.weight)
             .fontColor(Token.color.onSurface())
           Text(`${t.size}fp · line ${t.lineHeight} · weight ${t.weight}`)
-            .fontSize(Token.font.caption.size)
+            .fontSize(Token.font.caption.sizeFor(this.compact))
+            .lineHeight(Token.font.caption.lineHeightFor(this.compact))
             .fontColor(Token.color.onSurfaceVariant())
         }
         .alignItems(HorizontalAlign.Start)

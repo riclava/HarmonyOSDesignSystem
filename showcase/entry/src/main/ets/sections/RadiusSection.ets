@@ -7,6 +7,7 @@ interface RadiusItem { name: string; value: number; }
 @Component
 export struct RadiusSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   private items(): RadiusItem[] {
     const r = Token.radius;
@@ -30,7 +31,8 @@ export struct RadiusSection {
               .borderRadius(item.value)
               .border({ width: 1, color: Token.color.primary() })
             Text(item.name)
-              .fontSize(Token.font.caption.size)
+              .fontSize(Token.font.caption.sizeFor(this.compact))
+              .lineHeight(Token.font.caption.lineHeightFor(this.compact))
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }

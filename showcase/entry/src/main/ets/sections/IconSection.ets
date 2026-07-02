@@ -7,6 +7,7 @@ interface IconItem { name: string; size: number; }
 @Component
 export struct IconSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   private items(): IconItem[] {
     const i = Token.icon;
@@ -27,7 +28,8 @@ export struct IconSection {
             Circle({ width: item.size, height: item.size })
               .fill(Token.color.primary())
             Text(`${item.name} · ${item.size}`)
-              .fontSize(Token.font.caption.size)
+              .fontSize(Token.font.caption.sizeFor(this.compact))
+              .lineHeight(Token.font.caption.lineHeightFor(this.compact))
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }
@@ -40,7 +42,8 @@ export struct IconSection {
       .width('100%')
 
       Text($r('app.string.icon_note'))
-        .fontSize(Token.font.caption.size)
+        .fontSize(Token.font.caption.sizeFor(this.compact))
+        .lineHeight(Token.font.caption.lineHeightFor(this.compact))
         .fontColor(Token.color.onSurfaceVariant())
     }
     .alignItems(HorizontalAlign.Start)

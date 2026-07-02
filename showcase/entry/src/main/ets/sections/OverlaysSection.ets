@@ -1,6 +1,6 @@
 import { Token, AppDialog, AppButton, AppButtonType, AppSheet, AppMenu, AppMenuItem, AppPopover, AppToast } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
-import { SectionLabel } from './Widgets';
+import { DemoBlock, SectionLabel } from './Widgets';
 
 @Component
 export struct OverlaysSection {
@@ -33,7 +33,8 @@ export struct OverlaysSection {
   sheetBuilder() {
     AppSheet({ title: $r('app.string.sheet_title') }) {
       Text($r('app.string.sheet_body'))
-        .fontSize(Token.font.bodySmall.size)
+        .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+        .lineHeight(Token.font.bodySmall.lineHeightFor(this.compact))
         .fontColor(Token.color.onSurfaceVariant())
         .margin({ bottom: Token.space.lg })
       AppButton({
@@ -47,61 +48,80 @@ export struct OverlaysSection {
   build() {
     Column() {
       SectionLabel({ text: $r('app.string.sec_overlays') })
-      Flex({ wrap: FlexWrap.Wrap }) {
-        AppButton({
-          label: 'Dialog',
-          type: AppButtonType.Primary,
-          onClickAction: (): void => { this.dialogController.open(); }
-        })
-          .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
+      DemoBlock({ title: $r('app.string.sec_overlay_triggers') }) {
+        Flex({ wrap: FlexWrap.Wrap }) {
+          AppButton({
+            label: $r('app.string.demo_overlay_dialog'),
+            type: AppButtonType.Primary,
+            onClickAction: (): void => { this.dialogController.open(); }
+          })
+            .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
-        AppButton({
-          label: 'Toast',
-          type: AppButtonType.Secondary,
-          onClickAction: (): void => { AppToast.show($r('app.string.overlay_toast')); }
-        })
-          .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
+          AppButton({
+            label: $r('app.string.demo_overlay_toast'),
+            type: AppButtonType.Secondary,
+            onClickAction: (): void => { AppToast.show($r('app.string.overlay_toast')); }
+          })
+            .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
-        AppButton({
-          label: 'BottomSheet',
-          type: AppButtonType.Secondary,
-          onClickAction: (): void => { this.sheetShown = true; }
-        })
-          .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
+          AppButton({
+            label: $r('app.string.demo_overlay_sheet'),
+            type: AppButtonType.Secondary,
+            onClickAction: (): void => { this.sheetShown = true; }
+          })
+            .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
-        // 系统菜单（原生 bindMenu；弹层密度由系统控制，触发器与同行按钮同规格随 compact 收紧）
-        Text('Menu ▾')
-          .fontSize(Token.font.label.size)
-          .fontColor(Token.color.primary())
-          .height(Token.size.buttonMedium(this.compact))
-          .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
-          .borderRadius(Token.radius.sm)
-          .border({ width: 1, color: Token.color.outline() })
-          .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - this.triggerTouch()) / 2, width: '100%', height: this.triggerTouch() })
-          .bindMenu([
-            { value: $r('app.string.menu_edit'), action: (): void => { AppToast.show($r('app.string.menu_edit')); } },
-            { value: $r('app.string.menu_share'), action: (): void => { AppToast.show($r('app.string.menu_share')); } },
-            { value: $r('app.string.menu_delete'), action: (): void => { AppToast.show($r('app.string.menu_delete')); } }
-          ])
+          // 系统菜单（原生 bindMenu；弹层密度由系统控制，触发器与同行按钮同规格随 compact 收紧）
+          Text($r('app.string.demo_overlay_menu'))
+            .fontSize(Token.font.label.sizeFor(this.compact))
+            .lineHeight(Token.font.label.lineHeightFor(this.compact))
+            .fontColor(Token.color.primary())
+            .height(Token.size.buttonMedium(this.compact))
+            .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
+            .borderRadius(Token.radius.sm)
+            .border({ width: 1, color: Token.color.outline() })
+            .responseRegion({
+              x: 0,
+              y: (Token.size.buttonMedium(this.compact) - this.triggerTouch()) / 2,
+              width: '100%',
+              height: this.triggerTouch()
+            })
+            .bindMenu([
+              { value: $r('app.string.menu_edit'), action: (): void => { AppToast.show($r('app.string.menu_edit')); } },
+              { value: $r('app.string.menu_share'), action: (): void => { AppToast.show($r('app.string.menu_share')); } },
+              { value: $r('app.string.menu_delete'), action: (): void => { AppToast.show($r('app.string.menu_delete')); } }
+            ])
+        }
+        .width('100%')
       }
-      .width('100%')
-      .bindSheet($$this.sheetShown, this.sheetBuilder(), {
-        detents: [SheetSize.MEDIUM],
-        backgroundColor: Token.color.surface(),
-        showClose: false
-      })
 
       // AppMenu 面板样式（应用内菜单，随 compact 收紧）
-      SectionLabel({ text: $r('app.string.sec_menu_panel') })
-      AppMenu({ items: this.menuItems })
-        .margin({ bottom: Token.space.md })
+      DemoBlock({ title: $r('app.string.sec_menu_panel') }) {
+        AppMenu({ items: this.menuItems })
+      }
 
       // AppPopover 气泡样式
-      SectionLabel({ text: $r('app.string.sec_popover') })
-      AppPopover({ title: $r('app.string.popover_title'), text: $r('app.string.popover_text') })
+      DemoBlock({ title: $r('app.string.sec_popover') }) {
+        Stack({ alignContent: Alignment.TopStart }) {
+          Column()
+            .width('100%')
+            .height(Token.size.rowMin(this.compact) + Token.space.xxl)
+            .backgroundColor(Token.color.background())
+            .borderRadius(Token.radius.sm)
+            .border({ width: 1, color: Token.color.divider() })
+          AppPopover({ title: $r('app.string.popover_title'), text: $r('app.string.popover_text') })
+            .margin({ start: LengthMetrics.vp(Token.space.sm), top: Token.space.sm })
+        }
+        .width('100%')
+      }
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
     .margin({ bottom: Token.space.lg })
+    .bindSheet($$this.sheetShown, this.sheetBuilder(), {
+      detents: [SheetSize.MEDIUM],
+      backgroundColor: Token.color.surface(),
+      showClose: false
+    })
   }
 }

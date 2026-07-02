@@ -6,6 +6,7 @@ interface Swatch { name: string; color: ResourceColor; onColor: ResourceColor; }
 @Component
 export struct ColorSection {
   @StorageLink('isDark') isDark: boolean = false;
+  @StorageProp('compact') compact: boolean = false;
 
   private swatches(): Swatch[] {
     const onLight = Token.color.onPrimary();
@@ -29,18 +30,25 @@ export struct ColorSection {
   build() {
     Column() {
       SectionLabel({ text: $r('app.string.sec_color') })
-      Grid() {
+      GridRow({
+        columns: { sm: 4, md: 8, lg: 12 },
+        gutter: { x: Token.space.xs, y: Token.space.xs },
+        breakpoints: { value: ['600vp', '840vp'], reference: BreakpointsReference.WindowSize }
+      }) {
         ForEach(this.swatches(), (s: Swatch) => {
-          GridItem() {
+          GridCol({ span: { sm: 2, md: 2, lg: 3 } }) {
             Column() {
               Text(s.name)
-                .fontSize(Token.font.caption.size)
+                .fontSize(Token.font.caption.sizeFor(this.compact))
+                .lineHeight(Token.font.caption.lineHeightFor(this.compact))
                 .fontColor(s.onColor)
+                .maxLines(2)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
             }
             .justifyContent(FlexAlign.End)
             .alignItems(HorizontalAlign.Start)
             .width('100%')
-            .height(Token.size.rowMin(false) + Token.space.md)
+            .height(Token.size.rowMin(this.compact) + Token.space.md)
             .padding(Token.space.xs)
             .backgroundColor(s.color)
             .borderRadius(Token.radius.sm)
@@ -48,9 +56,6 @@ export struct ColorSection {
           }
         })
       }
-      .columnsTemplate('1fr 1fr')
-      .columnsGap(Token.space.xs)
-      .rowsGap(Token.space.xs)
       .width('100%')
     }
     .width('100%')
