@@ -10,7 +10,7 @@ export enum AppButtonSize { Large, Medium, Small }
  */
 @Component
 export struct AppButton {
-  @Prop label: string;
+  @Prop label: ResourceStr = '';
   @Prop type: AppButtonType = AppButtonType.Primary;
   @Prop btnSize: AppButtonSize = AppButtonSize.Medium;
   @Prop disabled: boolean = false;
