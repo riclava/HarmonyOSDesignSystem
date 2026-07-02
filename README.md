@@ -76,9 +76,15 @@ npm run verify   # Token 同步校验 + 硬编码扫描 + 工具链单测
 | --- | --- |
 | `npm run tokens:generate` | 从 `tokens/design-tokens.json` 重新生成 `Tokens.ets` 与 `color.json` |
 | `npm run tokens:check` | 校验生成物与 Token 源一致（CI 硬门禁） |
+| `npm run tokens:export` | 导出 `tokens/build/`（扁平 JSON + CSS 变量，供 Figma/Web 消费） |
+| `npm run contrast:check` | WCAG 对比度门禁（逐品牌，文本 4.5 / 非文本 3.0） |
 | `npm run lint:hardcode` | 扫描 `.ets` 中硬编码的颜色/字号/间距/圆角（CI 硬门禁） |
-| `npm run contrast:check` | WCAG 对比度报告（CI 非阻断，见 [TODO.md](TODO.md)） |
+| `npm run lint:a11y` | 扫描无 `accessibilityText` 的图标按钮（CI 硬门禁） |
+| `npm run docs:generate` | 生成 `docs/generated/` 组件 API 与 Token 速查 |
+| `npm run docs:check` | 校验生成文档与源码一致（CI 硬门禁） |
 | `npm test` | 工具链单元测试 |
+
+自动生成的参考文档：[组件 API](docs/generated/components-api.md) · [Token 速查](docs/generated/token-reference.md)。设计侧对接（Figma Tokens Studio / Style Dictionary）见 [19 Theming](docs/19-theming.md) 与 `tokens/style-dictionary.config.json`。
 
 CI 见 [.github/workflows/ci.yml](.github/workflows/ci.yml)。贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，发布见 [docs/PUBLISHING.md](docs/PUBLISHING.md)，后续路线图见 [TODO.md](TODO.md)。
 

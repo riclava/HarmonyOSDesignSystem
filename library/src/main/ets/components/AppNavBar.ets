@@ -31,7 +31,6 @@ export struct AppNavBar {
           .fontColor([Token.color.onSurface()])
           .width(Token.size.minTouch)
           .height(Token.size.minTouch)
-          .textAlign(TextAlign.Center)
           .accessibilityText($r('app.string.ds_navbar_back'))
           .onClick(() => {
             if (this.onBack) {

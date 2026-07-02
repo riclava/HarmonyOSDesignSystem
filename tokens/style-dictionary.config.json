@@ -1,0 +1,16 @@
+{
+  "$comment": "Optional Style Dictionary (v4+) config. tokens/design-tokens.json is already W3C DTCG, so Style Dictionary and Tokens Studio (Figma) can consume it directly. Install style-dictionary and run: npx style-dictionary build --config tokens/style-dictionary.config.json",
+  "source": ["tokens/design-tokens.json"],
+  "platforms": {
+    "css": {
+      "transformGroup": "css",
+      "buildPath": "tokens/build/style-dictionary/",
+      "files": [{ "destination": "variables.css", "format": "css/variables" }]
+    },
+    "json": {
+      "transformGroup": "js",
+      "buildPath": "tokens/build/style-dictionary/",
+      "files": [{ "destination": "tokens.json", "format": "json/flat" }]
+    }
+  }
+}

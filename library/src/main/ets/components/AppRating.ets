@@ -37,6 +37,7 @@ export struct AppRating {
           .margin({ end: LengthMetrics.vp(Token.space.xxs) })
           .responseRegion({ x: 0, y: (Token.icon.lg - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })
           .enabled(!this.ratingReadonly)
+          .accessibilityText($r('app.string.ds_rating_star'))
           .onClick(() => {
             if (!this.ratingReadonly) {
               this.rating = index;

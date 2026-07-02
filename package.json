@@ -9,10 +9,14 @@
   "scripts": {
     "tokens:generate": "node tools/design-system.mjs generate",
     "tokens:check": "node tools/design-system.mjs check",
+    "tokens:export": "node tools/export-tokens.mjs",
     "contrast:check": "node tools/design-system.mjs check --strict-contrast",
     "lint:hardcode": "node tools/lint-hardcode.mjs",
+    "lint:a11y": "node tools/lint-a11y.mjs",
+    "docs:generate": "node tools/docs.mjs generate",
+    "docs:check": "node tools/docs.mjs check",
     "test": "node --test tools/*.test.mjs",
-    "verify": "npm run tokens:check && npm run contrast:check && npm run lint:hardcode && npm test"
+    "verify": "npm run tokens:check && npm run contrast:check && npm run lint:hardcode && npm run lint:a11y && npm run docs:check && npm test"
   },
   "engines": {
     "node": ">=18"

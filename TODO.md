@@ -56,23 +56,27 @@
 
 ---
 
-## P4 — Token 工具链与文档自动化
+## P4 — Token 工具链与文档自动化 ✅（核心已落地）
 
 让「设计-开发共享 Token」形成真正闭环，减少手工维护。
 
 ### 设计侧闭环
-- [ ] 对接 **Style Dictionary** 或 Figma Tokens 插件：`tokens/design-tokens.json` ↔ Figma 双向同步。
-- [ ] 提供 Figma 可导入格式导出（W3C Design Tokens 已基本对齐，补导出脚本）。
+- [x] `npm run tokens:export` 导出 `tokens/build/`（扁平 JSON + CSS 变量，无第三方依赖）。
+- [x] `tokens/style-dictionary.config.json`：`design-tokens.json` 已是 W3C DTCG，Tokens Studio（Figma）/ Style Dictionary 可直接消费。
+- [ ] Figma ↔ 仓库双向自动同步（CI webhook / Tokens Studio sync），当前为单向导出 + 手动导入。
 
 ### 文档自动化
-- [ ] 组件 **API 文档自动生成**：从 `.ets` 的 `@Prop` / 枚举解析出 props 表，注入 `docs/10-components.md`。
-- [ ] Token 变更 **diff 可视化**：PR 中对 `design-tokens.json` 变更生成人类可读的色值/尺寸对比。
-- [ ] 自动生成 Token 速查表（README / AGENTS.md 的表格由脚本产出，避免漂移）。
+- [x] 组件 **API 文档自动生成**：`tools/docs.mjs` 从 `.ets` 解析 `@Prop`/事件/`@BuilderParam`/枚举 → `docs/generated/components-api.md`，`docs:check` 门禁。
+- [x] 自动生成 **Token 速查表** → `docs/generated/token-reference.md`（含品牌覆盖列）。
+- [ ] Token 变更 **diff 可视化**（PR 中人类可读的色值/尺寸对比）。
 
-### 门禁与发布增强（P0/P1 的延伸）
-- [x] **对比度门禁转为阻断**：Light 值已按 WCAG 调校（`primary/danger/info` ≥ 4.5 文本、`success/warning` ≥ 3.0 非文本），`contrast:check` 已是 CI 硬门禁。
-- [ ] 自动化发布：打 tag 触发 CI 构建 HAR 并 `ohpm publish`（见 `docs/PUBLISHING.md`）。
-- [ ] 无障碍自动检查扩展：命中区尺寸、`accessibilityText` 缺失的静态扫描规则（并入 `lint-hardcode.mjs` 或独立扫描器）。
+### 门禁与发布增强
+- [x] 对比度门禁转为阻断（逐品牌）。
+- [x] **无障碍静态扫描**：`tools/lint-a11y.mjs` 检测无 `accessibilityText` 的图标按钮，`lint:a11y` 硬门禁。
+- [x] 发布 workflow 脚手架 `.github/workflows/release.yml`（tag 触发跑门禁 + 建 Release；HAR 构建 / `ohpm publish` 需带 HarmonyOS SDK 的 runner，已留占位）。
+- [ ] 接入自建/自托管 runner 完成 HAR 自动构建与 OHPM 发布。
+
+> 注：`.github/workflows/*.yml` 需带 `workflow` scope 的凭据才能推送（见下）。
 
 ---
 

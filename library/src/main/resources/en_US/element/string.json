@@ -51,6 +51,10 @@
     {
       "name": "ds_chip_remove",
       "value": "Remove"
+    },
+    {
+      "name": "ds_rating_star",
+      "value": "Rating"
     }
   ]
 }

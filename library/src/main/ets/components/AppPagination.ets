@@ -46,13 +46,12 @@ export struct AppPagination {
   }
 
   @Builder
-  private navButton(glyph: Resource, enabled: boolean, accessibility: ResourceStr, action: () => void) {
+  private navButton(glyph: Resource, enabled: boolean, accessibility: Resource, action: () => void) {
     SymbolGlyph(glyph)
       .fontSize(Token.icon.sm)
       .fontColor([enabled ? Token.color.onSurface() : Token.color.onSurfaceVariant()])
       .width(this.cellSize())
       .height(this.cellSize())
-      .textAlign(TextAlign.Center)
       .borderRadius(Token.radius.sm)
       .border({ width: 1, color: Token.color.outline() })
       .opacity(enabled ? 1 : 0.38)
