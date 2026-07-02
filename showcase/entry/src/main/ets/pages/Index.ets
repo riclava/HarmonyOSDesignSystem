@@ -55,13 +55,13 @@ struct Index {
   @Builder
   TopBar() {
     Row() {
-      Text('Design System')
+      Text($r('app.string.app_name'))
         .fontSize(Token.font.titleLarge.size)
         .fontWeight(Token.font.titleLarge.weight)
         .fontColor(Token.color.onSurface())
         .layoutWeight(1)
 
-      Text('紧凑')
+      Text($r('app.string.topbar_compact'))
         .fontSize(Token.font.caption.size)
         .fontColor(this.compact ? Token.color.primary() : Token.color.onSurfaceVariant())
         .margin({ end: LengthMetrics.vp(Token.space.xxs) })
@@ -118,12 +118,12 @@ struct Index {
     Column() {
       this.TopBar()
       Tabs({ index: this.activeTab }) {
-        TabContent() { this.Foundation() }.tabBar(this.tabItem('Foundation', 0))
-        TabContent() { this.Components() }.tabBar(this.tabItem('Components', 1))
-        TabContent() { ScrollPage() { OverlaysSection() } }.tabBar(this.tabItem('Overlays', 2))
-        TabContent() { ScrollPage() { PickersSection() } }.tabBar(this.tabItem('Pickers', 3))
-        TabContent() { ScrollPage() { StatesSection() } }.tabBar(this.tabItem('States', 4))
-        TabContent() { ScrollPage() { AdaptiveSection() } }.tabBar(this.tabItem('Adaptive', 5))
+        TabContent() { this.Foundation() }.tabBar(this.tabItem($r('app.string.tab_foundation'), 0))
+        TabContent() { this.Components() }.tabBar(this.tabItem($r('app.string.tab_components'), 1))
+        TabContent() { ScrollPage() { OverlaysSection() } }.tabBar(this.tabItem($r('app.string.tab_overlays'), 2))
+        TabContent() { ScrollPage() { PickersSection() } }.tabBar(this.tabItem($r('app.string.tab_pickers'), 3))
+        TabContent() { ScrollPage() { StatesSection() } }.tabBar(this.tabItem($r('app.string.tab_states'), 4))
+        TabContent() { ScrollPage() { AdaptiveSection() } }.tabBar(this.tabItem($r('app.string.tab_adaptive'), 5))
       }
       .barPosition(BarPosition.Start)
       .barMode(BarMode.Scrollable)
@@ -136,7 +136,7 @@ struct Index {
   }
 
   @Builder
-  tabItem(label: string, index: number) {
+  tabItem(label: ResourceStr, index: number) {
     Text(label)
       .fontSize(Token.font.label.size)
       .fontWeight(this.activeTab === index ? Token.font.label.weight : Token.font.caption.weight)

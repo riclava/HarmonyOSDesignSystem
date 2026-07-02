@@ -19,7 +19,7 @@ export struct RadiusSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Radius · 圆角' })
+      SectionLabel({ text: $r('app.string.sec_radius') })
       Flex({ wrap: FlexWrap.Wrap }) {
         ForEach(this.items(), (item: RadiusItem) => {
           Column() {

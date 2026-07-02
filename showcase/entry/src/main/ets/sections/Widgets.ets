@@ -3,7 +3,7 @@ import { Token } from '@riclava/designsystem';
 /** 区块小标题 */
 @Component
 export struct SectionLabel {
-  @Prop text: string;
+  @Prop text: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
 
@@ -20,8 +20,8 @@ export struct SectionLabel {
 /** 键值说明行：左标题，右取值 */
 @Component
 export struct SpecRow {
-  @Prop name: string;
-  @Prop value: string;
+  @Prop name: ResourceStr;
+  @Prop value: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageProp('compact') compact: boolean = false;
 

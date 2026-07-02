@@ -8,7 +8,7 @@ export struct MotionSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Motion · 动画（点击方块演示）' })
+      SectionLabel({ text: $r('app.string.sec_motion') })
       Column() {
         Row() {
           Column()
@@ -25,7 +25,7 @@ export struct MotionSection {
         .width('100%')
         .height(Token.size.rowMin(false))
 
-        Text('Instant 100 · Fast 200 · Normal 250 · Slow 300 · ExtraSlow 400')
+        Text($r('app.string.motion_scale'))
           .fontSize(Token.font.caption.size)
           .fontColor(Token.color.onSurfaceVariant())
       }

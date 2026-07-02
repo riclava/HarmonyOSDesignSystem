@@ -19,7 +19,7 @@ export struct IconSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Icon · 图标尺寸' })
+      SectionLabel({ text: $r('app.string.sec_icon') })
       Flex({ wrap: FlexWrap.Wrap, alignItems: ItemAlign.End }) {
         ForEach(this.items(), (item: IconItem) => {
           Column() {
@@ -39,7 +39,7 @@ export struct IconSection {
       }
       .width('100%')
 
-      Text('默认 24vp；命中区始终 ≥ 44×44vp（见 Accessibility）。')
+      Text($r('app.string.icon_note'))
         .fontSize(Token.font.caption.size)
         .fontColor(Token.color.onSurfaceVariant())
     }

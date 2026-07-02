@@ -19,7 +19,7 @@ export struct ShadowSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Shadow · 高度 Elevation' })
+      SectionLabel({ text: $r('app.string.sec_shadow') })
       Flex({ wrap: FlexWrap.Wrap, justifyContent: FlexAlign.SpaceBetween }) {
         ForEach(this.items(), (item: ShadowItem) => {
           Column() {

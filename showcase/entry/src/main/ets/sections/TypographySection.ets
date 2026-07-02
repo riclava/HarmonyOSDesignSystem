@@ -22,7 +22,7 @@ export struct TypographySection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Typography · 字体' })
+      SectionLabel({ text: $r('app.string.sec_typography') })
       ForEach(this.items(), (t: TypeItem) => {
         Column() {
           Text(t.name)

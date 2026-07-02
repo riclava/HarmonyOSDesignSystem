@@ -13,17 +13,17 @@ export struct OverlaysSection {
   }
 
   private menuItems: AppMenuItem[] = [
-    new AppMenuItem('编辑', (): void => { AppToast.show('编辑'); }),
-    new AppMenuItem('分享', (): void => { AppToast.show('分享'); }),
-    new AppMenuItem('删除', (): void => { AppToast.show('删除'); }, true)
+    new AppMenuItem($r('app.string.menu_edit'), (): void => { AppToast.show($r('app.string.menu_edit')); }),
+    new AppMenuItem($r('app.string.menu_share'), (): void => { AppToast.show($r('app.string.menu_share')); }),
+    new AppMenuItem($r('app.string.menu_delete'), (): void => { AppToast.show($r('app.string.menu_delete')); }, true)
   ];
 
   dialogController: CustomDialogController = new CustomDialogController({
     builder: AppDialog({
-      title: '删除确认',
-      message: '删除后不可恢复，确定继续吗？',
-      confirmLabel: '删除',
-      confirm: (): void => { AppToast.show('已删除'); }
+      title: $r('app.string.dialog_delete_title'),
+      message: $r('app.string.dialog_delete_message'),
+      confirmLabel: $r('app.string.menu_delete'),
+      confirm: (): void => { AppToast.show($r('app.string.toast_deleted')); }
     }),
     customStyle: true,
     alignment: DialogAlignment.Center
@@ -31,13 +31,13 @@ export struct OverlaysSection {
 
   @Builder
   sheetBuilder() {
-    AppSheet({ title: 'BottomSheet 底部面板' }) {
-      Text('顶部圆角、拖拽条、Level4 阴影，支持下拉关闭。')
+    AppSheet({ title: $r('app.string.sheet_title') }) {
+      Text($r('app.string.sheet_body'))
         .fontSize(Token.font.bodySmall.size)
         .fontColor(Token.color.onSurfaceVariant())
         .margin({ bottom: Token.space.lg })
       AppButton({
-        label: '关闭',
+        label: $r('app.string.sheet_close'),
         type: AppButtonType.Secondary,
         onClickAction: (): void => { this.sheetShown = false; }
       })
@@ -46,7 +46,7 @@ export struct OverlaysSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Overlays · 浮层' })
+      SectionLabel({ text: $r('app.string.sec_overlays') })
       Flex({ wrap: FlexWrap.Wrap }) {
         AppButton({
           label: 'Dialog',
@@ -58,7 +58,7 @@ export struct OverlaysSection {
         AppButton({
           label: 'Toast',
           type: AppButtonType.Secondary,
-          onClickAction: (): void => { AppToast.show('这是一条轻提示 Toast'); }
+          onClickAction: (): void => { AppToast.show($r('app.string.overlay_toast')); }
         })
           .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
 
@@ -79,9 +79,9 @@ export struct OverlaysSection {
           .border({ width: 1, color: Token.color.outline() })
           .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - this.triggerTouch()) / 2, width: '100%', height: this.triggerTouch() })
           .bindMenu([
-            { value: '编辑', action: (): void => { AppToast.show('编辑'); } },
-            { value: '分享', action: (): void => { AppToast.show('分享'); } },
-            { value: '删除', action: (): void => { AppToast.show('删除'); } }
+            { value: $r('app.string.menu_edit'), action: (): void => { AppToast.show($r('app.string.menu_edit')); } },
+            { value: $r('app.string.menu_share'), action: (): void => { AppToast.show($r('app.string.menu_share')); } },
+            { value: $r('app.string.menu_delete'), action: (): void => { AppToast.show($r('app.string.menu_delete')); } }
           ])
       }
       .width('100%')
@@ -92,13 +92,13 @@ export struct OverlaysSection {
       })
 
       // AppMenu 面板样式（应用内菜单，随 compact 收紧）
-      SectionLabel({ text: 'Menu · 应用内菜单面板（随 compact 收紧）' })
+      SectionLabel({ text: $r('app.string.sec_menu_panel') })
       AppMenu({ items: this.menuItems })
         .margin({ bottom: Token.space.md })
 
       // AppPopover 气泡样式
-      SectionLabel({ text: 'Popover · 气泡样式' })
-      AppPopover({ title: '提示', text: '气泡浮层用于承载少量说明或操作，最大宽 240。' })
+      SectionLabel({ text: $r('app.string.sec_popover') })
+      AppPopover({ title: $r('app.string.popover_title'), text: $r('app.string.popover_text') })
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')

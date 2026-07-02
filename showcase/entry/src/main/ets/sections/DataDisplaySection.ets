@@ -9,7 +9,7 @@ export struct DataDisplaySection {
   build() {
     Column() {
       // Avatar
-      SectionLabel({ text: 'Avatar · 头像' })
+      SectionLabel({ text: $r('app.string.sec_avatar') })
       Row() {
         AppAvatar({ text: 'A', avatarSize: Token.size.avatarSm, bgColor: Token.color.primary() })
           .margin({ end: LengthMetrics.vp(Token.space.sm) })
@@ -23,7 +23,7 @@ export struct DataDisplaySection {
       .margin({ bottom: Token.space.md })
 
       // Badge on avatar
-      SectionLabel({ text: 'Badge · 徽标' })
+      SectionLabel({ text: $r('app.string.sec_badge') })
       Row() {
         Stack({ alignContent: Alignment.TopEnd }) {
           AppAvatar({ text: 'M', avatarSize: Token.size.avatarLg, bgColor: Token.color.primary() })
@@ -46,7 +46,7 @@ export struct DataDisplaySection {
       .margin({ bottom: Token.space.md })
 
       // Progress
-      SectionLabel({ text: 'Progress · 进度' })
+      SectionLabel({ text: $r('app.string.sec_progress') })
       AppProgress({ value: 60, total: 100, kind: AppProgressKind.Linear })
         .margin({ bottom: Token.space.md })
       Row() {

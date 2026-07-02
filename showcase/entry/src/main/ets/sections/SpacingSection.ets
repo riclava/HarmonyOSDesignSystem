@@ -20,7 +20,7 @@ export struct SpacingSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Spacing · 间距（8pt Grid）' })
+      SectionLabel({ text: $r('app.string.sec_spacing') })
       ForEach(this.items(), (item: SpaceItem) => {
         Row() {
           Text(`Space.${item.name}`)

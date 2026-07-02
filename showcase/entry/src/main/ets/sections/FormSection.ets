@@ -12,45 +12,45 @@ export struct FormSection {
   @State plan: string = 'monthly';
 
   private planOptions: AppRadioOption[] = [
-    new AppRadioOption('按月', 'monthly'),
-    new AppRadioOption('按年', 'yearly')
+    new AppRadioOption($r('app.string.plan_monthly'), 'monthly'),
+    new AppRadioOption($r('app.string.plan_yearly'), 'yearly')
   ];
 
   build() {
     Column() {
-      SectionLabel({ text: 'TextField · 输入框' })
+      SectionLabel({ text: $r('app.string.sec_textfield') })
       AppTextField({
-        label: '昵称',
+        label: $r('app.string.field_nickname_label'),
         text: this.name,
-        placeholder: '请输入昵称',
-        helper: '2~16 个字符',
+        placeholder: $r('app.string.field_nickname_placeholder'),
+        helper: $r('app.string.field_nickname_helper'),
         onTextChange: (v: string): void => { this.name = v; }
       })
       AppTextField({
-        label: '邮箱',
+        label: $r('app.string.field_email_label'),
         placeholder: 'name@example.com',
-        error: '邮箱格式不正确'
+        error: $r('app.string.field_email_error')
       })
         .margin({ top: Token.space.md })
-      AppTextField({ label: '禁用态', text: '不可编辑', fieldDisabled: true })
+      AppTextField({ label: $r('app.string.field_disabled_label'), text: $r('app.string.field_disabled_text'), fieldDisabled: true })
         .margin({ top: Token.space.md, bottom: Token.space.md })
 
-      SectionLabel({ text: 'Search · 搜索框' })
+      SectionLabel({ text: $r('app.string.sec_search') })
       AppSearch({
         text: this.search,
-        placeholder: '搜索组件…',
+        placeholder: $r('app.string.search_placeholder'),
         onTextChange: (v: string): void => { this.search = v; }
       })
         .margin({ bottom: Token.space.md })
 
-      SectionLabel({ text: 'Checkbox · 复选框' })
+      SectionLabel({ text: $r('app.string.sec_checkbox') })
       AppCheckbox({
-        label: '我已阅读并同意用户协议',
+        label: $r('app.string.checkbox_agree'),
         checked: this.agree,
         onCheck: (v: boolean): void => { this.agree = v; }
       })
 
-      SectionLabel({ text: 'Radio · 单选框' })
+      SectionLabel({ text: $r('app.string.sec_radio') })
       AppRadioGroup({
         options: this.planOptions,
         selected: this.plan,
@@ -58,15 +58,15 @@ export struct FormSection {
         onSelect: (v: string): void => { this.plan = v; }
       })
 
-      SectionLabel({ text: 'Switch · 开关' })
+      SectionLabel({ text: $r('app.string.sec_switch') })
       AppSwitch({
-        label: '接收推送通知',
+        label: $r('app.string.switch_notify'),
         isOn: this.notify,
         onToggle: (v: boolean): void => { this.notify = v; }
       })
-      AppSwitch({ label: '禁用态', isOn: true, switchDisabled: true })
+      AppSwitch({ label: $r('app.string.field_disabled_label'), isOn: true, switchDisabled: true })
 
-      SectionLabel({ text: 'Slider · 滑块' })
+      SectionLabel({ text: $r('app.string.sec_slider') })
       AppSlider({
         value: this.volume,
         showValue: true,

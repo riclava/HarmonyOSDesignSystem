@@ -6,35 +6,35 @@ export struct PickersSection {
   @StorageLink('isDark') isDark: boolean = false;
 
   private format(v: Date): string {
-    return `${v.getFullYear()}-${v.getMonth() + 1}-${v.getDate()}`;
+    return new Intl.DateTimeFormat().format(v);
   }
 
   private formatTime(h: number, m: number): string {
-    const hh: string = h < 10 ? `0${h}` : `${h}`;
-    const mm: string = m < 10 ? `0${m}` : `${m}`;
-    return `${hh}:${mm}`;
+    const d: Date = new Date();
+    d.setHours(h, m, 0, 0);
+    return new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' }).format(d);
   }
 
   build() {
     Column() {
-      SectionLabel({ text: 'DatePicker · 日期选择' })
+      SectionLabel({ text: $r('app.string.sec_datepicker') })
       AppDatePicker({
         onPick: (v: Date): void => { AppToast.show(this.format(v)); }
       })
         .margin({ bottom: Token.space.lg })
 
-      SectionLabel({ text: 'TimePicker · 时间选择（字段 + 弹窗）' })
+      SectionLabel({ text: $r('app.string.sec_timepicker_field') })
       AppTimePicker({
-        label: '提醒时间',
-        placeholder: '选择时间',
-        helper: '点击选择每日提醒时间',
+        label: $r('app.string.picker_reminder_label'),
+        placeholder: $r('app.string.picker_reminder_placeholder'),
+        helper: $r('app.string.picker_reminder_helper'),
         onPick: (v: TimePickerResult): void => {
           AppToast.show(this.formatTime(v.hour, v.minute));
         }
       })
         .margin({ bottom: Token.space.lg })
 
-      SectionLabel({ text: 'TimePicker · 内嵌滚轮（12 小时 + 秒）' })
+      SectionLabel({ text: $r('app.string.sec_timepicker_inline') })
       AppTimePicker({
         mode: AppTimePickerMode.Inline,
         useMilitaryTime: false,
@@ -45,7 +45,7 @@ export struct PickersSection {
       })
         .margin({ bottom: Token.space.lg })
 
-      SectionLabel({ text: 'Calendar · 日历选择' })
+      SectionLabel({ text: $r('app.string.sec_calendar') })
       AppCalendar({
         onPick: (v: Date): void => { AppToast.show(this.format(v)); }
       })

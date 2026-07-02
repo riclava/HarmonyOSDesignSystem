@@ -10,7 +10,7 @@ export struct ComponentsSection {
   build() {
     Column() {
       // Buttons
-      SectionLabel({ text: 'Button · 按钮' })
+      SectionLabel({ text: $r('app.string.sec_button') })
       Flex({ wrap: FlexWrap.Wrap }) {
         AppButton({ label: 'Primary', type: AppButtonType.Primary })
           .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
@@ -29,9 +29,9 @@ export struct ComponentsSection {
       .margin({ bottom: Token.space.md })
 
       // Loading button
-      SectionLabel({ text: 'Button · Loading' })
+      SectionLabel({ text: $r('app.string.sec_button_loading') })
       AppButton({
-        label: this.loading ? '提交中' : '点击提交',
+        label: this.loading ? $r('app.string.btn_submitting') : $r('app.string.btn_submit'),
         type: AppButtonType.Primary,
         loading: this.loading,
         onClickAction: (): void => {
@@ -42,7 +42,7 @@ export struct ComponentsSection {
         .margin({ bottom: Token.space.md })
 
       // Tags
-      SectionLabel({ text: 'Tag · 标签' })
+      SectionLabel({ text: $r('app.string.sec_tag') })
       Flex({ wrap: FlexWrap.Wrap }) {
         AppTag({ label: 'Neutral', tone: AppTagTone.Neutral }).margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
         AppTag({ label: 'Primary', tone: AppTagTone.Primary }).margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
@@ -54,17 +54,17 @@ export struct ComponentsSection {
       .margin({ bottom: Token.space.md })
 
       // Card（可点击）
-      SectionLabel({ text: 'Card · 卡片（可点击）' })
+      SectionLabel({ text: $r('app.string.sec_card') })
       Column() {
         AppCard({
           clickable: true,
-          onCardClick: (): void => { AppToast.show('卡片被点击'); }
+          onCardClick: (): void => { AppToast.show($r('app.string.card_click_toast')); }
         }) {
-          Text('卡片标题')
+          Text($r('app.string.card_title'))
             .fontSize(Token.font.titleMedium.size)
             .fontWeight(Token.font.titleMedium.weight)
             .fontColor(Token.color.onSurface())
-          Text('整卡可点，按下时阴影升至 Level2。使用 Surface 底色、Token.radius.md 圆角与 Token.space.md 内边距。')
+          Text($r('app.string.card_body'))
             .fontSize(Token.font.bodySmall.size)
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ top: Token.space.xxs })

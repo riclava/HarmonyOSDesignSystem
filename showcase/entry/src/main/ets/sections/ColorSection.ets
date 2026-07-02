@@ -28,7 +28,7 @@ export struct ColorSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Color · 颜色 Token' })
+      SectionLabel({ text: $r('app.string.sec_color') })
       Grid() {
         ForEach(this.swatches(), (s: Swatch) => {
           GridItem() {

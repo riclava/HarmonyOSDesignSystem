@@ -8,7 +8,7 @@ export struct AdaptiveSection {
   @State breakpoint: string = 'sm';
 
   @Builder
-  cell(label: string) {
+  cell(label: ResourceStr) {
     Column() {
       Text(label)
         .fontSize(Token.font.label.size)
@@ -24,8 +24,8 @@ export struct AdaptiveSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Adaptive · 自适应栅格' })
-      Text(`当前断点：${this.breakpoint}（改变窗口/设备宽度可观察列数变化）`)
+      SectionLabel({ text: $r('app.string.sec_adaptive') })
+      Text($r('app.string.adaptive_breakpoint', this.breakpoint))
         .fontSize(Token.font.caption.size)
         .fontColor(Token.color.onSurfaceVariant())
         .margin({ bottom: Token.space.sm })
@@ -38,14 +38,14 @@ export struct AdaptiveSection {
       }) {
         ForEach(['1', '2', '3'], (item: string) => {
           GridCol({ span: { sm: 4, md: 4, lg: 4 } }) {
-            this.cell(`Item ${item}`)
+            this.cell($r('app.string.adaptive_item', item))
           }
         })
       }
       .width('100%')
       .onBreakpointChange((bp: string) => { this.breakpoint = bp; })
 
-      SectionLabel({ text: 'Accessibility · 无障碍' })
+      SectionLabel({ text: $r('app.string.sec_accessibility') })
       // 触摸区域：视觉 24，命中 ≥ 44
       Row() {
         Stack() {
@@ -54,13 +54,13 @@ export struct AdaptiveSection {
         .width(Token.size.minTouch).height(Token.size.minTouch)
         .backgroundColor(Token.color.primaryContainer())
         .borderRadius(Token.radius.sm)
-        .accessibilityText('更多操作')
+        .accessibilityText($r('app.string.a11y_more'))
 
         Column() {
-          Text('触摸命中区 ≥ 44×44vp')
+          Text($r('app.string.a11y_touch_title'))
             .fontSize(Token.font.body.size)
             .fontColor(Token.color.onSurface())
-          Text('图标视觉 24，外围命中区 44（浅底示意）。图标按钮需带语义 Label。')
+          Text($r('app.string.a11y_touch_desc'))
             .fontSize(Token.font.caption.size)
             .fontColor(Token.color.onSurfaceVariant())
         }
@@ -73,14 +73,14 @@ export struct AdaptiveSection {
 
       // 对比度示例
       Row() {
-        Text('正文 4.5:1')
+        Text($r('app.string.contrast_body'))
           .fontSize(Token.font.body.size)
           .fontColor(Token.color.onSurface())
           .backgroundColor(Token.color.surface())
           .padding(Token.space.xs)
           .borderRadius(Token.radius.xs)
           .margin({ end: LengthMetrics.vp(Token.space.xs) })
-        Text('主色按钮')
+        Text($r('app.string.contrast_primary'))
           .fontSize(Token.font.body.size)
           .fontColor(Token.color.onPrimary())
           .backgroundColor(Token.color.primary())

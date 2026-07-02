@@ -26,32 +26,32 @@ export struct StatesSection {
 
   build() {
     Column() {
-      SectionLabel({ text: 'Loading' })
+      SectionLabel({ text: $r('app.string.sec_loading') })
       StateCard() {
-        StateView({ kind: StateKind.Loading, title: '加载中', description: '正在获取数据…' })
+        StateView({ kind: StateKind.Loading, title: $r('app.string.state_loading_title'), description: $r('app.string.state_loading_desc') })
       }
 
-      SectionLabel({ text: 'Empty' })
+      SectionLabel({ text: $r('app.string.sec_empty') })
       StateCard() {
         StateView({
           kind: StateKind.Empty,
-          title: '暂无内容',
-          description: '这里还什么都没有，去添加第一条吧。',
-          actionLabel: '新建'
+          title: $r('app.string.state_empty_title'),
+          description: $r('app.string.state_empty_desc'),
+          actionLabel: $r('app.string.state_empty_action')
         })
       }
 
-      SectionLabel({ text: 'Error' })
+      SectionLabel({ text: $r('app.string.sec_error') })
       StateCard() {
         StateView({
           kind: StateKind.Error,
-          title: '加载失败',
-          description: '网络异常，请稍后重试。',
-          actionLabel: '重试'
+          title: $r('app.string.state_error_title'),
+          description: $r('app.string.state_error_desc'),
+          actionLabel: $r('app.string.state_error_action')
         })
       }
 
-      SectionLabel({ text: 'Skeleton · 骨架屏' })
+      SectionLabel({ text: $r('app.string.sec_skeleton') })
       AppCard() {
         Row() {
           Skeleton({ blockWidth: Token.size.avatarLg, blockHeight: Token.size.avatarLg, radius: Token.radius.full })
