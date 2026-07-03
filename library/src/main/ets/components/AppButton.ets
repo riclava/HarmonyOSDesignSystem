@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 export enum AppButtonType { Primary, Secondary, Text, Danger }
@@ -17,15 +17,15 @@ export struct AppButton {
   @Prop loading: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State private pressed: boolean = false;
   onClickAction?: () => void;
 
   private btnHeight(): number {
     switch (this.btnSize) {
-      case AppButtonSize.Large: return Token.size.buttonLarge(this.compact);
-      case AppButtonSize.Small: return Token.size.buttonSmall(this.compact);
-      default: return Token.size.buttonMedium(this.compact);
+      case AppButtonSize.Large: return Token.size.buttonLarge(this.density);
+      case AppButtonSize.Small: return Token.size.buttonSmall(this.density);
+      default: return Token.size.buttonMedium(this.density);
     }
   }
 
@@ -42,7 +42,7 @@ export struct AppButton {
   }
 
   private labelSize(): number {
-    return this.btnSize === AppButtonSize.Small ? Token.font.bodySmall.sizeFor(this.compact) : Token.font.label.sizeFor(this.compact);
+    return this.btnSize === AppButtonSize.Small ? Token.font.bodySmall.sizeFor(this.density) : Token.font.label.sizeFor(this.density);
   }
 
   private bgColor(): ResourceColor {

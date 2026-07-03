@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 export enum AppTextFieldSize { Medium, Small }
@@ -19,7 +19,7 @@ export struct AppTextField {
   @Prop fieldDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State private focused: boolean = false;
   onTextChange?: (value: string) => void;
 
@@ -43,16 +43,16 @@ export struct AppTextField {
 
   private fieldHeight(): number {
     if (this.fieldSize === AppTextFieldSize.Small) {
-      return Token.size.buttonSmall(this.compact);
+      return Token.size.buttonSmall(this.density);
     }
-    return Token.size.field(this.compact);
+    return Token.size.field(this.density);
   }
 
   private fieldTextSize(): number {
     if (this.fieldSize === AppTextFieldSize.Small) {
-      return Token.font.bodySmall.sizeFor(this.compact);
+      return Token.font.bodySmall.sizeFor(this.density);
     }
-    return Token.font.body.sizeFor(this.compact);
+    return Token.font.body.sizeFor(this.density);
   }
 
   private fieldPadding(): number {
@@ -66,7 +66,7 @@ export struct AppTextField {
     Column() {
       if (this.hasText(this.label)) {
         Text(this.label)
-          .fontSize(Token.font.label.sizeFor(this.compact))
+          .fontSize(Token.font.label.sizeFor(this.density))
           .fontWeight(Token.font.label.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.xxs })
@@ -94,12 +94,12 @@ export struct AppTextField {
         })
       if (this.hasText(this.error)) {
         Text(this.error)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.danger())
           .margin({ top: Token.space.xxs })
       } else if (this.hasText(this.helper)) {
         Text(this.helper)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ top: Token.space.xxs })
       }

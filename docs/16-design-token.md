@@ -31,7 +31,7 @@ Elevation
 Motion
 └── Fast · Normal · Slow · ExtraSlow
 
-Size（控件尺寸，随 compact 密度切换）
+Size（控件尺寸，随 Density 三档切换）
 └── buttonLarge/Medium/Small · field · tabBar · rowMin · menuItem · avatar · badge · progress · menu/popover · minTouch(44)
 ```
 
@@ -57,27 +57,27 @@ Size（控件尺寸，随 compact 密度切换）
 | 圆角 | `radius.md` | [05 Radius](05-radius.md) |
 | 阴影 | `shadow.level1` | [06 Shadow](06-shadow.md) |
 | 动画 | `motion.fast` / `motion.normal` / `motion.slow` | [08 Motion](08-motion.md) |
-| 尺寸 | `size.buttonMedium` / `size.field`（随 compact 切换） | 本页「密度 / Compact」小节 |
+| 尺寸 | `size.buttonMedium` / `size.field`（随 Density 切换） | 本页「密度 / Density」小节 |
 
-## 密度 / Compact（控件尺寸）
+## 密度 / Density（控件尺寸）
 
-面向数据密集型 / 大屏多面板等超复杂应用，提供 **compact 紧凑密度**：整体收紧控件高度、内边距**与字号/行高**（圆角、颜色不变；caption 保持 12 为可读下限）。
+面向数据密集型 / 大屏多面板等超复杂应用，提供三档密度 **`Density`**：`Comfortable`（舒适，默认）/ `Compact`（紧凑）/ `SuperCompact`（超紧凑）。逐档收紧控件高度、内边距**与字号/行高**（圆角、颜色始终不变；caption 保持 12 为可读下限）。
 
-> 这里的 "compact" 指**信息密度**，与 [15 自适应布局](15-adaptive-layout.md) 里的断点 `Compact`（宽度 < 600vp）无关，两者可组合。
+> 这里的密度指**信息密度**，与 [15 自适应布局](15-adaptive-layout.md) 里的断点 `Compact`（宽度 < 600vp）无关，两者可组合。
 
-| 尺寸 Token | 常规 | 紧凑 | 用于 |
-| --- | --- | --- | --- |
-| `size.buttonLarge` | 48 | 40 | 大按钮高 |
-| `size.buttonMedium` | 40 | 32 | 中按钮高 |
-| `size.buttonSmall` | 32 | 28 | 小按钮高 |
-| `size.field` | 48 | 40 | 输入框 / 搜索框高 |
-| `size.tabBar` | 48 | 40 | 分段标签栏高 |
-| `size.tabLabel` | 46 | 38 | 分段标签文字区高 |
-| `size.rowMin` | 56 | 48 | 列表项最小高 |
-| `size.menuItem` | 40 | 36 | 菜单项高 |
-| `size.minTouch` | 44 | 44 | 无障碍最小命中区（常量） |
+| 尺寸 Token | 舒适 | 紧凑 | 超紧凑 | 用于 |
+| --- | --- | --- | --- | --- |
+| `size.buttonLarge` | 48 | 40 | 36 | 大按钮高 |
+| `size.buttonMedium` | 40 | 32 | 28 | 中按钮高 |
+| `size.buttonSmall` | 32 | 28 | 24 | 小按钮高 |
+| `size.field` | 48 | 40 | 36 | 输入框 / 搜索框高 |
+| `size.tabBar` | 48 | 40 | 36 | 分段标签栏高 |
+| `size.tabLabel` | 46 | 38 | 34 | 分段标签文字区高 |
+| `size.rowMin` | 56 | 48 | 40 | 列表项最小高 |
+| `size.menuItem` | 40 | 36 | 32 | 菜单项高 |
+| `size.minTouch` | 44 | 44 | 44 | 无障碍最小命中区（常量） |
 
-组件固定尺寸（不随 compact 变化，仍来自 Token）：
+组件固定尺寸（不随密度变化，仍来自 Token）：
 
 | 尺寸 Token | 值 | 用于 |
 | --- | --- | --- |
@@ -91,25 +91,26 @@ Size（控件尺寸，随 compact 密度切换）
 | `size.dialogMaxWidth` | 400 | Dialog 最大宽度 |
 | `size.menuMinWidth` / `size.popoverMaxWidth` | 160 / 240 | 菜单与气泡面板 |
 
-字号（size / lineHeight 随 compact 切换，weight 不变）：
+字号（size / lineHeight 随密度切换，weight 不变）：
 
-| 字阶 | 常规 | 紧凑 |
-| --- | --- | --- |
-| displayLarge | 48/56 | 40/48 |
-| displayMedium | 36/44 | 32/40 |
-| headlineLarge | 30/38 | 26/34 |
-| headlineMedium | 24/32 | 22/28 |
-| titleLarge | 20/28 | 18/24 |
-| titleMedium | 18/26 | 16/22 |
-| body | 16/24 | 14/20 |
-| bodySmall | 14/20 | 13/18 |
-| label | 14/20 | 13/18 |
-| caption | 12/16 | 12/16（可读下限，不缩） |
+| 字阶 | 舒适 | 紧凑 | 超紧凑 |
+| --- | --- | --- | --- |
+| displayLarge | 48/56 | 40/48 | 36/44 |
+| displayMedium | 36/44 | 32/40 | 30/38 |
+| headlineLarge | 30/38 | 26/34 | 24/30 |
+| headlineMedium | 24/32 | 22/28 | 20/26 |
+| titleLarge | 20/28 | 18/24 | 17/22 |
+| titleMedium | 18/26 | 16/22 | 15/20 |
+| body | 16/24 | 14/20 | 13/18 |
+| bodySmall | 14/20 | 13/18 | 12/16 |
+| label | 14/20 | 13/18 | 12/16 |
+| caption | 12/16 | 12/16 | 12/16（可读下限，不缩） |
 
-- 运行时（尺寸）：`Token.size.buttonMedium(compact)`；`compact` 取自 `AppStorage['compact']`。
-- 运行时（字体）：`Token.font.body.sizeFor(compact)` / `.lineHeightFor(compact)`；原 `.size` / `.lineHeight` 仍返回常规值，不破坏现有代码。
-- 组件持有 `@StorageProp('compact') compact` 并在 build 里引用（作为 `Token.size.*` / `Token.font.*.sizeFor` 的入参），切换即重绘。
-- **无障碍**：紧凑下控件视觉可小于 44，但用 `.responseRegion(...)` 把命中区兜底到 `size.minTouch`（44）。
+- 运行时（尺寸）：`Token.size.buttonMedium(density)`，`density: Density`。
+- 运行时（字体）：`Token.font.body.sizeFor(density)` / `.lineHeightFor(density)`；原 `.size` / `.lineHeight` 仍返回舒适档常规值。
+- 组件持有 `@StorageProp('density') density: Density = Density.Comfortable` 并在 build 里引用（作为 `Token.size.*` / `Token.font.*.sizeFor` 的入参），切换即重绘。
+- 全局切换：`setDensity(Density.SuperCompact)`（或启动时 `initDensity(...)`）；`currentDensity()` 读取当前档，兼容旧布尔键 `'compact'`；`setCompact(true)` 映射为 `Compact`。
+- **无障碍**：紧凑 / 超紧凑下控件视觉可小于 44，但用 `.responseRegion(...)` 把命中区兜底到 `size.minTouch`（44）。
 
 ## 源文件
 

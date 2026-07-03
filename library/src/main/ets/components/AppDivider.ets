@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -13,7 +13,7 @@ export struct AppDivider {
   @Prop vertical: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private hasText(value: ResourceStr): boolean {
     return typeof value !== 'string' || value.length > 0;
@@ -30,7 +30,7 @@ export struct AppDivider {
       Row() {
         Divider().color(Token.color.divider()).layoutWeight(1)
         Text(this.text)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ start: LengthMetrics.vp(Token.space.sm), end: LengthMetrics.vp(Token.space.sm) })
         Divider().color(Token.color.divider()).layoutWeight(1)

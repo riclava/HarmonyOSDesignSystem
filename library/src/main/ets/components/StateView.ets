@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 export enum StateKind { Loading, Empty, Error }
@@ -12,7 +12,7 @@ export struct StateView {
   @Prop actionLabel: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onAction?: () => void;
 
   private hasText(value: ResourceStr): boolean {
@@ -45,27 +45,27 @@ export struct StateView {
           .height(Token.icon.xxl)
       }
       Text(this.title)
-        .fontSize(Token.font.titleMedium.sizeFor(this.compact))
+        .fontSize(Token.font.titleMedium.sizeFor(this.density))
         .fontWeight(Token.font.titleMedium.weight)
         .fontColor(Token.color.onSurface())
         .margin({ top: Token.space.sm })
       if (this.hasText(this.description)) {
         Text(this.description)
-          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+          .fontSize(Token.font.bodySmall.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .textAlign(TextAlign.Center)
           .margin({ top: Token.space.xxs })
       }
       if (this.hasText(this.actionLabel)) {
         Text(this.actionLabel)
-          .fontSize(Token.font.label.sizeFor(this.compact))
+          .fontSize(Token.font.label.sizeFor(this.density))
           .fontColor(Token.color.onPrimary(this.brand))
-          .height(Token.size.buttonMedium(this.compact))
+          .height(Token.size.buttonMedium(this.density))
           .padding({ start: LengthMetrics.vp(Token.space.lg), end: LengthMetrics.vp(Token.space.lg) })
           .backgroundColor(Token.color.primary(this.brand))
           .borderRadius(Token.radius.sm)
           .margin({ top: Token.space.md })
-          .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.compact) - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })
+          .responseRegion({ x: 0, y: (Token.size.buttonMedium(this.density) - Token.size.minTouch) / 2, width: '100%', height: Token.size.minTouch })
           .onClick(() => { if (this.onAction) this.onAction(); })
       }
     }

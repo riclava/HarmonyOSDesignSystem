@@ -6,7 +6,8 @@
  */
 
 // 主题 / Token
-export { Token, initColorMode, initTheme, setBrand, currentBrand, isDarkMode, isCompactMode, isRTL } from './src/main/ets/theme/Tokens';
+export { Token, Density, initColorMode, initTheme, setBrand, currentBrand, isDarkMode,
+  isCompactMode, currentDensity, setDensity, initDensity, setCompact, isRTL } from './src/main/ets/theme/Tokens';
 
 // 基础组件
 export { AppButton, AppButtonType, AppButtonSize } from './src/main/ets/components/AppButton';

@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /**
  * 数字步进器：[-] 值 [+]。受 min/max/step 约束，越界时对应按钮禁用。
@@ -12,11 +12,11 @@ export struct AppStepper {
   @Prop stepperDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onChange?: (value: number) => void;
 
   private btnSize(): number {
-    return Token.size.buttonMedium(this.compact);
+    return Token.size.buttonMedium(this.density);
   }
 
   private btnTouch(): number {
@@ -92,7 +92,7 @@ export struct AppStepper {
     Row() {
       this.DecreaseButton()
       Text(this.value.toString())
-        .fontSize(Token.font.body.sizeFor(this.compact))
+        .fontSize(Token.font.body.sizeFor(this.density))
         .fontColor(Token.color.onSurface())
         .textAlign(TextAlign.Center)
         .constraintSize({ minWidth: Token.size.sliderValueWidth })

@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -11,7 +11,7 @@ export struct AppRating {
   @Prop ratingReadonly: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onRate?: (value: number) => void;
 
   private stars(): number[] {

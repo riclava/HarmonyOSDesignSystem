@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { DemoBlock, SectionLabel } from './Widgets';
 
@@ -6,20 +6,20 @@ import { DemoBlock, SectionLabel } from './Widgets';
 export struct AdaptiveSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State breakpoint: string = 'sm';
 
   @Builder
   cell(label: ResourceStr) {
     Column() {
       Text(label)
-        .fontSize(Token.font.label.sizeFor(this.compact))
-        .lineHeight(Token.font.label.lineHeightFor(this.compact))
+        .fontSize(Token.font.label.sizeFor(this.density))
+        .lineHeight(Token.font.label.lineHeightFor(this.density))
         .fontColor(Token.color.onPrimary(this.brand))
     }
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .height(Token.size.rowMin(this.compact))
+    .height(Token.size.rowMin(this.density))
     .width('100%')
     .backgroundColor(Token.color.primary(this.brand))
     .borderRadius(Token.radius.sm)
@@ -30,8 +30,8 @@ export struct AdaptiveSection {
       SectionLabel({ text: $r('app.string.sec_adaptive') })
       DemoBlock({ title: $r('app.string.sec_adaptive_grid') }) {
         Text($r('app.string.adaptive_breakpoint', this.breakpoint))
-          .fontSize(Token.font.caption.sizeFor(this.compact))
-          .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
+          .lineHeight(Token.font.caption.lineHeightFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ bottom: Token.space.sm })
 
@@ -64,12 +64,12 @@ export struct AdaptiveSection {
 
           Column() {
             Text($r('app.string.a11y_touch_title'))
-              .fontSize(Token.font.body.sizeFor(this.compact))
-              .lineHeight(Token.font.body.lineHeightFor(this.compact))
+              .fontSize(Token.font.body.sizeFor(this.density))
+              .lineHeight(Token.font.body.lineHeightFor(this.density))
               .fontColor(Token.color.onSurface())
             Text($r('app.string.a11y_touch_desc'))
-              .fontSize(Token.font.caption.sizeFor(this.compact))
-              .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+              .fontSize(Token.font.caption.sizeFor(this.density))
+              .lineHeight(Token.font.caption.lineHeightFor(this.density))
               .fontColor(Token.color.onSurfaceVariant())
           }
           .alignItems(HorizontalAlign.Start)
@@ -83,8 +83,8 @@ export struct AdaptiveSection {
         // 对比度示例
         Flex({ wrap: FlexWrap.Wrap }) {
           Text($r('app.string.contrast_body'))
-            .fontSize(Token.font.body.sizeFor(this.compact))
-            .lineHeight(Token.font.body.lineHeightFor(this.compact))
+            .fontSize(Token.font.body.sizeFor(this.density))
+            .lineHeight(Token.font.body.lineHeightFor(this.density))
             .fontColor(Token.color.onSurface())
             .backgroundColor(Token.color.surface())
             .padding(Token.space.xs)
@@ -92,8 +92,8 @@ export struct AdaptiveSection {
             .border({ width: 1, color: Token.color.divider() })
             .margin({ end: LengthMetrics.vp(Token.space.xs), bottom: Token.space.xs })
           Text($r('app.string.contrast_primary'))
-            .fontSize(Token.font.body.sizeFor(this.compact))
-            .lineHeight(Token.font.body.lineHeightFor(this.compact))
+            .fontSize(Token.font.body.sizeFor(this.density))
+            .lineHeight(Token.font.body.lineHeightFor(this.density))
             .fontColor(Token.color.onPrimary(this.brand))
             .backgroundColor(Token.color.primary(this.brand))
             .padding(Token.space.xs)

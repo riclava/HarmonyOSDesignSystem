@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 徽标：dot=true 显示 8vp 圆点；否则显示 count 数字（>99 显示 99+）。 */
@@ -8,7 +8,7 @@ export struct AppBadge {
   @Prop dot: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private label(): string {
     return this.count > 99 ? '99+' : `${this.count}`;
@@ -19,7 +19,7 @@ export struct AppBadge {
       Circle({ width: Token.size.badgeDot, height: Token.size.badgeDot }).fill(Token.color.danger())
     } else {
       Text(this.label())
-        .fontSize(Token.font.caption.sizeFor(this.compact))
+        .fontSize(Token.font.caption.sizeFor(this.density))
         .fontColor(Token.color.onPrimary(this.brand))
         .height(Token.size.badgeMin)
         .constraintSize({ minWidth: Token.size.badgeMin })

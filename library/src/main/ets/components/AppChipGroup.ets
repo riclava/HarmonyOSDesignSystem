@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -11,7 +11,7 @@ export struct AppChipGroup {
   @Prop chipDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onDelete?: (index: number) => void;
 
   build() {
@@ -19,7 +19,7 @@ export struct AppChipGroup {
       ForEach(this.chips, (chip: ResourceStr, index: number) => {
         Row() {
           Text(chip)
-            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+            .fontSize(Token.font.bodySmall.sizeFor(this.density))
             .fontColor(Token.color.onSurface())
             .maxLines(1)
             .textOverflow({ overflow: TextOverflow.Ellipsis })

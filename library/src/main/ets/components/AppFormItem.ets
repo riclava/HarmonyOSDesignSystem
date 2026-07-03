@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -14,7 +14,7 @@ export struct AppFormItem {
   @Prop error: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @BuilderParam content: () => void;
 
   private hasText(value: ResourceStr): boolean {
@@ -27,12 +27,12 @@ export struct AppFormItem {
         Row() {
           if (this.required) {
             Text('*')
-              .fontSize(Token.font.label.sizeFor(this.compact))
+              .fontSize(Token.font.label.sizeFor(this.density))
               .fontColor(Token.color.danger())
               .margin({ end: LengthMetrics.vp(Token.space.xxs) })
           }
           Text(this.label)
-            .fontSize(Token.font.label.sizeFor(this.compact))
+            .fontSize(Token.font.label.sizeFor(this.density))
             .fontWeight(Token.font.label.weight)
             .fontColor(Token.color.onSurface())
         }
@@ -42,12 +42,12 @@ export struct AppFormItem {
       this.content()
       if (this.hasText(this.error)) {
         Text(this.error)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.danger())
           .margin({ top: Token.space.xxs })
       } else if (this.hasText(this.helper)) {
         Text(this.helper)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ top: Token.space.xxs })
       }

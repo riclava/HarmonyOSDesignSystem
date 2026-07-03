@@ -1,4 +1,4 @@
-import { Token, isRTL } from '../theme/Tokens';
+import { Density, Token, isRTL } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -17,11 +17,19 @@ export struct AppListItem {
   @Prop showDivider: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onItemClick?: () => void;
 
   private arrowIcon(): Resource {
     return isRTL() ? $r('sys.symbol.chevron_left') : $r('sys.symbol.chevron_right');
+  }
+
+  private rowPadY(): number {
+    switch (this.density) {
+      case Density.SuperCompact: return Token.space.xxs;
+      case Density.Compact: return Token.space.xs;
+      default: return Token.space.sm;
+    }
   }
 
   private hasText(value: ResourceStr): boolean {
@@ -53,11 +61,11 @@ export struct AppListItem {
         this.leadingAccessory()
         Column() {
           Text(this.title)
-            .fontSize(Token.font.body.sizeFor(this.compact))
+            .fontSize(Token.font.body.sizeFor(this.density))
             .fontColor(Token.color.onSurface())
           if (this.hasText(this.subtitle)) {
             Text(this.subtitle)
-              .fontSize(Token.font.caption.sizeFor(this.compact))
+              .fontSize(Token.font.caption.sizeFor(this.density))
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }
@@ -66,7 +74,7 @@ export struct AppListItem {
         .layoutWeight(1)
         if (this.hasText(this.trailingText)) {
           Text(this.trailingText)
-            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+            .fontSize(Token.font.bodySmall.sizeFor(this.density))
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ start: LengthMetrics.vp(Token.space.sm) })
         }
@@ -81,12 +89,12 @@ export struct AppListItem {
         }
       }
       .width('100%')
-      .constraintSize({ minHeight: Token.size.rowMin(this.compact) })
+      .constraintSize({ minHeight: Token.size.rowMin(this.density) })
       .padding({
         start: LengthMetrics.vp(Token.space.md),
         end: LengthMetrics.vp(Token.space.md),
-        top: LengthMetrics.vp(this.compact ? Token.space.xs : Token.space.sm),
-        bottom: LengthMetrics.vp(this.compact ? Token.space.xs : Token.space.sm)
+        top: LengthMetrics.vp(this.rowPadY()),
+        bottom: LengthMetrics.vp(this.rowPadY())
       })
       .alignItems(VerticalAlign.Center)
       if (this.showDivider) {

@@ -5,6 +5,10 @@
     { "name": "ability_desc", "value": "Design System showcase ability" },
 
     { "name": "topbar_compact", "value": "Compact" },
+    { "name": "topbar_density", "value": "Density" },
+    { "name": "density_comfortable", "value": "Cozy" },
+    { "name": "density_compact", "value": "Compact" },
+    { "name": "density_super", "value": "Super" },
     { "name": "topbar_dark", "value": "Dark" },
     { "name": "topbar_language_a11y", "value": "Switch language" },
     { "name": "topbar_brand_a11y", "value": "Switch brand" },
@@ -106,6 +110,7 @@
     { "name": "demo_overlay_menu", "value": "Menu" },
     { "name": "popover_title", "value": "Tip" },
     { "name": "popover_text", "value": "A popover carries a small amount of explanation or actions, with a max width of 240." },
+    { "name": "popover_canvas_hint", "value": "Anchor area" },
 
     { "name": "state_loading_title", "value": "Loading" },
     { "name": "state_loading_desc", "value": "Fetching data…" },

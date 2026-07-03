@@ -1,4 +1,4 @@
-import { Token, AppButton, AppButtonType, AppButtonSize, AppCard, AppTag, AppTagTone, AppToast } from '@riclava/designsystem';
+import { Density, Token, AppButton, AppButtonType, AppButtonSize, AppCard, AppTag, AppTagTone, AppToast } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { DemoBlock } from './Widgets';
 
@@ -6,7 +6,7 @@ import { DemoBlock } from './Widgets';
 export struct ComponentsSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State loading: boolean = false;
 
   build() {
@@ -67,13 +67,13 @@ export struct ComponentsSection {
           onCardClick: (): void => { AppToast.show($r('app.string.card_click_toast')); }
         }) {
           Text($r('app.string.card_title'))
-            .fontSize(Token.font.titleMedium.sizeFor(this.compact))
-            .lineHeight(Token.font.titleMedium.lineHeightFor(this.compact))
+            .fontSize(Token.font.titleMedium.sizeFor(this.density))
+            .lineHeight(Token.font.titleMedium.lineHeightFor(this.density))
             .fontWeight(Token.font.titleMedium.weight)
             .fontColor(Token.color.onSurface())
           Text($r('app.string.card_body'))
-            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-            .lineHeight(Token.font.bodySmall.lineHeightFor(this.compact))
+            .fontSize(Token.font.bodySmall.sizeFor(this.density))
+            .lineHeight(Token.font.bodySmall.lineHeightFor(this.density))
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ top: Token.space.xxs })
         }

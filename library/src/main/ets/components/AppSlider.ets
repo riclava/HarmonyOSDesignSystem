@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 滑块：已选段 Primary，未选 Outline。可选右侧数值显示。 */
@@ -11,7 +11,7 @@ export struct AppSlider {
   @Prop showValue: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onValueChange?: (value: number) => void;
 
   build() {
@@ -29,7 +29,7 @@ export struct AppSlider {
         })
       if (this.showValue) {
         Text(`${Math.round(this.value)}`)
-          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+          .fontSize(Token.font.bodySmall.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .width(Token.size.sliderValueWidth)
           .textAlign(TextAlign.End)

@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /**
  * 通用卡片：Surface 底色 + Level1 阴影 + RadiusMD 圆角 + MD 内边距。
@@ -9,7 +9,7 @@ export struct AppCard {
   @Prop clickable: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State private pressed: boolean = false;
   @BuilderParam content: () => void;
   onCardClick?: () => void;
@@ -20,7 +20,9 @@ export struct AppCard {
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
-    .padding(this.compact ? Token.space.sm : Token.space.md)
+    .padding(this.density === Density.SuperCompact
+      ? Token.space.xs
+      : this.density === Density.Compact ? Token.space.sm : Token.space.md)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
     .shadow(this.clickable && this.pressed

@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 export enum AppTagTone { Neutral, Primary, Success, Warning, Danger, Info }
@@ -10,7 +10,7 @@ export struct AppTag {
   @Prop tone: AppTagTone = AppTagTone.Neutral;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private fg(): ResourceColor {
     switch (this.tone) {
@@ -25,7 +25,7 @@ export struct AppTag {
 
   build() {
     Text(this.label)
-      .fontSize(Token.font.caption.sizeFor(this.compact))
+      .fontSize(Token.font.caption.sizeFor(this.density))
       .fontColor(this.fg())
       .height(Token.size.tagHeight)
       .padding({ start: LengthMetrics.vp(Token.space.xs), end: LengthMetrics.vp(Token.space.xs) })

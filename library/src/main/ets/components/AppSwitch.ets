@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /** 开关：可选左侧文案 + 右侧 Switch。命中区 ≥ 44。 */
 @Component
@@ -8,7 +8,7 @@ export struct AppSwitch {
   @Prop switchDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onToggle?: (value: boolean) => void;
 
   private hasLabel(): boolean {
@@ -19,7 +19,7 @@ export struct AppSwitch {
     Row() {
       if (this.hasLabel()) {
         Text(this.label)
-          .fontSize(Token.font.body.sizeFor(this.compact))
+          .fontSize(Token.font.body.sizeFor(this.density))
           .fontColor(Token.color.onSurface())
           .layoutWeight(1)
       }

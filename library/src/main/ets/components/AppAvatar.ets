@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 export enum AppAvatarShape { Circle, Rounded }
 
@@ -11,7 +11,7 @@ export struct AppAvatar {
   @Prop bgColor: ResourceColor | null = null;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private initial(): string {
     return this.text.length > 0 ? this.text.substring(0, 1).toUpperCase() : '?';
@@ -19,15 +19,15 @@ export struct AppAvatar {
 
   private textSize(): number {
     if (this.avatarSize <= Token.size.avatarXs) {
-      return Token.font.caption.sizeFor(this.compact);
+      return Token.font.caption.sizeFor(this.density);
     }
     if (this.avatarSize <= Token.size.avatarSm) {
-      return Token.font.bodySmall.sizeFor(this.compact);
+      return Token.font.bodySmall.sizeFor(this.density);
     }
     if (this.avatarSize <= Token.size.avatarMd) {
-      return Token.font.body.sizeFor(this.compact);
+      return Token.font.body.sizeFor(this.density);
     }
-    return Token.font.titleMedium.sizeFor(this.compact);
+    return Token.font.titleMedium.sizeFor(this.density);
   }
 
   private bgColorValue(): ResourceColor {

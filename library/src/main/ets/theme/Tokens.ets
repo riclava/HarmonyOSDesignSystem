@@ -17,6 +17,20 @@ class ColorPair {
   }
 }
 
+/**
+ * UI density level. Drives control sizes, paddings and font sizes/line-heights.
+ * Colors and radius never change with density.
+ * - Comfortable: default, touch-friendly.
+ * - Compact: data-dense screens / large displays.
+ * - SuperCompact: extremely information-dense apps; visuals may dip below 44vp,
+ *   so keep a 44vp hit area via .responseRegion(...). caption font never shrinks.
+ */
+export enum Density {
+  Comfortable = 0,
+  Compact = 1,
+  SuperCompact = 2
+}
+
 /** Initialize light/dark mode from system configuration. */
 export function initColorMode(colorMode: ConfigurationConstant.ColorMode): void {
   AppStorage.setOrCreate('isDark',
@@ -28,9 +42,40 @@ export function isDarkMode(): boolean {
   return AppStorage.get<boolean>('isDark') ?? false;
 }
 
-/** Current compact-density flag. Components must pass their @StorageProp value to Token.size/font helpers. */
+/**
+ * Current density. Components hold @StorageProp('density') and pass it to
+ * Token.size.*(density) / Token.font.*.sizeFor(density) so they repaint on change.
+ * Falls back to the legacy boolean 'compact' key for backward compatibility.
+ */
+export function currentDensity(): Density {
+  const density = AppStorage.get<Density>('density');
+  if (density !== undefined) {
+    return density;
+  }
+  return (AppStorage.get<boolean>('compact') ?? false) ? Density.Compact : Density.Comfortable;
+}
+
+/** Set the active density at runtime. Components holding @StorageProp('density') repaint. */
+export function setDensity(density: Density): void {
+  AppStorage.setOrCreate('density', density);
+}
+
+/** Initialize density at app startup, e.g. in the Ability. */
+export function initDensity(density: Density): void {
+  AppStorage.setOrCreate('density', density);
+}
+
+/**
+ * Backward-compatible boolean density switch: true -> Compact, false -> Comfortable.
+ * Prefer setDensity(Density) to also reach SuperCompact.
+ */
+export function setCompact(compact: boolean): void {
+  AppStorage.setOrCreate('density', compact ? Density.Compact : Density.Comfortable);
+}
+
+/** Current compact-or-denser flag (compat helper). True for Compact and SuperCompact. */
 export function isCompactMode(): boolean {
-  return AppStorage.get<boolean>('compact') ?? false;
+  return currentDensity() !== Density.Comfortable;
 }
 
 /** Current brand id. Colors with brand overrides resolve against this ('default' when unset). */
@@ -135,35 +180,49 @@ class TypeStyle {
   weight: number;
   compactSize: number;
   compactLineHeight: number;
-  constructor(size: number, lineHeight: number, weight: number, compactSize: number, compactLineHeight: number) {
+  superCompactSize: number;
+  superCompactLineHeight: number;
+  constructor(size: number, lineHeight: number, weight: number,
+              compactSize: number, compactLineHeight: number,
+              superCompactSize: number, superCompactLineHeight: number) {
     this.size = size;
     this.lineHeight = lineHeight;
     this.weight = weight;
     this.compactSize = compactSize;
     this.compactLineHeight = compactLineHeight;
+    this.superCompactSize = superCompactSize;
+    this.superCompactLineHeight = superCompactLineHeight;
   }
 
-  sizeFor(compact: boolean): number {
-    return compact ? this.compactSize : this.size;
+  sizeFor(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return this.superCompactSize;
+      case Density.Compact: return this.compactSize;
+      default: return this.size;
+    }
   }
 
-  lineHeightFor(compact: boolean): number {
-    return compact ? this.compactLineHeight : this.lineHeight;
+  lineHeightFor(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return this.superCompactLineHeight;
+      case Density.Compact: return this.compactLineHeight;
+      default: return this.lineHeight;
+    }
   }
 }
 
 class FontTokens {
   readonly family: string = 'HarmonyOS Sans';
-  readonly displayLarge: TypeStyle = new TypeStyle(48, 56, 700, 40, 48);
-  readonly displayMedium: TypeStyle = new TypeStyle(36, 44, 700, 32, 40);
-  readonly headlineLarge: TypeStyle = new TypeStyle(30, 38, 600, 26, 34);
-  readonly headlineMedium: TypeStyle = new TypeStyle(24, 32, 600, 22, 28);
-  readonly titleLarge: TypeStyle = new TypeStyle(20, 28, 500, 18, 24);
-  readonly titleMedium: TypeStyle = new TypeStyle(18, 26, 500, 16, 22);
-  readonly body: TypeStyle = new TypeStyle(16, 24, 400, 14, 20);
-  readonly bodySmall: TypeStyle = new TypeStyle(14, 20, 400, 13, 18);
-  readonly label: TypeStyle = new TypeStyle(14, 20, 500, 13, 18);
-  readonly caption: TypeStyle = new TypeStyle(12, 16, 400, 12, 16);
+  readonly displayLarge: TypeStyle = new TypeStyle(48, 56, 700, 40, 48, 36, 44);
+  readonly displayMedium: TypeStyle = new TypeStyle(36, 44, 700, 32, 40, 30, 38);
+  readonly headlineLarge: TypeStyle = new TypeStyle(30, 38, 600, 26, 34, 24, 30);
+  readonly headlineMedium: TypeStyle = new TypeStyle(24, 32, 600, 22, 28, 20, 26);
+  readonly titleLarge: TypeStyle = new TypeStyle(20, 28, 500, 18, 24, 17, 22);
+  readonly titleMedium: TypeStyle = new TypeStyle(18, 26, 500, 16, 22, 15, 20);
+  readonly body: TypeStyle = new TypeStyle(16, 24, 400, 14, 20, 13, 18);
+  readonly bodySmall: TypeStyle = new TypeStyle(14, 20, 400, 13, 18, 12, 16);
+  readonly label: TypeStyle = new TypeStyle(14, 20, 500, 13, 18, 12, 16);
+  readonly caption: TypeStyle = new TypeStyle(12, 16, 400, 12, 16, 12, 16);
 }
 
 /** ---------- Icon size (vp) ---------- */
@@ -213,14 +272,62 @@ class MotionTokens {
 /** ---------- Control and component sizes (vp) ---------- */
 class SizeTokens {
   readonly minTouch: number = 44;
-  buttonLarge(compact: boolean): number { return compact ? 40 : 48; }
-  buttonMedium(compact: boolean): number { return compact ? 32 : 40; }
-  buttonSmall(compact: boolean): number { return compact ? 28 : 32; }
-  field(compact: boolean): number { return compact ? 40 : 48; }
-  tabBar(compact: boolean): number { return compact ? 40 : 48; }
-  tabLabel(compact: boolean): number { return compact ? 38 : 46; }
-  rowMin(compact: boolean): number { return compact ? 48 : 56; }
-  menuItem(compact: boolean): number { return compact ? 36 : 40; }
+  buttonLarge(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 36;
+      case Density.Compact: return 40;
+      default: return 48;
+    }
+  }
+  buttonMedium(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 28;
+      case Density.Compact: return 32;
+      default: return 40;
+    }
+  }
+  buttonSmall(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 24;
+      case Density.Compact: return 28;
+      default: return 32;
+    }
+  }
+  field(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 36;
+      case Density.Compact: return 40;
+      default: return 48;
+    }
+  }
+  tabBar(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 36;
+      case Density.Compact: return 40;
+      default: return 48;
+    }
+  }
+  tabLabel(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 34;
+      case Density.Compact: return 38;
+      default: return 46;
+    }
+  }
+  rowMin(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 40;
+      case Density.Compact: return 48;
+      default: return 56;
+    }
+  }
+  menuItem(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return 32;
+      case Density.Compact: return 36;
+      default: return 40;
+    }
+  }
   readonly avatarXs: number = 24;
   readonly avatarSm: number = 32;
   readonly avatarMd: number = 40;

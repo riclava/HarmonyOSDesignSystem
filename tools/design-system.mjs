@@ -99,7 +99,9 @@ function renderRuntime() {
     .map(([name, token]) => {
       const value = token.$value;
       const compact = token.$extensions?.compact ?? value;
-      return `  readonly ${name}: TypeStyle = new TypeStyle(${parseDimension(value.fontSize)}, ${parseDimension(value.lineHeight)}, ${value.fontWeight}, ${parseDimension(compact.fontSize)}, ${parseDimension(compact.lineHeight)});`;
+      // superCompact falls back to compact, which falls back to the base value.
+      const superCompact = token.$extensions?.superCompact ?? compact;
+      return `  readonly ${name}: TypeStyle = new TypeStyle(${parseDimension(value.fontSize)}, ${parseDimension(value.lineHeight)}, ${value.fontWeight}, ${parseDimension(compact.fontSize)}, ${parseDimension(compact.lineHeight)}, ${parseDimension(superCompact.fontSize)}, ${parseDimension(superCompact.lineHeight)});`;
     }).join('\n');
 
   const shadowFields = Object.entries(tokens.elevation).map(([name, token]) => {
@@ -125,7 +127,9 @@ function renderRuntime() {
       if (typeof value === 'string') {
         return `  readonly ${runtimeName(name)}: number = ${parseDimension(value)};`;
       }
-      return `  ${runtimeName(name)}(compact: boolean): number { return compact ? ${parseDimension(value.compact)} : ${parseDimension(value.comfortable)}; }`;
+      // superCompact falls back to compact when not specified.
+      const superCompact = value.superCompact ?? value.compact;
+      return `  ${runtimeName(name)}(density: Density): number {\n    switch (density) {\n      case Density.SuperCompact: return ${parseDimension(superCompact)};\n      case Density.Compact: return ${parseDimension(value.compact)};\n      default: return ${parseDimension(value.comfortable)};\n    }\n  }`;
     }).join('\n');
 
   return `/**
@@ -147,6 +151,20 @@ class ColorPair {
   }
 }
 
+/**
+ * UI density level. Drives control sizes, paddings and font sizes/line-heights.
+ * Colors and radius never change with density.
+ * - Comfortable: default, touch-friendly.
+ * - Compact: data-dense screens / large displays.
+ * - SuperCompact: extremely information-dense apps; visuals may dip below 44vp,
+ *   so keep a 44vp hit area via .responseRegion(...). caption font never shrinks.
+ */
+export enum Density {
+  Comfortable = 0,
+  Compact = 1,
+  SuperCompact = 2
+}
+
 /** Initialize light/dark mode from system configuration. */
 export function initColorMode(colorMode: ConfigurationConstant.ColorMode): void {
   AppStorage.setOrCreate('isDark',
@@ -158,9 +176,40 @@ export function isDarkMode(): boolean {
   return AppStorage.get<boolean>('isDark') ?? false;
 }
 
-/** Current compact-density flag. Components must pass their @StorageProp value to Token.size/font helpers. */
+/**
+ * Current density. Components hold @StorageProp('density') and pass it to
+ * Token.size.*(density) / Token.font.*.sizeFor(density) so they repaint on change.
+ * Falls back to the legacy boolean 'compact' key for backward compatibility.
+ */
+export function currentDensity(): Density {
+  const density = AppStorage.get<Density>('density');
+  if (density !== undefined) {
+    return density;
+  }
+  return (AppStorage.get<boolean>('compact') ?? false) ? Density.Compact : Density.Comfortable;
+}
+
+/** Set the active density at runtime. Components holding @StorageProp('density') repaint. */
+export function setDensity(density: Density): void {
+  AppStorage.setOrCreate('density', density);
+}
+
+/** Initialize density at app startup, e.g. in the Ability. */
+export function initDensity(density: Density): void {
+  AppStorage.setOrCreate('density', density);
+}
+
+/**
+ * Backward-compatible boolean density switch: true -> Compact, false -> Comfortable.
+ * Prefer setDensity(Density) to also reach SuperCompact.
+ */
+export function setCompact(compact: boolean): void {
+  AppStorage.setOrCreate('density', compact ? Density.Compact : Density.Comfortable);
+}
+
+/** Current compact-or-denser flag (compat helper). True for Compact and SuperCompact. */
 export function isCompactMode(): boolean {
-  return AppStorage.get<boolean>('compact') ?? false;
+  return currentDensity() !== Density.Comfortable;
 }
 
 /** Current brand id. Colors with brand overrides resolve against this ('default' when unset). */
@@ -216,20 +265,34 @@ class TypeStyle {
   weight: number;
   compactSize: number;
   compactLineHeight: number;
-  constructor(size: number, lineHeight: number, weight: number, compactSize: number, compactLineHeight: number) {
+  superCompactSize: number;
+  superCompactLineHeight: number;
+  constructor(size: number, lineHeight: number, weight: number,
+              compactSize: number, compactLineHeight: number,
+              superCompactSize: number, superCompactLineHeight: number) {
     this.size = size;
     this.lineHeight = lineHeight;
     this.weight = weight;
     this.compactSize = compactSize;
     this.compactLineHeight = compactLineHeight;
+    this.superCompactSize = superCompactSize;
+    this.superCompactLineHeight = superCompactLineHeight;
   }
 
-  sizeFor(compact: boolean): number {
-    return compact ? this.compactSize : this.size;
+  sizeFor(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return this.superCompactSize;
+      case Density.Compact: return this.compactSize;
+      default: return this.size;
+    }
   }
 
-  lineHeightFor(compact: boolean): number {
-    return compact ? this.compactLineHeight : this.lineHeight;
+  lineHeightFor(density: Density): number {
+    switch (density) {
+      case Density.SuperCompact: return this.superCompactLineHeight;
+      case Density.Compact: return this.compactLineHeight;
+      default: return this.lineHeight;
+    }
   }
 }
 

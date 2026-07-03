@@ -87,15 +87,17 @@ struct Home {
 
 3) 遵循 [17 Coding Specification](17-coding-specification.md)：不写死任何样式值。
 
-### 可选：数据密集场景开启紧凑密度（compact）
+### 可选：数据密集场景切换密度（Density）
 
-超复杂应用（管理后台、大屏多面板）可全局开启 compact，组件整体收紧尺寸、内边距**与字号/行高**（圆角、颜色不变；caption 保持可读下限；命中区仍 ≥ 44）：
+超复杂应用（管理后台、大屏多面板）可全局切换三档密度 `Density`（`Comfortable` / `Compact` / `SuperCompact`），组件整体收紧尺寸、内边距**与字号/行高**（圆角、颜色不变；caption 保持可读下限；命中区仍 ≥ 44）：
 
 ```ts
-AppStorage.setOrCreate('compact', true); // 任意位置切换，全局组件联动收紧
+import { Density, setDensity } from '@riclava/designsystem';
+setDensity(Density.SuperCompact); // 任意位置切换，全局组件联动收紧
+// 旧布尔兼容：setCompact(true) 等价于 Density.Compact
 ```
 
-自定义控件若也要跟随：持有 `@StorageProp('compact') compact`，并在 build 里用 `Token.size.*(this.compact)` 取尺寸、`Token.font.X.sizeFor(this.compact)` 取字号。详见 [16 Design Token](16-design-token.md) 的「密度 / Compact」小节。
+自定义控件若也要跟随：持有 `@StorageProp('density') density: Density = Density.Comfortable`，并在 build 里用 `Token.size.*(this.density)` 取尺寸、`Token.font.X.sizeFor(this.density)` 取字号。详见 [16 Design Token](16-design-token.md) 的「密度 / Density」小节。
 
 ---
 

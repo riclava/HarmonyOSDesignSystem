@@ -1,4 +1,4 @@
-import { Token, isRTL } from '../theme/Tokens';
+import { Density, Token, isRTL } from '../theme/Tokens';
 
 /**
  * 分页器：上一页 + 页码窗口（最多显示 maxButtons 个）+ 下一页。
@@ -11,11 +11,11 @@ export struct AppPagination {
   @Prop maxButtons: number = 5;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onChange?: (page: number) => void;
 
   private cellSize(): number {
-    return Token.size.buttonMedium(this.compact);
+    return Token.size.buttonMedium(this.density);
   }
 
   private cellTouch(): number {
@@ -129,7 +129,7 @@ export struct AppPagination {
       this.PreviousButton()
       ForEach(this.pages(), (page: number) => {
         Text(page.toString())
-          .fontSize(Token.font.label.sizeFor(this.compact))
+          .fontSize(Token.font.label.sizeFor(this.density))
           .fontColor(page === this.current ? Token.color.onPrimary(this.brand) : Token.color.onSurface())
           .textAlign(TextAlign.Center)
           .width(this.cellSize())

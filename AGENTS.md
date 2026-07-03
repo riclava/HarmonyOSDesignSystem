@@ -31,7 +31,7 @@ Text('Hi')
 | 图标 | `Token.icon.X` | xs(16), sm(20), md(24), lg(28), xl(32), xxl(48) |
 | 阴影 | `Token.shadow.levelN` | level0..level4（含 radius/color/offsetX/offsetY） |
 | 动画 | `Token.motion.X` | instant(100), fast(200), normal(250), slow(300), extraSlow(400), easeStandard, easeOut, easeIn |
-| 尺寸 | `Token.size.X(compact)` | buttonLarge/buttonMedium/buttonSmall, field, tabBar, tabLabel, rowMin, menuItem；`minTouch`(44 常量) |
+| 尺寸 | `Token.size.X(density)` | buttonLarge/buttonMedium/buttonSmall, field, tabBar, tabLabel, rowMin, menuItem；`minTouch`(44 常量) |
 
 ## 组件优先
 
@@ -72,15 +72,17 @@ import {
 - 日期 → `AppDatePicker`；时间 → `AppTimePicker`；日历 → `AppCalendar`
 - 空/错/加载 → `StateView`；加载占位 → `Skeleton`
 
-## 密度 / Compact 模式
+## 密度 / Density 模式
 
-面向数据密集型 / 大屏多面板等超复杂应用，可整体收紧控件尺寸、内边距**与字号/行高**（圆角、颜色不变；caption 保持 12 为可读下限）。
+面向数据密集型 / 大屏多面板等超复杂应用，提供三档密度 `Density`：`Comfortable`（舒适，默认）/ `Compact`（紧凑）/ `SuperCompact`（超紧凑）。逐档收紧控件尺寸、内边距**与字号/行高**（圆角、颜色不变；caption 保持 12 为可读下限）。
 
-- 开启：`AppStorage.setOrCreate('compact', true)`，可随场景实时切换。
-- 组件持有 `@StorageProp('compact') compact: boolean`，尺寸统一走 `Token.size.*(this.compact)`。
-- 自定义控件必须在 build 里**直接引用 `this.compact`**（作为 `Token.size.*` / `Token.font.*.sizeFor` 的入参），否则切换不会重绘（compact 无系统级触发，不能只靠"持有"）。
-- 无障碍：compact 下控件视觉可小于 44，但要用 `.responseRegion(...)` 把命中区兜底到 `Token.size.minTouch`(44)。
-- 影响范围：控件高度、内边距、字号/行高（Button / 输入 / 搜索 / Tabs / 列表 / 卡片 / 弹窗 / 标签 / 文案等）；**不动**圆角、颜色。字体取值用 `Token.font.X.sizeFor(this.compact)`。
+- 开启：`setDensity(Density.SuperCompact)`（启动时用 `initDensity(...)`）；实时切换即可。`currentDensity()` 读当前档；`setCompact(true)` 兼容旧布尔（映射为 `Compact`）。
+- 组件持有 `@StorageProp('density') density: Density = Density.Comfortable`，尺寸统一走 `Token.size.*(this.density)`。
+- 自定义控件必须在 build 里**直接引用 `this.density`**（作为 `Token.size.*` / `Token.font.*.sizeFor` 的入参），否则切换不会重绘（密度无系统级触发，不能只靠"持有"）。
+- 分档取值：三态用 `switch (this.density)` 或 `this.density === Density.SuperCompact ? ... : this.density === Density.Compact ? ... : ...`；间距等非 Token 方法值按舒适 → 紧凑 → 超紧凑逐档收紧。
+- 无障碍：紧凑 / 超紧凑下控件视觉可小于 44，但要用 `.responseRegion(...)` 把命中区兜底到 `Token.size.minTouch`(44)。
+- 影响范围：控件高度、内边距、字号/行高（Button / 输入 / 搜索 / Tabs / 列表 / 卡片 / 弹窗 / 标签 / 文案等）；**不动**圆角、颜色。字体取值用 `Token.font.X.sizeFor(this.density)`。
+- 导入：`import { Density, setDensity, initDensity, currentDensity, setCompact } from '@riclava/designsystem';`
 
 ## 强制约束
 

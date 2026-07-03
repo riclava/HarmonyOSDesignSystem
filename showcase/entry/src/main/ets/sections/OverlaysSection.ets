@@ -1,4 +1,4 @@
-import { Token, AppDialog, AppButton, AppButtonType, AppSheet, AppMenu, AppMenuItem, AppPopover, AppToast } from '@riclava/designsystem';
+import { Density, Token, AppDialog, AppButton, AppButtonType, AppSheet, AppMenu, AppMenuItem, AppPopover, AppToast } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { DemoBlock, SectionLabel } from './Widgets';
 
@@ -6,11 +6,11 @@ import { DemoBlock, SectionLabel } from './Widgets';
 export struct OverlaysSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State sheetShown: boolean = false;
 
   private triggerTouch(): number {
-    return Math.max(Token.size.buttonMedium(this.compact), Token.size.minTouch);
+    return Math.max(Token.size.buttonMedium(this.density), Token.size.minTouch);
   }
 
   private menuItems: AppMenuItem[] = [
@@ -34,8 +34,8 @@ export struct OverlaysSection {
   sheetBuilder() {
     AppSheet({ title: $r('app.string.sheet_title') }) {
       Text($r('app.string.sheet_body'))
-        .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-        .lineHeight(Token.font.bodySmall.lineHeightFor(this.compact))
+        .fontSize(Token.font.bodySmall.sizeFor(this.density))
+        .lineHeight(Token.font.bodySmall.lineHeightFor(this.density))
         .fontColor(Token.color.onSurfaceVariant())
         .margin({ bottom: Token.space.lg })
       AppButton({
@@ -74,16 +74,16 @@ export struct OverlaysSection {
 
           // 系统菜单（原生 bindMenu；弹层密度由系统控制，触发器与同行按钮同规格随 compact 收紧）
           Text($r('app.string.demo_overlay_menu'))
-            .fontSize(Token.font.label.sizeFor(this.compact))
-            .lineHeight(Token.font.label.lineHeightFor(this.compact))
+            .fontSize(Token.font.label.sizeFor(this.density))
+            .lineHeight(Token.font.label.lineHeightFor(this.density))
             .fontColor(Token.color.primary(this.brand))
-            .height(Token.size.buttonMedium(this.compact))
+            .height(Token.size.buttonMedium(this.density))
             .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
             .borderRadius(Token.radius.sm)
             .border({ width: 1, color: Token.color.outline() })
             .responseRegion({
               x: 0,
-              y: (Token.size.buttonMedium(this.compact) - this.triggerTouch()) / 2,
+              y: (Token.size.buttonMedium(this.density) - this.triggerTouch()) / 2,
               width: '100%',
               height: this.triggerTouch()
             })
@@ -104,12 +104,19 @@ export struct OverlaysSection {
       // AppPopover 气泡样式
       DemoBlock({ title: $r('app.string.sec_popover') }) {
         Stack({ alignContent: Alignment.TopStart }) {
-          Column()
-            .width('100%')
-            .height(Token.size.rowMin(this.compact) + Token.space.xxl)
-            .backgroundColor(Token.color.background())
-            .borderRadius(Token.radius.sm)
-            .border({ width: 1, color: Token.color.divider() })
+          Column() {
+            Text($r('app.string.popover_canvas_hint'))
+              .fontSize(Token.font.caption.sizeFor(this.density))
+              .fontColor(Token.color.onSurfaceVariant())
+          }
+          .width('100%')
+          .height(Token.size.rowMin(this.density) + Token.space.xxxl)
+          .justifyContent(FlexAlign.End)
+          .alignItems(HorizontalAlign.End)
+          .padding(Token.space.sm)
+          .backgroundColor(Token.color.background())
+          .borderRadius(Token.radius.sm)
+          .border({ width: 1, color: Token.color.divider() })
           AppPopover({ title: $r('app.string.popover_title'), text: $r('app.string.popover_text') })
             .margin({ start: LengthMetrics.vp(Token.space.sm), top: Token.space.sm })
         }

@@ -1,4 +1,4 @@
-import { Token, isRTL } from '../theme/Tokens';
+import { Density, Token, isRTL } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -10,7 +10,7 @@ export struct AppBreadcrumb {
   @Prop items: ResourceStr[] = [];
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onSelect?: (index: number) => void;
 
   private separator(): Resource {
@@ -21,7 +21,7 @@ export struct AppBreadcrumb {
     Row() {
       ForEach(this.items, (item: ResourceStr, index: number) => {
         Text(item)
-          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+          .fontSize(Token.font.bodySmall.sizeFor(this.density))
           .fontColor(index === this.items.length - 1 ? Token.color.onSurface() : Token.color.primary(this.brand))
           .maxLines(1)
           .textOverflow({ overflow: TextOverflow.Ellipsis })

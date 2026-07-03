@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
 
 interface Swatch { name: string; color: ResourceColor; onColor: ResourceColor; }
@@ -7,7 +7,7 @@ interface Swatch { name: string; color: ResourceColor; onColor: ResourceColor; }
 export struct ColorSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private swatches(): Swatch[] {
     const onLight = Token.color.onPrimary(this.brand);
@@ -40,8 +40,8 @@ export struct ColorSection {
           GridCol({ span: { sm: 2, md: 2, lg: 3 } }) {
             Column() {
               Text(s.name)
-                .fontSize(Token.font.caption.sizeFor(this.compact))
-                .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+                .fontSize(Token.font.caption.sizeFor(this.density))
+                .lineHeight(Token.font.caption.lineHeightFor(this.density))
                 .fontColor(s.onColor)
                 .maxLines(2)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -49,7 +49,7 @@ export struct ColorSection {
             .justifyContent(FlexAlign.End)
             .alignItems(HorizontalAlign.Start)
             .width('100%')
-            .height(Token.size.rowMin(this.compact) + Token.space.md)
+            .height(Token.size.rowMin(this.density) + Token.space.md)
             .padding(Token.space.xs)
             .backgroundColor(s.color)
             .borderRadius(Token.radius.sm)

@@ -1,4 +1,4 @@
-import { Token, isRTL } from '../theme/Tokens';
+import { Density, Token, isRTL } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 树节点：label + 子节点 + 展开态。叶子节点 children 为空。 */
@@ -32,7 +32,7 @@ export struct AppTree {
   @Prop nodes: AppTreeNode[] = [];
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State private revision: number = 0;
   onSelect?: (node: AppTreeNode) => void;
 
@@ -82,14 +82,14 @@ export struct AppTree {
               .margin({ end: LengthMetrics.vp(Token.space.xs) })
           }
           Text(row.node.label)
-            .fontSize(Token.font.body.sizeFor(this.compact))
+            .fontSize(Token.font.body.sizeFor(this.density))
             .fontColor(Token.color.onSurface())
             .layoutWeight(1)
             .maxLines(1)
             .textOverflow({ overflow: TextOverflow.Ellipsis })
         }
         .width('100%')
-        .constraintSize({ minHeight: Token.size.menuItem(this.compact) })
+        .constraintSize({ minHeight: Token.size.menuItem(this.density) })
         .padding({
           start: LengthMetrics.vp(this.indent(row.level)),
           end: LengthMetrics.vp(Token.space.md)

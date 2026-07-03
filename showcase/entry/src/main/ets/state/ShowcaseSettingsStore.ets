@@ -1,10 +1,10 @@
 import { common, ConfigurationConstant } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
 import { i18n } from '@kit.LocalizationKit';
-import { initTheme, setBrand } from '@riclava/designsystem';
+import { Density, initTheme, setBrand, setDensity } from '@riclava/designsystem';
 
 export interface ShowcaseSettings {
-  compact: boolean;
+  density: Density;
   brand: string;
   isDark: boolean;
   hasDarkPreference: boolean;
@@ -13,7 +13,8 @@ export interface ShowcaseSettings {
 
 export class ShowcaseSettingsStore {
   private static readonly preferencesName: string = 'showcase_settings';
-  private static readonly keyCompact: string = 'compact';
+  private static readonly keyDensity: string = 'density';
+  private static readonly keyLegacyCompact: string = 'compact';
   private static readonly keyBrand: string = 'brand';
   private static readonly keyDark: string = 'dark';
   private static readonly keyLanguage: string = 'language';
@@ -24,7 +25,7 @@ export class ShowcaseSettingsStore {
     fallbackColorMode: ConfigurationConstant.ColorMode
   ): ShowcaseSettings {
     const settings: ShowcaseSettings = ShowcaseSettingsStore.read(context, fallbackColorMode);
-    AppStorage.setOrCreate(ShowcaseSettingsStore.keyCompact, settings.compact);
+    setDensity(settings.density);
     initTheme(
       settings.brand,
       settings.hasDarkPreference ? ShowcaseSettingsStore.colorModeFor(settings.isDark) : fallbackColorMode
@@ -42,9 +43,9 @@ export class ShowcaseSettingsStore {
     return settings;
   }
 
-  public static saveCompact(context: common.Context, compact: boolean): void {
-    AppStorage.setOrCreate(ShowcaseSettingsStore.keyCompact, compact);
-    ShowcaseSettingsStore.write(context, ShowcaseSettingsStore.keyCompact, compact);
+  public static saveDensity(context: common.Context, density: Density): void {
+    setDensity(density);
+    ShowcaseSettingsStore.write(context, ShowcaseSettingsStore.keyDensity, density as number);
   }
 
   public static saveBrand(context: common.Context, brand: string): void {
@@ -80,7 +81,7 @@ export class ShowcaseSettingsStore {
     fallbackColorMode: ConfigurationConstant.ColorMode
   ): ShowcaseSettings {
     const defaults: ShowcaseSettings = {
-      compact: false,
+      density: Density.Comfortable,
       brand: 'default',
       isDark: fallbackColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK,
       hasDarkPreference: false,
@@ -94,7 +95,7 @@ export class ShowcaseSettingsStore {
       }
       const hasDarkPreference: boolean = store.hasSync(ShowcaseSettingsStore.keyDark);
       return {
-        compact: ShowcaseSettingsStore.readBool(store, ShowcaseSettingsStore.keyCompact, defaults.compact),
+        density: ShowcaseSettingsStore.readDensity(store, defaults.density),
         brand: ShowcaseSettingsStore.normalizeBrand(
           ShowcaseSettingsStore.readString(store, ShowcaseSettingsStore.keyBrand, defaults.brand)
         ),
@@ -134,6 +135,27 @@ export class ShowcaseSettingsStore {
       store.flush().catch(() => {
       });
     } catch (err) {
+    }
+  }
+
+  private static readDensity(store: preferences.Preferences, fallback: Density): Density {
+    try {
+      // Prefer the new numeric density key; migrate the legacy boolean 'compact'.
+      if (store.hasSync(ShowcaseSettingsStore.keyDensity)) {
+        const value: preferences.ValueType = store.getSync(ShowcaseSettingsStore.keyDensity, fallback as number);
+        if (typeof value === 'number' && value >= Density.Comfortable && value <= Density.SuperCompact) {
+          return value as Density;
+        }
+      }
+      if (store.hasSync(ShowcaseSettingsStore.keyLegacyCompact)) {
+        const legacy: preferences.ValueType = store.getSync(ShowcaseSettingsStore.keyLegacyCompact, false);
+        if (typeof legacy === 'boolean') {
+          return legacy ? Density.Compact : Density.Comfortable;
+        }
+      }
+      return fallback;
+    } catch (err) {
+      return fallback;
     }
   }
 

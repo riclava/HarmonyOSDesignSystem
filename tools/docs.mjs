@@ -179,7 +179,8 @@ function dimensionRows(group) {
         return `| \`${name}\` | \`${value}\` |`;
       }
       if (value.comfortable) {
-        return `| \`${name}\` | \`${value.comfortable}\` / \`${value.compact}\` (compact) |`;
+        const superCompact = value.superCompact ?? value.compact;
+        return `| \`${name}\` | \`${value.comfortable}\` / \`${value.compact}\` (compact) / \`${superCompact}\` (superCompact) |`;
       }
       return `| \`${name}\` | — |`;
     });

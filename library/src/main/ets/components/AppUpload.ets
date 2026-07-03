@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -12,7 +12,7 @@ export struct AppUpload {
   @Prop uploadDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onAdd?: () => void;
   onRemove?: (index: number) => void;
 
@@ -25,13 +25,13 @@ export struct AppUpload {
           .width(Token.icon.lg)
           .height(Token.icon.lg)
         Text(this.hint)
-          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+          .fontSize(Token.font.bodySmall.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ start: LengthMetrics.vp(Token.space.xs) })
       }
       .width('100%')
       .justifyContent(FlexAlign.Center)
-      .constraintSize({ minHeight: Token.size.field(this.compact) })
+      .constraintSize({ minHeight: Token.size.field(this.density) })
       .padding(Token.space.md)
       .borderRadius(Token.radius.md)
       .border({ width: 1, color: Token.color.outline(), style: BorderStyle.Dashed })
@@ -51,7 +51,7 @@ export struct AppUpload {
             .height(Token.icon.md)
             .margin({ end: LengthMetrics.vp(Token.space.xs) })
           Text(name)
-            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+            .fontSize(Token.font.bodySmall.sizeFor(this.density))
             .fontColor(Token.color.onSurface())
             .layoutWeight(1)
             .maxLines(1)

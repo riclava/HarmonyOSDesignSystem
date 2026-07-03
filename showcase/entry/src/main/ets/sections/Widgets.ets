@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 
 /** 区块小标题 */
 @Component
@@ -6,12 +6,12 @@ export struct SectionLabel {
   @Prop text: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   build() {
     Text(this.text)
-      .fontSize(Token.font.titleLarge.sizeFor(this.compact))
-      .lineHeight(Token.font.titleLarge.lineHeightFor(this.compact))
+      .fontSize(Token.font.titleLarge.sizeFor(this.density))
+      .lineHeight(Token.font.titleLarge.lineHeightFor(this.density))
       .fontWeight(Token.font.titleLarge.weight)
       .fontColor(Token.color.onSurface())
       .width('100%')
@@ -25,23 +25,23 @@ export struct DemoBlock {
   @Prop title: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @BuilderParam content: () => void;
 
   build() {
     Column() {
       Text(this.title)
-        .fontSize(Token.font.titleMedium.sizeFor(this.compact))
-        .lineHeight(Token.font.titleMedium.lineHeightFor(this.compact))
+        .fontSize(Token.font.titleMedium.sizeFor(this.density))
+        .lineHeight(Token.font.titleMedium.lineHeightFor(this.density))
         .fontWeight(Token.font.titleMedium.weight)
         .fontColor(Token.color.onSurface())
         .width('100%')
-        .margin({ bottom: this.compact ? Token.space.xs : Token.space.sm })
+        .margin({ bottom: this.density !== Density.Comfortable ? Token.space.xs : Token.space.sm })
       this.content()
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
-    .padding(this.compact ? Token.space.sm : Token.space.md)
+    .padding(this.density !== Density.Comfortable ? Token.space.sm : Token.space.md)
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.md)
     .border({ width: 1, color: Token.color.divider() })
@@ -56,18 +56,18 @@ export struct SpecRow {
   @Prop value: ResourceStr;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   build() {
     Row() {
       Text(this.name)
-        .fontSize(Token.font.body.sizeFor(this.compact))
-        .lineHeight(Token.font.body.lineHeightFor(this.compact))
+        .fontSize(Token.font.body.sizeFor(this.density))
+        .lineHeight(Token.font.body.lineHeightFor(this.density))
         .fontColor(Token.color.onSurface())
         .layoutWeight(1)
       Text(this.value)
-        .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-        .lineHeight(Token.font.bodySmall.lineHeightFor(this.compact))
+        .fontSize(Token.font.bodySmall.sizeFor(this.density))
+        .lineHeight(Token.font.bodySmall.lineHeightFor(this.density))
         .fontColor(Token.color.onSurfaceVariant())
     }
     .width('100%')

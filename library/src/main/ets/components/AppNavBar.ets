@@ -1,4 +1,4 @@
-import { Token, isRTL } from '../theme/Tokens';
+import { Density, Token, isRTL } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -11,12 +11,12 @@ export struct AppNavBar {
   @Prop showBack: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onBack?: () => void;
   @BuilderParam trailing?: () => void;
 
   private barHeight(): number {
-    return Math.max(Token.size.rowMin(this.compact), Token.size.minTouch);
+    return Math.max(Token.size.rowMin(this.density), Token.size.minTouch);
   }
 
   private backIcon(): Resource {
@@ -39,7 +39,7 @@ export struct AppNavBar {
           })
       }
       Text(this.title)
-        .fontSize(Token.font.titleLarge.sizeFor(this.compact))
+        .fontSize(Token.font.titleLarge.sizeFor(this.density))
         .fontWeight(Token.font.titleLarge.weight)
         .fontColor(Token.color.onSurface())
         .layoutWeight(1)

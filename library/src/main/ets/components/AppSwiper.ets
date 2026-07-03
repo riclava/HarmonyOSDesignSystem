@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /**
  * 轮播容器：封装系统 Swiper，指示点按 Token 主题化。
@@ -11,7 +11,7 @@ export struct AppSwiper {
   @Prop loop: boolean = true;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @BuilderParam pages: () => void;
 
   build() {

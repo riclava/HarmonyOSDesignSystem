@@ -1,11 +1,11 @@
-import { Token, AppTabs, AppListItem, AppToast } from '@riclava/designsystem';
+import { Density, Token, AppTabs, AppListItem, AppToast } from '@riclava/designsystem';
 import { DemoBlock } from './Widgets';
 
 @Component
 export struct NavigationSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State activeIndex: number = 0;
   private tabs: ResourceStr[] = [
     $r('app.string.nav_tab_all'),
@@ -32,8 +32,8 @@ export struct NavigationSection {
           onSelect: (i: number): void => { this.activeIndex = i; }
         })
         Text(this.selectedSummary())
-          .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-          .lineHeight(Token.font.bodySmall.lineHeightFor(this.compact))
+          .fontSize(Token.font.bodySmall.sizeFor(this.density))
+          .lineHeight(Token.font.bodySmall.lineHeightFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ top: Token.space.sm })
       }

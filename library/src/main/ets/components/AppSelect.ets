@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /**
  * 下拉选择：封装系统 Select，统一按 Token 主题化（字号/字色/圆角/选中色）。
@@ -12,7 +12,7 @@ export struct AppSelect {
   @Prop selectDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onSelectIndex?: (index: number) => void;
 
   private selectOptions(): SelectOption[] {
@@ -27,7 +27,7 @@ export struct AppSelect {
   }
 
   private controlFont(): Font {
-    return { size: Token.font.body.sizeFor(this.compact), family: Token.font.family };
+    return { size: Token.font.body.sizeFor(this.density), family: Token.font.family };
   }
 
   build() {
@@ -44,7 +44,7 @@ export struct AppSelect {
       .menuBackgroundColor(Token.color.surface())
       .backgroundColor(Token.color.surface())
       .borderRadius(Token.radius.sm)
-      .height(Token.size.field(this.compact))
+      .height(Token.size.field(this.density))
       .constraintSize({ minHeight: Token.size.minTouch })
       .enabled(!this.selectDisabled)
       .opacity(this.selectDisabled ? 0.38 : 1)

@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -11,19 +11,19 @@ export struct AppAccordion {
   @Prop expanded: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onToggle?: (expanded: boolean) => void;
   @BuilderParam content: () => void;
 
   private headerHeight(): number {
-    return Token.size.rowMin(this.compact);
+    return Token.size.rowMin(this.density);
   }
 
   build() {
     Column() {
       Row() {
         Text(this.title)
-          .fontSize(Token.font.titleMedium.sizeFor(this.compact))
+          .fontSize(Token.font.titleMedium.sizeFor(this.density))
           .fontWeight(Token.font.titleMedium.weight)
           .fontColor(Token.color.onSurface())
           .layoutWeight(1)

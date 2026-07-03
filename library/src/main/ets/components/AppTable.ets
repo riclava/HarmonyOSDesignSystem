@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 列定义：标题 + 布局权重（默认 1）+ 对齐。 */
@@ -23,10 +23,10 @@ export struct AppTable {
   @Prop rows: ResourceStr[][] = [];
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private rowHeight(): number {
-    return Token.size.rowMin(this.compact);
+    return Token.size.rowMin(this.density);
   }
 
   private cellText(row: ResourceStr[], col: number): ResourceStr {
@@ -38,7 +38,7 @@ export struct AppTable {
       Row() {
         ForEach(this.columns, (col: AppTableColumn, index: number) => {
           Text(col.title)
-            .fontSize(Token.font.label.sizeFor(this.compact))
+            .fontSize(Token.font.label.sizeFor(this.density))
             .fontWeight(Token.font.label.weight)
             .fontColor(Token.color.onSurfaceVariant())
             .textAlign(col.align)
@@ -55,7 +55,7 @@ export struct AppTable {
           Row() {
             ForEach(this.columns, (col: AppTableColumn, colIndex: number) => {
               Text(this.cellText(row, colIndex))
-                .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+                .fontSize(Token.font.bodySmall.sizeFor(this.density))
                 .fontColor(Token.color.onSurface())
                 .textAlign(col.align)
                 .layoutWeight(col.weight)

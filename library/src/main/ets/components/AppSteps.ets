@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /**
  * 步骤条（水平）：序号圆点 + 连接线 + 标签。
@@ -10,10 +10,10 @@ export struct AppSteps {
   @Prop current: number = 0;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private dotSize(): number {
-    return Token.size.buttonSmall(this.compact);
+    return Token.size.buttonSmall(this.density);
   }
 
   build() {
@@ -30,7 +30,7 @@ export struct AppSteps {
               Divider().strokeWidth(2).color(Token.color.transparent()).layoutWeight(1)
             }
             Text((index + 1).toString())
-              .fontSize(Token.font.caption.sizeFor(this.compact))
+              .fontSize(Token.font.caption.sizeFor(this.density))
               .fontColor(index <= this.current ? Token.color.onPrimary(this.brand) : Token.color.onSurfaceVariant())
               .textAlign(TextAlign.Center)
               .width(this.dotSize())
@@ -50,7 +50,7 @@ export struct AppSteps {
           .width('100%')
           .alignItems(VerticalAlign.Center)
           Text(label)
-            .fontSize(Token.font.caption.sizeFor(this.compact))
+            .fontSize(Token.font.caption.sizeFor(this.density))
             .fontColor(index <= this.current ? Token.color.onSurface() : Token.color.onSurfaceVariant())
             .textAlign(TextAlign.Center)
             .maxLines(1)

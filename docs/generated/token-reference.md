@@ -72,14 +72,14 @@
 | Token | 值 |
 | --- | --- |
 | `minTouch` | `44vp` |
-| `buttonLarge` | `48vp` / `40vp` (compact) |
-| `buttonMedium` | `40vp` / `32vp` (compact) |
-| `buttonSmall` | `32vp` / `28vp` (compact) |
-| `field` | `48vp` / `40vp` (compact) |
-| `tabBar` | `48vp` / `40vp` (compact) |
-| `tabLabel` | `46vp` / `38vp` (compact) |
-| `rowMin` | `56vp` / `48vp` (compact) |
-| `menuItem` | `40vp` / `36vp` (compact) |
+| `buttonLarge` | `48vp` / `40vp` (compact) / `36vp` (superCompact) |
+| `buttonMedium` | `40vp` / `32vp` (compact) / `28vp` (superCompact) |
+| `buttonSmall` | `32vp` / `28vp` (compact) / `24vp` (superCompact) |
+| `field` | `48vp` / `40vp` (compact) / `36vp` (superCompact) |
+| `tabBar` | `48vp` / `40vp` (compact) / `36vp` (superCompact) |
+| `tabLabel` | `46vp` / `38vp` (compact) / `34vp` (superCompact) |
+| `rowMin` | `56vp` / `48vp` (compact) / `40vp` (superCompact) |
+| `menuItem` | `40vp` / `36vp` (compact) / `32vp` (superCompact) |
 | `avatarXs` | `24vp` |
 | `avatarSm` | `32vp` |
 | `avatarMd` | `40vp` |

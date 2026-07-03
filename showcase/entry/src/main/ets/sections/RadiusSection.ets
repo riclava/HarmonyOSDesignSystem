@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
@@ -8,7 +8,7 @@ interface RadiusItem { name: string; value: number; }
 export struct RadiusSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private items(): RadiusItem[] {
     const r = Token.radius;
@@ -32,8 +32,8 @@ export struct RadiusSection {
               .borderRadius(item.value)
               .border({ width: 1, color: Token.color.primary(this.brand) })
             Text(item.name)
-              .fontSize(Token.font.caption.sizeFor(this.compact))
-              .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+              .fontSize(Token.font.caption.sizeFor(this.density))
+              .lineHeight(Token.font.caption.lineHeightFor(this.density))
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }

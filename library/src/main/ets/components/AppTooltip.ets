@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -11,14 +11,14 @@ export struct AppTooltip {
   @Prop placement: Placement = Placement.Top;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State private show: boolean = false;
   @BuilderParam content: () => void;
 
   @Builder
   private tipBuilder() {
     Text(this.message)
-      .fontSize(Token.font.caption.sizeFor(this.compact))
+      .fontSize(Token.font.caption.sizeFor(this.density))
       .fontColor(Token.color.onSurface())
       .padding({
         start: LengthMetrics.vp(Token.space.sm),

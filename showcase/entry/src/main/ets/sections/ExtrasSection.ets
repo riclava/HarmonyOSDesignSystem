@@ -1,4 +1,4 @@
-import {
+import { Density,
   Token,
   AppSelect, AppStepper, AppSegmented, AppRating, AppUpload, AppFormItem, AppChipGroup,
   AppDivider, AppNavBar, AppBreadcrumb, AppPagination, AppSteps,
@@ -13,7 +13,7 @@ import { DemoBlock } from './Widgets';
 export struct ExtrasSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State private priority: number = -1;
   @State private qty: number = 3;
   @State private seg: number = 0;
@@ -70,7 +70,7 @@ export struct ExtrasSection {
   private slide(label: ResourceStr, bg: ResourceColor) {
     Column() {
       Text(label)
-        .fontSize(Token.font.titleMedium.sizeFor(this.compact))
+        .fontSize(Token.font.titleMedium.sizeFor(this.density))
         .fontColor(Token.color.onSurface())
     }
     .width('100%')
@@ -186,7 +186,7 @@ export struct ExtrasSection {
           onToggle: (v: boolean): void => { this.accExpanded = v; }
         }) {
           Text($r('app.string.ext_acc_body'))
-            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
+            .fontSize(Token.font.bodySmall.sizeFor(this.density))
             .fontColor(Token.color.onSurfaceVariant())
         }
       }
@@ -209,7 +209,7 @@ export struct ExtrasSection {
       DemoBlock({ title: $r('app.string.sec_tooltip') }) {
         AppTooltip({ message: $r('app.string.ext_tip_msg') }) {
           Text($r('app.string.ext_tip_trigger'))
-            .fontSize(Token.font.body.sizeFor(this.compact))
+            .fontSize(Token.font.body.sizeFor(this.density))
             .fontColor(Token.color.primary(this.brand))
             .padding({ top: LengthMetrics.vp(Token.space.xs), bottom: LengthMetrics.vp(Token.space.xs) })
         }

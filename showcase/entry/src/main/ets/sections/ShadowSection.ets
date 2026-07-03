@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { SectionLabel } from './Widgets';
 
 interface ShadowItem { name: string; radius: number; color: string; offsetX: number; offsetY: number; }
@@ -7,7 +7,7 @@ interface ShadowItem { name: string; radius: number; color: string; offsetX: num
 export struct ShadowSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private items(): ShadowItem[] {
     const e = Token.shadow;
@@ -31,14 +31,14 @@ export struct ShadowSection {
           GridCol({ span: { sm: 2, md: 2, lg: 3 } }) {
             Column() {
               Text(item.name)
-                .fontSize(Token.font.caption.sizeFor(this.compact))
-                .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+                .fontSize(Token.font.caption.sizeFor(this.density))
+                .lineHeight(Token.font.caption.lineHeightFor(this.density))
                 .fontColor(Token.color.onSurface())
             }
             .justifyContent(FlexAlign.Center)
             .alignItems(HorizontalAlign.Center)
             .width('100%')
-            .height(Token.size.rowMin(this.compact) + Token.space.md)
+            .height(Token.size.rowMin(this.density) + Token.space.md)
             .backgroundColor(Token.color.surface())
             .borderRadius(Token.radius.md)
             .shadow({ radius: item.radius, color: item.color, offsetX: item.offsetX, offsetY: item.offsetY })

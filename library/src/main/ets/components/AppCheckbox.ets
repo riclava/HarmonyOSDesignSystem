@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 复选框：左侧 Checkbox + 右侧文案。命中区 ≥ 44。 */
@@ -9,7 +9,7 @@ export struct AppCheckbox {
   @Prop boxDisabled: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onCheck?: (value: boolean) => void;
 
   private hasLabel(): boolean {
@@ -30,7 +30,7 @@ export struct AppCheckbox {
         })
       if (this.hasLabel()) {
         Text(this.label)
-          .fontSize(Token.font.body.sizeFor(this.compact))
+          .fontSize(Token.font.body.sizeFor(this.density))
           .fontColor(Token.color.onSurface())
           .margin({ start: LengthMetrics.vp(Token.space.xs) })
           .layoutWeight(1)

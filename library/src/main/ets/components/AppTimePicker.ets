@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 时间选择器形态。 */
@@ -37,7 +37,7 @@ export struct AppTimePicker {
   @Prop showSeconds: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   /** 是否已经选择过（Field 初始展示占位）。 */
   @State private picked: boolean = false;
   /** 当前展示的时间。 */
@@ -103,27 +103,27 @@ export struct AppTimePicker {
   }
 
   private fieldTouch(): number {
-    return Math.max(Token.size.field(this.compact), Token.size.minTouch);
+    return Math.max(Token.size.field(this.density), Token.size.minTouch);
   }
 
   private selectedTextStyle(): PickerTextStyle {
     return {
       color: Token.color.primary(this.brand),
-      font: { size: Token.font.titleMedium.sizeFor(this.compact), weight: FontWeight.Medium }
+      font: { size: Token.font.titleMedium.sizeFor(this.density), weight: FontWeight.Medium }
     };
   }
 
   private normalTextStyle(): PickerTextStyle {
     return {
       color: Token.color.onSurface(),
-      font: { size: Token.font.body.sizeFor(this.compact) }
+      font: { size: Token.font.body.sizeFor(this.density) }
     };
   }
 
   private disappearTextStyle(): PickerTextStyle {
     return {
       color: Token.color.onSurfaceVariant(),
-      font: { size: Token.font.bodySmall.sizeFor(this.compact) }
+      font: { size: Token.font.bodySmall.sizeFor(this.density) }
     };
   }
 
@@ -155,14 +155,14 @@ export struct AppTimePicker {
     Column() {
       if (this.hasText(this.label)) {
         Text(this.label)
-          .fontSize(Token.font.label.sizeFor(this.compact))
+          .fontSize(Token.font.label.sizeFor(this.density))
           .fontWeight(Token.font.label.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.xxs })
       }
       Row() {
         Text(this.picked ? this.displayText() : this.placeholder)
-          .fontSize(Token.font.body.sizeFor(this.compact))
+          .fontSize(Token.font.body.sizeFor(this.density))
           .fontColor(this.picked ? Token.color.onSurface() : Token.color.onSurfaceVariant())
           .layoutWeight(1)
         SymbolGlyph($r('sys.symbol.clock'))
@@ -174,7 +174,7 @@ export struct AppTimePicker {
           .margin({ start: LengthMetrics.vp(Token.space.xs) })
       }
       .width('100%')
-      .height(Token.size.field(this.compact))
+      .height(Token.size.field(this.density))
       .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.md) })
       .backgroundColor(this.fieldDisabled ? Token.color.divider() : Token.color.surface())
       .borderRadius(Token.radius.sm)
@@ -183,7 +183,7 @@ export struct AppTimePicker {
       .opacity(this.fieldDisabled ? 0.38 : 1)
       .enabled(!this.fieldDisabled)
       .accessibilityText(this.accessibilityLabel())
-      .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
+      .responseRegion({ x: 0, y: (Token.size.field(this.density) - this.fieldTouch()) / 2, width: '100%', height: this.fieldTouch() })
       .onClick(() => {
         if (!this.fieldDisabled) {
           this.openDialog();
@@ -191,12 +191,12 @@ export struct AppTimePicker {
       })
       if (this.hasText(this.error)) {
         Text(this.error)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.danger())
           .margin({ top: Token.space.xxs })
       } else if (this.hasText(this.helper)) {
         Text(this.helper)
-          .fontSize(Token.font.caption.sizeFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ top: Token.space.xxs })
       }

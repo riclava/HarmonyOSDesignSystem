@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 搜索框：胶囊外形（RadiusFull），左侧搜索图标，有内容时右侧可清除。 */
@@ -8,12 +8,12 @@ export struct AppSearch {
   @Prop placeholder: ResourceStr = $r('app.string.ds_search_placeholder');
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onTextChange?: (value: string) => void;
   onSubmit?: (value: string) => void;
 
   private searchTouch(): number {
-    return Math.max(Token.size.field(this.compact), Token.size.minTouch);
+    return Math.max(Token.size.field(this.density), Token.size.minTouch);
   }
 
   build() {
@@ -26,7 +26,7 @@ export struct AppSearch {
         .height(Token.icon.sm)
         .margin({ end: LengthMetrics.vp(Token.space.xs) })
       TextInput({ placeholder: this.placeholder, text: this.text })
-        .fontSize(Token.font.body.sizeFor(this.compact))
+        .fontSize(Token.font.body.sizeFor(this.density))
         .fontColor(Token.color.onSurface())
         .placeholderColor(Token.color.onSurfaceVariant())
         .backgroundColor(Token.color.transparent())
@@ -66,12 +66,12 @@ export struct AppSearch {
       }
     }
     .width('100%')
-    .height(Token.size.field(this.compact))
+    .height(Token.size.field(this.density))
     .padding({ start: LengthMetrics.vp(Token.space.md), end: LengthMetrics.vp(Token.space.xs) })
     .backgroundColor(Token.color.surface())
     .borderRadius(Token.radius.full)
     .border({ width: 1, color: Token.color.outline() })
     .alignItems(VerticalAlign.Center)
-    .responseRegion({ x: 0, y: (Token.size.field(this.compact) - this.searchTouch()) / 2, width: '100%', height: this.searchTouch() })
+    .responseRegion({ x: 0, y: (Token.size.field(this.density) - this.searchTouch()) / 2, width: '100%', height: this.searchTouch() })
   }
 }

@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
@@ -6,7 +6,7 @@ import { SectionLabel } from './Widgets';
 export struct MotionSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @State moved: boolean = false;
 
   build() {
@@ -21,7 +21,7 @@ export struct MotionSection {
             .borderRadius(Token.radius.sm)
         }
         .width('100%')
-        .height(Token.size.rowMin(this.compact))
+        .height(Token.size.rowMin(this.density))
         .padding({ start: LengthMetrics.vp(Token.space.xs), end: LengthMetrics.vp(Token.space.xs) })
         .backgroundColor(Token.color.background())
         .borderRadius(Token.radius.sm)
@@ -31,14 +31,14 @@ export struct MotionSection {
         })
 
         Text($r('app.string.motion_scale'))
-          .fontSize(Token.font.caption.sizeFor(this.compact))
-          .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+          .fontSize(Token.font.caption.sizeFor(this.density))
+          .lineHeight(Token.font.caption.lineHeightFor(this.density))
           .fontColor(Token.color.onSurfaceVariant())
           .margin({ top: Token.space.xs })
       }
       .alignItems(HorizontalAlign.Start)
       .width('100%')
-      .padding(this.compact ? Token.space.sm : Token.space.md)
+      .padding(this.density !== Density.Comfortable ? Token.space.sm : Token.space.md)
       .backgroundColor(Token.color.surface())
       .borderRadius(Token.radius.md)
       .onClick(() => { this.moved = !this.moved; })

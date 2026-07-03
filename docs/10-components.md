@@ -34,8 +34,8 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 | BottomSheet | `AppSheet` | Skeleton | `Skeleton` |
 | Checkbox / Radio | `AppCheckbox` / `AppRadioGroup` | TimePicker | `AppTimePicker` |
 
-交互 / 容器类组件支持 **compact 紧凑密度**（收紧尺寸、内边距与字号/行高，命中区仍 ≥ 44）；
-详见 [16 Design Token](16-design-token.md)「密度 / Compact」小节。
+交互 / 容器类组件支持三档密度 **`Density`**（Comfortable / Compact / SuperCompact，逐档收紧尺寸、内边距与字号/行高，命中区仍 ≥ 44）；
+详见 [16 Design Token](16-design-token.md)「密度 / Density」小节。
 
 ---
 
@@ -47,9 +47,9 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 
 | 尺寸 | 高度 | 水平 Padding | 字阶 | 圆角 |
 | --- | --- | --- | --- | --- |
-| Large | `Token.size.buttonLarge(compact)` | `Token.space.lg` | `Token.font.label` | `Token.radius.sm` |
-| Medium | `Token.size.buttonMedium(compact)` | `Token.space.md` | `Token.font.label` | `Token.radius.sm` |
-| Small | `Token.size.buttonSmall(compact)` | `Token.space.sm` | `Token.font.bodySmall` | `Token.radius.xs` |
+| Large | `Token.size.buttonLarge(density)` | `Token.space.lg` | `Token.font.label` | `Token.radius.sm` |
+| Medium | `Token.size.buttonMedium(density)` | `Token.space.md` | `Token.font.label` | `Token.radius.sm` |
+| Small | `Token.size.buttonSmall(density)` | `Token.space.sm` | `Token.font.bodySmall` | `Token.radius.xs` |
 
 - **颜色**：Primary = 底 `Primary` / 字 `OnPrimary`；Secondary = 边 `Outline` / 字 `Primary`。
 - **阴影**：默认 `Level0`，浮起按钮 `Level2`。
@@ -60,7 +60,7 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 ## TextField 输入框
 
 - **用途**：单行/多行文本输入。
-- **尺寸**：高度 `Token.size.field(compact)`（单行），内边距 `Token.space.md`，圆角 `Token.radius.sm`。
+- **尺寸**：高度 `Token.size.field(density)`（单行），内边距 `Token.space.md`，圆角 `Token.radius.sm`。
 - **结构**：Label（上）+ 输入区 + Helper/Error（下）+ 可选前后图标。
 - **状态**：
   - Default：边框 `Outline`。
@@ -84,7 +84,7 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 
 ## List 列表
 
-- **列表项高度**：最小高度 `Token.size.rowMin(compact)`，双行/三行由内容自然撑开。
+- **列表项高度**：最小高度 `Token.size.rowMin(density)`，双行/三行由内容自然撑开。
 - 内边距左右 `Token.space.md`；项间分割线用 `Divider`（可选）。
 - 左图标 `Token.icon.md` + 文字（`Body` + `Caption`）+ 右附件（箭头/开关）。
 - 项间距 `Token.space.xs`（卡片式列表）。
@@ -144,7 +144,7 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 ## Menu / Popover
 
 - 圆角 `Token.radius.md`；阴影 `Level3`；内边距 `Token.space.xs`。
-- 项高 `Token.size.menuItem(compact)`；菜单最小宽 `Token.size.menuMinWidth`；Popover 最大宽 `Token.size.popoverMaxWidth`。
+- 项高 `Token.size.menuItem(density)`；菜单最小宽 `Token.size.menuMinWidth`；Popover 最大宽 `Token.size.popoverMaxWidth`。
 - 出现 淡入 + 缩放 0.95→1 `Token.motion.fast` / `Token.motion.easeOut`。
 
 ## DatePicker / Calendar
@@ -163,7 +163,7 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 
 ## 扩展组件（P2）
 
-以下组件遵循同一 Token 与无障碍约束（深浅色、compact、命中区 ≥ 44、逻辑方向 start/end），全部从 `@riclava/designsystem` 导入。
+以下组件遵循同一 Token 与无障碍约束（深浅色、密度 Density、命中区 ≥ 44、逻辑方向 start/end），全部从 `@riclava/designsystem` 导入。
 
 ### 表单 / 录入
 
@@ -190,7 +190,7 @@ NavBar · Breadcrumb · Pagination · Steps · Table · Accordion · Tree · Swi
 
 | 组件 | 用途 | 关键属性 |
 | --- | --- | --- |
-| `AppTable` | 轻量表格（表头 + 行，随 compact 收紧） | `columns`（`AppTableColumn`）`rows` |
+| `AppTable` | 轻量表格（表头 + 行，随密度收紧） | `columns`（`AppTableColumn`）`rows` |
 | `AppAccordion` | 折叠面板（标题切换 + 内容插槽） | `title` `expanded` `onToggle` + `content` |
 | `AppTree` | 树形控件（可展开层级列表） | `nodes`（`AppTreeNode`）`onSelect` |
 | `AppSwiper` | 轮播容器（封装系统 Swiper） | `autoPlay` `interval` `loop` + `pages` |

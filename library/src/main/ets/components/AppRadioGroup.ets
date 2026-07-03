@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /** 单选项数据模型。 */
@@ -20,7 +20,7 @@ export struct AppRadioGroup {
   @Prop vertical: boolean = false;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onSelect?: (value: string) => void;
 
   @Builder
@@ -38,7 +38,7 @@ export struct AppRadioGroup {
           }
         })
       Text(opt.label)
-        .fontSize(Token.font.body.sizeFor(this.compact))
+        .fontSize(Token.font.body.sizeFor(this.density))
         .fontColor(Token.color.onSurface())
         .margin({ start: LengthMetrics.vp(Token.space.xxs), end: LengthMetrics.vp(Token.space.lg) })
     }

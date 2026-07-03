@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
@@ -8,7 +8,7 @@ interface IconItem { name: string; size: number; }
 export struct IconSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private items(): IconItem[] {
     const i = Token.icon;
@@ -29,8 +29,8 @@ export struct IconSection {
             Circle({ width: item.size, height: item.size })
               .fill(Token.color.primary(this.brand))
             Text(`${item.name} · ${item.size}`)
-              .fontSize(Token.font.caption.sizeFor(this.compact))
-              .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+              .fontSize(Token.font.caption.sizeFor(this.density))
+              .lineHeight(Token.font.caption.lineHeightFor(this.density))
               .fontColor(Token.color.onSurfaceVariant())
               .margin({ top: Token.space.xxs })
           }
@@ -43,8 +43,8 @@ export struct IconSection {
       .width('100%')
 
       Text($r('app.string.icon_note'))
-        .fontSize(Token.font.caption.sizeFor(this.compact))
-        .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+        .fontSize(Token.font.caption.sizeFor(this.density))
+        .lineHeight(Token.font.caption.lineHeightFor(this.density))
         .fontColor(Token.color.onSurfaceVariant())
     }
     .alignItems(HorizontalAlign.Start)

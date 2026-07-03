@@ -5,6 +5,10 @@
     { "name": "ability_desc", "value": "Design System showcase ability" },
 
     { "name": "topbar_compact", "value": "紧凑" },
+    { "name": "topbar_density", "value": "密度" },
+    { "name": "density_comfortable", "value": "舒适" },
+    { "name": "density_compact", "value": "紧凑" },
+    { "name": "density_super", "value": "超紧凑" },
     { "name": "topbar_dark", "value": "深色" },
     { "name": "topbar_language_a11y", "value": "切换语言" },
     { "name": "topbar_brand_a11y", "value": "切换品牌" },
@@ -106,6 +110,7 @@
     { "name": "demo_overlay_menu", "value": "Menu" },
     { "name": "popover_title", "value": "提示" },
     { "name": "popover_text", "value": "气泡浮层用于承载少量说明或操作，最大宽 240。" },
+    { "name": "popover_canvas_hint", "value": "锚点区域" },
 
     { "name": "state_loading_title", "value": "加载中" },
     { "name": "state_loading_desc", "value": "正在获取数据…" },

@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 import { LengthMetrics } from '@kit.ArkUI';
 
 /**
@@ -11,11 +11,11 @@ export struct AppSegmented {
   @Prop selectedIndex: number = 0;
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   onSelect?: (index: number) => void;
 
   private trackHeight(): number {
-    return Token.size.buttonMedium(this.compact);
+    return Token.size.buttonMedium(this.density);
   }
 
   private touch(): number {
@@ -26,7 +26,7 @@ export struct AppSegmented {
     Row() {
       ForEach(this.segments, (label: ResourceStr, index: number) => {
         Text(label)
-          .fontSize(Token.font.label.sizeFor(this.compact))
+          .fontSize(Token.font.label.sizeFor(this.density))
           .fontWeight(Token.font.label.weight)
           .fontColor(this.selectedIndex === index ? Token.color.onSurface() : Token.color.onSurfaceVariant())
           .textAlign(TextAlign.Center)

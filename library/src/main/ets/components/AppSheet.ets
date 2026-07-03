@@ -1,4 +1,4 @@
-import { Token } from '../theme/Tokens';
+import { Density, Token } from '../theme/Tokens';
 
 /**
  * 底部面板内容容器：顶部拖拽条 + 可选标题 + 自定义内容。
@@ -9,7 +9,7 @@ export struct AppSheet {
   @Prop title: ResourceStr = '';
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
   @BuilderParam content: () => void;
 
   private hasTitle(): boolean {
@@ -26,7 +26,7 @@ export struct AppSheet {
         .margin({ bottom: Token.space.md })
       if (this.hasTitle()) {
         Text(this.title)
-          .fontSize(Token.font.titleLarge.sizeFor(this.compact))
+          .fontSize(Token.font.titleLarge.sizeFor(this.density))
           .fontWeight(Token.font.titleLarge.weight)
           .fontColor(Token.color.onSurface())
           .margin({ bottom: Token.space.sm })

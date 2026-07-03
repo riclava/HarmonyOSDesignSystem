@@ -9,6 +9,7 @@ Token 变更规则：新增 Token → minor；破坏性变更（重命名/删除
 ## [Unreleased]
 
 ### Added
+- **三档密度 `Density`（新增 `SuperCompact` 超紧凑档）**：面向信息密度超高的应用（管理后台 / 大屏多面板）。密度枚举 `Density { Comfortable, Compact, SuperCompact }`；新增运行时 API `setDensity` / `initDensity` / `currentDensity` / `setCompact`（旧布尔兼容，映射为 `Compact`）。Token 源 `tokens/design-tokens.json` 的 `size.*` 增加 `superCompact`、`font.*` 的 `$extensions` 增加 `superCompact`（`caption` 保持 12 可读下限不缩）。showcase 顶栏「密度」由开关升级为舒适/紧凑/超紧凑三档切换，并持久化。
 - **P0 对比度门禁**：Light 模式语义色按 WCAG 调校（保持色相）——`primary #126AFF`、`danger #EA0C00`、`info #0072E5`（文本 ≥ 4.5），`success #2CA74B`、`warning #D17F00`（状态指示 ≥ 3.0）。对比度校验（文本 4.5 / 非文本 3.0）转为 CI 硬门禁并加回归测试。
 - **P2 扩展组件（17 个）**：`AppSelect` `AppStepper` `AppSegmented` `AppRating` `AppUpload` `AppFormItem` `AppChipGroup` `AppDivider` `AppNavBar` `AppBreadcrumb` `AppPagination` `AppSteps` `AppTable`（含 `AppTableColumn`）`AppAccordion` `AppTree`（含 `AppTreeNode`）`AppSwiper` `AppTooltip`。全部从 `@riclava/designsystem` 导出，遵循 Token / 深浅色 / compact / 无障碍 / i18n 约定；showcase 新增 `ExtrasSection` 演示。
 - **P4 Token 工具链与文档自动化**：`tools/docs.mjs`（组件 API + Token 速查自动生成，`docs/generated/`，`docs:check` 硬门禁）；`tools/export-tokens.mjs`（`tokens/build/` 扁平 JSON + CSS 变量，无依赖）+ `tokens/style-dictionary.config.json`；`tools/lint-a11y.mjs`（图标按钮缺 `accessibilityText` 扫描，硬门禁；补齐 `AppRating` 标签）；`.github/workflows/release.yml`（tag 触发跑门禁 + 建 Release，HAR/OHPM 留占位）；`verify`/CI 纳入 `contrast:check`/`lint:a11y`/`docs:check`。
@@ -22,6 +23,7 @@ Token 变更规则：新增 Token → minor；破坏性变更（重命名/删除
 - `TODO.md`：P2（组件补齐）/ P3（多品牌换肤）/ P4（Token 工具链与文档自动化）路线图。
 
 ### Changed
+- **[Breaking] 密度 API 由布尔升级为枚举**：组件密度形参 `Token.size.*(compact: boolean)` / `Token.font.*.sizeFor(compact: boolean)` 改为 `(density: Density)`；组件持有的 `@StorageProp('compact') compact: boolean` 改为 `@StorageProp('density') density: Density`；存储键 `'compact'` 迁移为 `'density'`（`currentDensity()` 与 showcase 持久化仍读旧 `'compact'` 布尔做平滑迁移）。旧调用 `AppStorage.setOrCreate('compact', true)` 请改用 `setDensity(Density.Compact)` 或 `setCompact(true)`。
 - `tools/design-system.mjs` 重构为可导入模块（导出纯函数），CLI 仅在直接执行时运行。
 - 文档同步新色值：`docs/02-color.md`、`docs/14-dark-mode.md`、`docs/16-design-token.md`；showcase 资源色与应用图标。
 - `docs/10-components.md`、`AGENTS.md`、Kiro steering 补齐新组件清单与导入示例。

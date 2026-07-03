@@ -1,4 +1,4 @@
-import { Token } from '@riclava/designsystem';
+import { Density, Token } from '@riclava/designsystem';
 import { LengthMetrics } from '@kit.ArkUI';
 import { SectionLabel } from './Widgets';
 
@@ -8,7 +8,7 @@ interface SpaceItem { name: string; value: number; }
 export struct SpacingSection {
   @StorageLink('isDark') isDark: boolean = false;
   @StorageLink('brand') brand: string = 'default';
-  @StorageProp('compact') compact: boolean = false;
+  @StorageProp('density') density: Density = Density.Comfortable;
 
   private items(): SpaceItem[] {
     const s = Token.space;
@@ -26,8 +26,8 @@ export struct SpacingSection {
       ForEach(this.items(), (item: SpaceItem) => {
         Row() {
           Text(`Space.${item.name}`)
-            .fontSize(Token.font.bodySmall.sizeFor(this.compact))
-            .lineHeight(Token.font.bodySmall.lineHeightFor(this.compact))
+            .fontSize(Token.font.bodySmall.sizeFor(this.density))
+            .lineHeight(Token.font.bodySmall.lineHeightFor(this.density))
             .fontColor(Token.color.onSurface())
             .width(Token.size.avatarXl + Token.space.xxxl)
           Row()
@@ -36,8 +36,8 @@ export struct SpacingSection {
             .backgroundColor(Token.color.primary(this.brand))
             .borderRadius(Token.radius.xs)
           Text(`${item.value}vp`)
-            .fontSize(Token.font.caption.sizeFor(this.compact))
-            .lineHeight(Token.font.caption.lineHeightFor(this.compact))
+            .fontSize(Token.font.caption.sizeFor(this.density))
+            .lineHeight(Token.font.caption.lineHeightFor(this.density))
             .fontColor(Token.color.onSurfaceVariant())
             .margin({ start: LengthMetrics.vp(Token.space.xs) })
         }
